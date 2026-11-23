@@ -279,7 +279,7 @@ html_code = """<!DOCTYPE html>
       }
     }
 
-    /* Base Single Page Statement Styles (Matches Suresh V PDF) */
+    /* Base Single Page Statement Styles (Matches Prof. Rajesh K PDF) */
     .eco-stmt-container {
       font-family: Arial, "Helvetica Neue", Helvetica, sans-serif;
       color: #000;
@@ -494,12 +494,12 @@ html_code = """<!DOCTYPE html>
 
       <!-- Action Bar -->
       <div class="action-bar no-print">
-        <button class="btn btn-outline" onclick="loadSureshVSample()">📄 Load Suresh V Sample</button>
-        <button class="btn btn-outline" onclick="copyMarchSalary()">📋 Copy March Gross Down</button>
+        <button class="btn btn-outline" onclick="loadSampleData()" title="Load imaginary sample teacher data">📄 Load Sample Data</button>
+        <button class="btn btn-primary" onclick="copyMarchSalary()" style="background:#1d4ed8; color:#fff; font-weight:700; box-shadow:0 2px 4px rgba(29,78,216,0.3);" title="Copy March salary down to April - February">⬇️ Copy Down Monthly Gross</button>
         <button class="btn btn-warning" onclick="applyDAHikePrompt()">📈 Apply DA Hike %</button>
         <button class="btn btn-danger" onclick="clearAllData()">🧹 Clear All Data</button>
         <div style="flex-grow:1;"></div>
-        <button class="btn btn-primary" onclick="showTab('new-regime')">👁️ View New Regime Statement</button>
+        <button class="btn btn-outline" onclick="showTab('new-regime')">👁️ View New Regime Statement</button>
         <button class="btn btn-success" onclick="printNewRegimeStatement()">🖨️ Print Single-Page Statement</button>
       </div>
 
@@ -539,15 +539,15 @@ html_code = """<!DOCTYPE html>
         <div class="grid-3">
           <div class="form-group">
             <label for="emp-name">Employee Name</label>
-            <input type="text" class="form-control" id="emp-name" value="Suresh V" oninput="calculateAll()">
+            <input type="text" class="form-control" id="emp-name" value="Prof. Rajesh K" oninput="calculateAll()">
           </div>
           <div class="form-group">
             <label for="emp-pan">PAN (10 digits)</label>
-            <input type="text" class="form-control" id="emp-pan" value="ABCDE1234F" maxlength="10" style="text-transform:uppercase;" oninput="calculateAll()">
+            <input type="text" class="form-control" id="emp-pan" value="ABCDE5678G" maxlength="10" style="text-transform:uppercase;" oninput="calculateAll()">
           </div>
           <div class="form-group">
             <label for="emp-pen">PEN / Employee ID</label>
-            <input type="text" class="form-control" id="emp-pen" value="382910" oninput="calculateAll()">
+            <input type="text" class="form-control" id="emp-pen" value="412850" oninput="calculateAll()">
           </div>
           <div class="form-group">
             <label for="emp-designation">Designation</label>
@@ -555,11 +555,11 @@ html_code = """<!DOCTYPE html>
           </div>
           <div class="form-group">
             <label for="emp-office">Office / Department</label>
-            <input type="text" class="form-control" id="emp-office" value="GOVT COLLEGE CHITTUR, PALAKKAD" oninput="calculateAll()">
+            <input type="text" class="form-control" id="emp-office" value="GOVT COLLEGE KOZHIKODE" oninput="calculateAll()">
           </div>
           <div class="form-group">
             <label for="emp-place">Place (for Declaration)</label>
-            <input type="text" class="form-control" id="emp-place" value="Chittur" oninput="calculateAll()">
+            <input type="text" class="form-control" id="emp-place" value="Kozhikode" oninput="calculateAll()">
           </div>
         </div>
 
@@ -592,12 +592,13 @@ html_code = """<!DOCTYPE html>
           <table class="salary-table" id="salary-input-table">
             <thead>
               <tr>
-                <th style="text-align:left;">Month</th>
-                <th>Basic Pay + DA (Gross)</th>
-                <th>Other Allowances</th>
-                <th>Total Monthly Gross</th>
-                <th>PF / NPS Deducted</th>
-                <th>Tax Deducted (TDS)</th>
+                <th style="text-align:left; width:15%;">Month</th>
+                <th style="width:19%;">Basic Pay + DA (Gross)</th>
+                <th style="width:15%;">Other Allowances</th>
+                <th style="width:16%;">Total Monthly Gross</th>
+                <th style="width:15%;">PF / NPS Deducted</th>
+                <th style="width:15%;">Tax Deducted (TDS)</th>
+                <th style="width:12%; text-align:center;">Copy Down</th>
               </tr>
             </thead>
             <tbody id="salary-table-body">
@@ -611,6 +612,7 @@ html_code = """<!DOCTYPE html>
                 <td id="tot-gross" style="color:#1e3a8a; font-size:0.95rem;">0</td>
                 <td id="tot-pf">0</td>
                 <td id="tot-tds" style="color:#dc2626; font-size:0.95rem;">0</td>
+                <td style="text-align:center;"><small style="color:#64748b;">-</small></td>
               </tr>
             </tfoot>
           </table>
@@ -644,7 +646,7 @@ html_code = """<!DOCTYPE html>
           </div>
           <div class="form-group">
             <label for="row3-remuneration">Examination / Valuation Remuneration (Row 3) (₹)</label>
-            <input type="number" class="form-control" id="row3-remuneration" value="10000" oninput="calculateAll()">
+            <input type="number" class="form-control" id="row3-remuneration" value="12000" oninput="calculateAll()">
           </div>
         </div>
 
@@ -719,7 +721,7 @@ html_code = """<!DOCTYPE html>
 
     <!-- ======================================================== -->
     <!-- VIEW 2: NEW REGIME STATEMENT (Single A4 Portrait Page)   -->
-    <!-- Matches Suresh V PDF Model Byte-for-Byte                -->
+    <!-- Matches Prof. Rajesh K PDF Model Byte-for-Byte                -->
     <!-- ======================================================== -->
     <div id="new-regime-statement-view" style="display:none;">
       
@@ -748,19 +750,19 @@ html_code = """<!DOCTYPE html>
           <table class="eco-emp-box">
             <tr>
               <td class="label">Name:</td>
-              <td class="val"><strong id="eco-emp-name">Suresh V</strong></td>
+              <td class="val"><strong id="eco-emp-name">Prof. Rajesh K</strong></td>
               <td class="label">Designation:</td>
               <td class="val" id="eco-emp-desig">Professor</td>
             </tr>
             <tr>
               <td class="label">PAN:</td>
-              <td class="val"><strong id="eco-emp-pan">ABCDE1234F</strong></td>
+              <td class="val"><strong id="eco-emp-pan">ABCDE5678G</strong></td>
               <td class="label">PEN:</td>
-              <td class="val" id="eco-emp-pen">382910</td>
+              <td class="val" id="eco-emp-pen">412850</td>
             </tr>
             <tr>
               <td class="label">Office:</td>
-              <td class="val" colspan="3" id="eco-emp-office">GOVT COLLEGE CHITTUR, PALAKKAD</td>
+              <td class="val" colspan="3" id="eco-emp-office">GOVT COLLEGE KOZHIKODE</td>
             </tr>
           </table>
 
@@ -929,7 +931,7 @@ html_code = """<!DOCTYPE html>
           <table class="eco-sig-box">
             <tr>
               <td style="width:40%;">
-                <p><strong>Place:</strong> <span id="eco-sig-place">Chittur</span></p>
+                <p><strong>Place:</strong> <span id="eco-sig-place">Kozhikode</span></p>
                 <p><strong>Date:</strong> <span id="eco-sig-date">23/11/2026</span></p>
                 <div style="margin-top:20px; font-size:7.5pt; color:#555;">
                   <em>Verified that the particulars given above are true and correct.</em>
@@ -939,10 +941,10 @@ html_code = """<!DOCTYPE html>
                 <div style="margin-bottom:28px;">
                   <span>Signature: __________________________</span>
                 </div>
-                <p><strong>Name:</strong> <span id="eco-sig-name">Suresh V</span></p>
-                <p><strong>PEN:</strong> <span id="eco-sig-pen">382910</span></p>
+                <p><strong>Name:</strong> <span id="eco-sig-name">Prof. Rajesh K</span></p>
+                <p><strong>PEN:</strong> <span id="eco-sig-pen">412850</span></p>
                 <p><strong>Designation:</strong> <span id="eco-sig-desig">Professor</span></p>
-                <p><strong>Office:</strong> <span id="eco-sig-office">GOVT COLLEGE CHITTUR, PALAKKAD</span></p>
+                <p><strong>Office:</strong> <span id="eco-sig-office">GOVT COLLEGE KOZHIKODE</span></p>
               </td>
             </tr>
           </table>
@@ -975,15 +977,15 @@ html_code = """<!DOCTYPE html>
 
           <table class="eco-emp-box">
             <tr>
-              <td class="label">Name:</td><td class="val"><strong id="old-emp-name">Suresh V</strong></td>
+              <td class="label">Name:</td><td class="val"><strong id="old-emp-name">Prof. Rajesh K</strong></td>
               <td class="label">Designation:</td><td class="val" id="old-emp-desig">Professor</td>
             </tr>
             <tr>
-              <td class="label">PAN:</td><td class="val"><strong id="old-emp-pan">ABCDE1234F</strong></td>
-              <td class="label">PEN:</td><td class="val" id="old-emp-pen">382910</td>
+              <td class="label">PAN:</td><td class="val"><strong id="old-emp-pan">ABCDE5678G</strong></td>
+              <td class="label">PEN:</td><td class="val" id="old-emp-pen">412850</td>
             </tr>
             <tr>
-              <td class="label">Office:</td><td class="val" colspan="3" id="old-emp-office">GOVT COLLEGE CHITTUR, PALAKKAD</td>
+              <td class="label">Office:</td><td class="val" colspan="3" id="old-emp-office">GOVT COLLEGE KOZHIKODE</td>
             </tr>
           </table>
 
@@ -1095,12 +1097,12 @@ html_code = """<!DOCTYPE html>
           <table class="eco-sig-box">
             <tr>
               <td style="width:40%;">
-                <p><strong>Place:</strong> <span id="old-sig-place">Chittur</span></p>
+                <p><strong>Place:</strong> <span id="old-sig-place">Kozhikode</span></p>
                 <p><strong>Date:</strong> <span id="old-sig-date">23/11/2026</span></p>
               </td>
               <td style="width:60%; text-align:right;">
                 <p>Signature: __________________________</p>
-                <p><strong>Name:</strong> <span id="old-sig-name">Suresh V</span></p>
+                <p><strong>Name:</strong> <span id="old-sig-name">Prof. Rajesh K</span></p>
                 <p><strong>Designation:</strong> <span id="old-sig-desig">Professor</span></p>
               </td>
             </tr>
@@ -1210,15 +1212,15 @@ html_code = """<!DOCTYPE html>
           <!-- Employee Particulars -->
           <table class="eco-emp-box" style="margin-bottom:8px;">
             <tr>
-              <td class="label">1. Name of Employee:</td><td class="val"><strong id="f10e-disp-name">Suresh V</strong></td>
-              <td class="label">2. PAN:</td><td class="val"><strong id="f10e-disp-pan">ABCDE1234F</strong></td>
+              <td class="label">1. Name of Employee:</td><td class="val"><strong id="f10e-disp-name">Prof. Rajesh K</strong></td>
+              <td class="label">2. PAN:</td><td class="val"><strong id="f10e-disp-pan">ABCDE5678G</strong></td>
             </tr>
             <tr>
               <td class="label">3. Designation:</td><td class="val" id="f10e-disp-desig">Professor</td>
-              <td class="label">4. PEN:</td><td class="val" id="f10e-disp-pen">382910</td>
+              <td class="label">4. PEN:</td><td class="val" id="f10e-disp-pen">412850</td>
             </tr>
             <tr>
-              <td class="label">5. Office / Address:</td><td class="val" colspan="3" id="f10e-disp-office">GOVT COLLEGE CHITTUR, PALAKKAD</td>
+              <td class="label">5. Office / Address:</td><td class="val" colspan="3" id="f10e-disp-office">GOVT COLLEGE KOZHIKODE</td>
             </tr>
             <tr>
               <td class="label">6. Assessment Year:</td><td class="val"><strong>2027 - 2028</strong></td>
@@ -1333,16 +1335,16 @@ html_code = """<!DOCTYPE html>
           <!-- Verification statement -->
           <div style="margin-top:14px; font-size:8pt; line-height:1.4;">
             <p>
-              I, <strong id="f10e-ver-name">Suresh V</strong>, do hereby declare that what is stated above is true to the best of my information and belief.
+              I, <strong id="f10e-ver-name">Prof. Rajesh K</strong>, do hereby declare that what is stated above is true to the best of my information and belief.
             </p>
             <div style="display:flex; justify-content:space-between; margin-top:20px;">
               <div>
-                <p><strong>Place:</strong> <span id="f10e-ver-place">Chittur</span></p>
+                <p><strong>Place:</strong> <span id="f10e-ver-place">Kozhikode</span></p>
                 <p><strong>Date:</strong> <span id="f10e-ver-date">23/11/2026</span></p>
               </div>
               <div style="text-align:right;">
                 <p>Signature: __________________________</p>
-                <p><strong>Name:</strong> <span id="f10e-ver-name2">Suresh V</span></p>
+                <p><strong>Name:</strong> <span id="f10e-ver-name2">Prof. Rajesh K</span></p>
                 <p><strong>Designation:</strong> <span id="f10e-ver-desig">Professor</span></p>
               </div>
             </div>
@@ -1430,6 +1432,11 @@ html_code = """<!DOCTYPE html>
       tbody.innerHTML = '';
       months.forEach((m, idx) => {
         const tr = document.createElement('tr');
+        const isLast = idx === months.length - 1;
+        const copyBtnHtml = isLast ? 
+          `<span style="color:#94a3b8; font-size:0.75rem;">(Last)</span>` : 
+          `<button type="button" class="btn btn-outline" style="padding:2px 8px; font-size:0.75rem; background:#eff6ff; color:#1d4ed8; border-color:#93c5fd; white-space:nowrap;" onclick="copyMonthDown(${idx})" title="Copy ${m.name} values down to remaining months">⬇️ Copy Down</button>`;
+
         tr.innerHTML = `
           <td style="text-align:left; font-weight:600;">${m.name}</td>
           <td><input type="number" class="form-control m-basic" id="basic-${m.key}" value="0" oninput="calculateAll()"></td>
@@ -1437,6 +1444,7 @@ html_code = """<!DOCTYPE html>
           <td style="font-weight:600;" id="m-tot-${m.key}">0</td>
           <td><input type="number" class="form-control m-pf" id="pf-${m.key}" value="0" oninput="calculateAll()"></td>
           <td><input type="number" class="form-control m-tds" id="tds-${m.key}" value="0" oninput="calculateAll()"></td>
+          <td style="text-align:center;">${copyBtnHtml}</td>
         `;
         tbody.appendChild(tr);
       });
@@ -1762,9 +1770,9 @@ html_code = """<!DOCTYPE html>
         setText('eco-anticipatory-note', `(Final Assessment for FY 2026-27 / AY 2027-28)`);
       }
 
-      setText('eco-sig-place', document.getElementById('emp-place').value || 'Chittur');
+      setText('eco-sig-place', document.getElementById('emp-place').value || 'Kozhikode');
       setText('eco-sig-date', formatDate(document.getElementById('stmt-date').value));
-      setText('eco-sig-name', document.getElementById('emp-name').value || 'Suresh V');
+      setText('eco-sig-name', document.getElementById('emp-name').value || 'Prof. Rajesh K');
       setText('eco-sig-pen', document.getElementById('emp-pen').value || '');
       setText('eco-sig-desig', document.getElementById('emp-designation').value || '');
       setText('eco-sig-office', document.getElementById('emp-office').value || '');
@@ -1838,7 +1846,7 @@ html_code = """<!DOCTYPE html>
         setText('old-anticipatory-note', `(Final Assessment)`);
       }
 
-      setText('old-sig-place', document.getElementById('emp-place').value || 'Chittur');
+      setText('old-sig-place', document.getElementById('emp-place').value || 'Kozhikode');
       setText('old-sig-date', formatDate(document.getElementById('stmt-date').value));
       setText('old-sig-name', document.getElementById('emp-name').value);
       setText('old-sig-desig', document.getElementById('emp-designation').value);
@@ -1852,7 +1860,7 @@ html_code = """<!DOCTYPE html>
       setText('f10e-ver-name', document.getElementById('emp-name').value);
       setText('f10e-ver-name2', document.getElementById('emp-name').value);
       setText('f10e-ver-desig', document.getElementById('emp-designation').value);
-      setText('f10e-ver-place', document.getElementById('emp-place').value || 'Chittur');
+      setText('f10e-ver-place', document.getElementById('emp-place').value || 'Kozhikode');
       setText('f10e-ver-date', formatDate(document.getElementById('stmt-date').value));
     }
 
@@ -2030,32 +2038,33 @@ html_code = """<!DOCTYPE html>
 
     // --- Action Bar Functions ---
 
-    // Load Suresh V Sample (Model PDF)
-    function loadSureshVSample() {
-      document.getElementById('emp-name').value = 'Suresh V';
-      document.getElementById('emp-pan').value = 'ABCDE1234F';
-      document.getElementById('emp-pen').value = '382910';
+    // Load Prof. Rajesh K Sample (Model PDF)
+    const loadOldSample = function() { loadSampleData(); };
+    function loadSampleData() {
+      document.getElementById('emp-name').value = 'Prof. Rajesh K';
+      document.getElementById('emp-pan').value = 'ABCDE5678G';
+      document.getElementById('emp-pen').value = '412850';
       document.getElementById('emp-designation').value = 'Professor';
-      document.getElementById('emp-office').value = 'GOVT COLLEGE CHITTUR, PALAKKAD';
-      document.getElementById('emp-place').value = 'Chittur';
+      document.getElementById('emp-office').value = 'GOVT COLLEGE KOZHIKODE';
+      document.getElementById('emp-place').value = 'Kozhikode';
       document.getElementById('stmt-mode').value = 'anticipatory';
       document.getElementById('stmt-date').value = '2026-11-23';
       document.getElementById('pending-months').value = '3';
 
-      // Monthly gross from model
+      // Imaginary monthly salary slightly modified from typical college professor scale
       const monthlyValues = [
-        { basic: 154300, allow: 0, pf: 15000, tds: 10000 }, // Mar
-        { basic: 154300, allow: 0, pf: 15000, tds: 10000 }, // Apr
-        { basic: 154300, allow: 0, pf: 15000, tds: 10000 }, // May
-        { basic: 154300, allow: 0, pf: 15000, tds: 10000 }, // Jun
-        { basic: 159000, allow: 0, pf: 15000, tds: 10000 }, // Jul (increment)
-        { basic: 159000, allow: 0, pf: 15000, tds: 10000 }, // Aug
-        { basic: 159000, allow: 0, pf: 15000, tds: 10000 }, // Sep
-        { basic: 159000, allow: 0, pf: 15000, tds: 10000 }, // Oct
-        { basic: 159000, allow: 0, pf: 15000, tds: 10000 }, // Nov
-        { basic: 159000, allow: 0, pf: 15000, tds: 10000 }, // Dec
-        { basic: 159000, allow: 0, pf: 15000, tds: 10000 }, // Jan
-        { basic: 159000, allow: 0, pf: 15000, tds: 10000 }  // Feb
+        { basic: 149200, allow: 0, pf: 14000, tds: 9500 }, // Mar
+        { basic: 149200, allow: 0, pf: 14000, tds: 9500 }, // Apr
+        { basic: 149200, allow: 0, pf: 14000, tds: 9500 }, // May
+        { basic: 149200, allow: 0, pf: 14000, tds: 9500 }, // Jun
+        { basic: 153700, allow: 0, pf: 14000, tds: 9500 }, // Jul (increment)
+        { basic: 153700, allow: 0, pf: 14000, tds: 9500 }, // Aug
+        { basic: 153700, allow: 0, pf: 14000, tds: 9500 }, // Sep
+        { basic: 153700, allow: 0, pf: 14000, tds: 9500 }, // Oct
+        { basic: 153700, allow: 0, pf: 14000, tds: 9500 }, // Nov
+        { basic: 153700, allow: 0, pf: 14000, tds: 9500 }, // Dec
+        { basic: 153700, allow: 0, pf: 14000, tds: 9500 }, // Jan
+        { basic: 153700, allow: 0, pf: 14000, tds: 9500 }  // Feb
       ];
 
       months.forEach((m, idx) => {
@@ -2071,14 +2080,14 @@ html_code = """<!DOCTYPE html>
       setNum('row1b-arrears', 0);
       setNum('row1b-other', 0);
       setNum('row1c-excess', 0);
-      setNum('row3-remuneration', 10000);
+      setNum('row3-remuneration', 12000);
       setNum('row2b-conveyance', 0);
       setNum('row2c-nps', 0);
       setNum('row2e-proftax', 2500);
       setNum('row11-relief89', 0);
 
       calculateAll();
-      alert('✓ Loaded Suresh V Sample Model Data successfully!');
+      alert('✓ Loaded Sample Employee Data (Prof. Rajesh K) successfully!');
     }
 
     // Clear All Data
@@ -2121,27 +2130,35 @@ html_code = """<!DOCTYPE html>
       alert('✓ All fields cleared.');
     }
 
-    // Copy March Salary down to All Months
-    function copyMarchSalary() {
-      const basicMarch = getNum('basic-mar');
-      const allowMarch = getNum('allow-mar');
-      const pfMarch = getNum('pf-mar');
-      const tdsMarch = getNum('tds-mar');
+    // Copy Any Month Salary down to all Subsequent Months
+    function copyMonthDown(idx) {
+      if (idx < 0 || idx >= months.length - 1) return;
+      const src = months[idx];
+      const b = getNum('basic-' + src.key);
+      const a = getNum('allow-' + src.key);
+      const pf = getNum('pf-' + src.key);
+      const tds = getNum('tds-' + src.key);
 
-      if (basicMarch === 0 && allowMarch === 0) {
-        alert('Please enter a salary amount in March 2026 first.');
+      if (b === 0 && a === 0) {
+        alert('Please enter a salary amount in ' + src.name + ' first.');
         return;
       }
 
-      months.forEach(m => {
-        setNum('basic-' + m.key, basicMarch);
-        setNum('allow-' + m.key, allowMarch);
-        setNum('pf-' + m.key, pfMarch);
-        setNum('tds-' + m.key, tdsMarch);
-      });
+      for (let i = idx + 1; i < months.length; i++) {
+        const target = months[i];
+        setNum('basic-' + target.key, b);
+        setNum('allow-' + target.key, a);
+        setNum('pf-' + target.key, pf);
+        setNum('tds-' + target.key, tds);
+      }
 
       calculateAll();
-      alert('✓ March 2026 Gross Salary and Deductions copied to all 12 months (April 2026 - February 2027)!');
+      alert('✓ Copied ' + src.name + ' Gross Salary & Deductions down to all remaining months (' + months[idx + 1].name + ' to February 2027)!');
+    }
+
+    // Copy March Salary down to All Months
+    function copyMarchSalary() {
+      copyMonthDown(0);
     }
 
     // Apply DA Hike Prompt
@@ -2201,7 +2218,7 @@ html_code = """<!DOCTYPE html>
     // Initialization
     document.addEventListener('DOMContentLoaded', function() {
       initSalaryTable();
-      loadSureshVSample();
+      loadSampleData();
       onYearSelectionChange();
     });
   </script>
