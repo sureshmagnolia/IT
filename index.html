@@ -1247,7 +1247,15 @@
           </div>
         </div>
 
-        <div class="grid-3" style="margin-top:10px; background:#f8fafc; padding:12px; border-radius:6px; border:1px solid #e2e8f0;">
+        <div class="grid-4" style="margin-top:10px; background:#f8fafc; padding:12px; border-radius:6px; border:1px solid #e2e8f0;">
+          <div class="form-group">
+            <label for="chosen-regime-select" style="font-weight:700; color:#1e3a8a;">🎯 Tax Regime Focus</label>
+            <select class="form-control" id="chosen-regime-select" onchange="onRegimePreferenceChange()" style="font-weight:700; color:#1e3a8a; border:1.5px solid #3b82f6; background:#eff6ff;">
+              <option value="new" selected>🌟 New Tax Regime (Only New Regime Data)</option>
+              <option value="old">🏛️ Old Tax Regime (With 80C, 80D Deductions)</option>
+              <option value="both">⚖️ Compare Both Regimes (Show All Fields)</option>
+            </select>
+          </div>
           <div class="form-group">
             <label for="stmt-mode">Statement Mode</label>
             <select class="form-control" id="stmt-mode" onchange="calculateAll()" style="font-weight:700; color:#1e3a8a;">
@@ -1367,11 +1375,37 @@
         </div>
       </div>
 
-            <!-- Old Regime Detailed Chapter VI-A Deductions Card -->
-      <div class="card">
-        <div class="card-title">
-          <span>📑 Detailed Chapter VI-A Deductions (For Old Tax Regime)</span>
-          <span style="font-size:0.8rem; color:#64748b;">(Applicable if opting for Old Regime)</span>
+            <!-- Helper Banner when New Regime is Active -->
+      <div class="card" id="new-regime-helper-banner" style="background:#f0fdf4; border:1.5px solid #86efac; border-radius:8px;">
+        <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:12px;">
+          <div>
+            <div style="display:flex; align-items:center; gap:8px;">
+              <span style="font-size:1.3rem;">🌟</span>
+              <strong style="color:#15803d; font-size:1.05rem;">New Tax Regime Active (Simplified Entry)</strong>
+            </div>
+            <p style="margin:5px 0 0 0; font-size:0.875rem; color:#1e293b; line-height:1.4;">
+              Standard Deduction of <strong>₹75,000</strong> is applied automatically. You only need your salary details above.<br>
+              Detailed Chapter VI-A deductions (80C, 80D, 24b Home Loan, etc.) are <strong>not needed</strong> for the New Regime.
+            </p>
+          </div>
+          <div>
+            <button type="button" class="btn btn-outline" onclick="enableOldRegimeFields()" style="background:#ffffff; border:1.5px solid #16a34a; color:#15803d; font-weight:700; font-size:0.85rem; padding:8px 14px; white-space:nowrap; cursor:pointer;">
+              🏛️ Need Old Regime? Click to Show 80C/80D Fields
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Old Regime Detailed Chapter VI-A Deductions Card -->
+      <div class="card" id="old-regime-deductions-card" style="display:none;">
+        <div class="card-title" style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:10px;">
+          <div>
+            <span>📑 Detailed Chapter VI-A Deductions (For Old Tax Regime)</span>
+            <div style="font-size:0.8rem; font-weight:normal; color:#64748b;">(Applicable if opting for Old Regime or comparing)</div>
+          </div>
+          <button type="button" class="btn btn-outline" onclick="hideOldRegimeFields()" style="font-size:0.75rem; padding:3px 8px; color:#64748b; border-color:#cbd5e1; cursor:pointer;">
+            ✕ Hide Old Regime Fields
+          </button>
         </div>
         
         <div style="background:#f8fafc; border:1px solid #cbd5e1; border-radius:6px; padding:12px; margin-bottom:14px;">
@@ -1453,8 +1487,8 @@
           </div>
           <div class="bottom-btn-group">
             <button class="btn btn-outline" style="font-weight:700;" onclick="saveDraft()">💾 Save Data</button>
-            <button class="btn btn-success" style="font-weight:700; font-size:0.95rem;" onclick="showTab('new-regime')">📄 Generate Statement (New Regime)</button>
-            <button class="btn btn-primary" style="font-weight:700;" onclick="showTab('old-regime')">⚖️ Generate Statement (Old Regime)</button>
+            <button class="btn btn-success" id="bottom-gen-new-btn" style="font-weight:700; font-size:0.95rem;" onclick="showTab('new-regime')">📄 Generate Statement (New Regime)</button>
+            <button class="btn btn-primary" id="bottom-gen-old-btn" style="font-weight:700;" onclick="showTab('old-regime')">⚖️ Generate Statement (Old Regime)</button>
             <button class="btn btn-outline" onclick="exportJSON()">📥 Export JSON</button>
           </div>
         </div>
@@ -2355,6 +2389,57 @@
       return Math.round(val || 0).toLocaleString('en-IN');
     }
 
+    // Regime View Preference Controls (Simplified New Regime vs Detailed Old Regime)
+    function onRegimePreferenceChange() {
+      const select = document.getElementById('chosen-regime-select');
+      const pref = select ? select.value : 'new';
+      const oldCard = document.getElementById('old-regime-deductions-card');
+      const newBanner = document.getElementById('new-regime-helper-banner');
+      const bottomOldBtn = document.getElementById('bottom-gen-old-btn');
+      const bottomNewBtn = document.getElementById('bottom-gen-new-btn');
+
+      if (pref === 'new') {
+        if (oldCard) oldCard.style.display = 'none';
+        if (newBanner) newBanner.style.display = 'block';
+        if (bottomOldBtn) {
+          bottomOldBtn.style.opacity = '0.7';
+          bottomOldBtn.style.border = '1px solid #cbd5e1';
+          bottomOldBtn.style.background = '#f8fafc';
+          bottomOldBtn.style.color = '#64748b';
+        }
+        if (bottomNewBtn) {
+          bottomNewBtn.style.opacity = '1';
+          bottomNewBtn.style.boxShadow = '0 2px 6px rgba(22, 163, 74, 0.3)';
+        }
+      } else {
+        if (oldCard) oldCard.style.display = 'block';
+        if (newBanner) newBanner.style.display = 'none';
+        if (bottomOldBtn) {
+          bottomOldBtn.style.opacity = '1';
+          bottomOldBtn.style.border = '';
+          bottomOldBtn.style.background = '';
+          bottomOldBtn.style.color = '';
+        }
+      }
+      calculateAll();
+    }
+
+    function enableOldRegimeFields() {
+      const select = document.getElementById('chosen-regime-select');
+      if (select) select.value = 'both';
+      onRegimePreferenceChange();
+      const oldCard = document.getElementById('old-regime-deductions-card');
+      if (oldCard) {
+        oldCard.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }
+    }
+
+    function hideOldRegimeFields() {
+      const select = document.getElementById('chosen-regime-select');
+      if (select) select.value = 'new';
+      onRegimePreferenceChange();
+    }
+
     // Tab Navigation
     function showTab(tab) {
       const tabs = ['calculator', 'new-regime', 'old-regime', 'form-10e', 'slabs'];
@@ -2699,15 +2784,33 @@
       let oldBalanceToPay = Math.max(0, oldBalanceTaxPayable - row13TdsPaid);
       let oldMonthlyTds = Math.ceil(oldBalanceToPay / pendingMonths);
 
-      setText('top-old-tax', '₹' + formatINR(oldBalanceTaxPayable));
-      if (row12BalanceTaxPayable < oldBalanceTaxPayable) {
-        let diff = oldBalanceTaxPayable - row12BalanceTaxPayable;
-        setText('top-regime-recommendation', `🌟 New Regime saves ₹${formatINR(diff)}`);
-      } else if (oldBalanceTaxPayable < row12BalanceTaxPayable) {
-        let diff = row12BalanceTaxPayable - oldBalanceTaxPayable;
-        setText('top-regime-recommendation', `⚖️ Old Regime saves ₹${formatINR(diff)}`);
+      const selectRegimeEl = document.getElementById('chosen-regime-select');
+      const prefRegime = selectRegimeEl ? selectRegimeEl.value : 'new';
+      const topRec = document.getElementById('top-regime-recommendation');
+
+      if (prefRegime === 'new') {
+        setText('top-old-tax', 'Not filled');
+        setText('top-regime-recommendation', '🌟 New Tax Regime Active');
+        if (topRec) {
+          topRec.style.cursor = 'pointer';
+          topRec.title = 'Click to show Old Regime deductions & compare';
+          topRec.onclick = enableOldRegimeFields;
+        }
       } else {
-        setText('top-regime-recommendation', `Both Regimes Equal`);
+        setText('top-old-tax', '₹' + formatINR(oldBalanceTaxPayable));
+        if (topRec) {
+          topRec.style.cursor = 'default';
+          topRec.onclick = null;
+        }
+        if (row12BalanceTaxPayable < oldBalanceTaxPayable) {
+          let diff = oldBalanceTaxPayable - row12BalanceTaxPayable;
+          setText('top-regime-recommendation', `🌟 New Regime saves ₹${formatINR(diff)}`);
+        } else if (oldBalanceTaxPayable < row12BalanceTaxPayable) {
+          let diff = row12BalanceTaxPayable - oldBalanceTaxPayable;
+          setText('top-regime-recommendation', `⚖️ Old Regime saves ₹${formatINR(diff)}`);
+        } else {
+          setText('top-regime-recommendation', `Both Regimes Equal`);
+        }
       }
 
       setText('old-badge-mode', modeText);
@@ -3217,7 +3320,8 @@
           place: document.getElementById('emp-place').value,
           stmtMode: document.getElementById('stmt-mode').value,
           stmtDate: document.getElementById('stmt-date').value,
-          pendingMonths: getNum('pending-months')
+          pendingMonths: getNum('pending-months'),
+          chosenRegime: document.getElementById('chosen-regime-select') ? document.getElementById('chosen-regime-select').value : 'new'
         },
         salaryMonths: {},
         additionalIncome: {
@@ -3275,6 +3379,10 @@
         if (data.employee.stmtMode) document.getElementById('stmt-mode').value = data.employee.stmtMode;
         if (data.employee.stmtDate) document.getElementById('stmt-date').value = data.employee.stmtDate;
         if (data.employee.pendingMonths) setNum('pending-months', data.employee.pendingMonths);
+        if (data.employee.chosenRegime && document.getElementById('chosen-regime-select')) {
+          document.getElementById('chosen-regime-select').value = data.employee.chosenRegime;
+        }
+        onRegimePreferenceChange();
       }
 
       if (data.salaryMonths) {
@@ -3520,6 +3628,7 @@
 
       // No saved data: start with clean blank form
       window._autoSaveEnabled = true;
+      onRegimePreferenceChange();
       calculateAll();
     });
   </script>
