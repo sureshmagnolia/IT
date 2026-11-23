@@ -3410,31 +3410,35 @@
         banner.innerHTML = '⏳ Generating crisp vector A4 PDF... Please wait a moment.';
         overlay.appendChild(banner);
 
-        const container = document.createElement('div');
-        container.style.width = '670px';
-        container.style.margin = '10px auto 0 auto';
-        container.style.background = '#ffffff';
-        container.style.boxSizing = 'border-box';
+        // Wrap clone inside a 194mm safety wrapper with 8mm jsPDF margins (210mm - 16mm = 194mm)
+        // Center the 172mm statement block inside the wrapper to guarantee 11mm of safe whitespace
+        // on both left and right edges, completely eliminating any right-side clipping by html2canvas/jsPDF.
+        const wrapper = document.createElement('div');
+        wrapper.id = 'pdf-export-wrapper';
+        wrapper.style.width = '194mm';
+        wrapper.style.maxWidth = '194mm';
+        wrapper.style.boxSizing = 'border-box';
+        wrapper.style.background = '#ffffff';
+        wrapper.style.padding = '0';
+        wrapper.style.margin = '10px auto 0 auto';
 
         const clone = element.cloneNode(true);
         clone.id = 'pdf-export-clone';
-        clone.style.width = '100%';
-        clone.style.maxWidth = '670px';
-        clone.style.minWidth = '670px';
-        clone.style.margin = '0';
+        clone.style.width = '172mm';
+        clone.style.maxWidth = '172mm';
+        clone.style.minWidth = '172mm';
+        clone.style.margin = '0 auto';
         clone.style.padding = '0';
         clone.style.background = '#ffffff';
         clone.style.color = '#000000';
         clone.style.boxSizing = 'border-box';
 
-        container.appendChild(clone);
-        overlay.appendChild(container);
+        wrapper.appendChild(clone);
+        overlay.appendChild(wrapper);
         document.body.appendChild(overlay);
 
-        // 670px at 96 DPI is 177.27mm. Total A4 portrait width is 210mm.
-        // Exact symmetrical margins to center the 670px blocks on A4 page: (210 - 177.27) / 2 = 16.36mm (~16.4mm).
         const opt = {
-          margin: [6, 16.4, 6, 16.4],
+          margin: [8, 8, 8, 8],
           filename: filename,
           image: { type: 'jpeg', quality: 0.98 },
           html2canvas: {
@@ -3448,7 +3452,7 @@
           jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' }
         };
 
-        html2pdf().set(opt).from(clone).save().then(() => {
+        html2pdf().set(opt).from(wrapper).save().then(() => {
           if (overlay.parentNode) document.body.removeChild(overlay);
           showToast('✓ Neat A4 PDF downloaded: ' + filename);
         }).catch(err => {
