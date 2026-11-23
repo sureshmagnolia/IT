@@ -914,27 +914,27 @@ html_code = """<!DOCTYPE html>
         <div class="grid-3">
           <div class="form-group">
             <label for="emp-name">Employee Name</label>
-            <input type="text" class="form-control" id="emp-name" value="Prof. Rajesh K" oninput="calculateAll()">
+            <input type="text" class="form-control" id="emp-name" value="" placeholder="Enter Employee Name" oninput="calculateAll()">
           </div>
           <div class="form-group">
             <label for="emp-pan">PAN (10 digits)</label>
-            <input type="text" class="form-control" id="emp-pan" value="ABCDE5678G" maxlength="10" style="text-transform:uppercase;" oninput="calculateAll()">
+            <input type="text" class="form-control" id="emp-pan" value="" placeholder="PAN (10 chars)" maxlength="10" style="text-transform:uppercase;" oninput="calculateAll()">
           </div>
           <div class="form-group">
             <label for="emp-pen">PEN / Employee ID</label>
-            <input type="text" class="form-control" id="emp-pen" value="412850" oninput="calculateAll()">
+            <input type="text" class="form-control" id="emp-pen" value="" placeholder="PEN / Emp ID" oninput="calculateAll()">
           </div>
           <div class="form-group">
             <label for="emp-designation">Designation</label>
-            <input type="text" class="form-control" id="emp-designation" value="Professor" oninput="calculateAll()">
+            <input type="text" class="form-control" id="emp-designation" value="" placeholder="Enter Designation" oninput="calculateAll()">
           </div>
           <div class="form-group">
             <label for="emp-office">Office / Department</label>
-            <input type="text" class="form-control" id="emp-office" value="GOVT COLLEGE KOZHIKODE" oninput="calculateAll()">
+            <input type="text" class="form-control" id="emp-office" value="" placeholder="Enter Office / Department" oninput="calculateAll()">
           </div>
           <div class="form-group">
             <label for="emp-place">Place (for Declaration)</label>
-            <input type="text" class="form-control" id="emp-place" value="Kozhikode" oninput="calculateAll()">
+            <input type="text" class="form-control" id="emp-place" value="" placeholder="Place" oninput="calculateAll()">
           </div>
         </div>
 
@@ -1021,7 +1021,7 @@ html_code = """<!DOCTYPE html>
           </div>
           <div class="form-group">
             <label for="row3-remuneration">Examination / Valuation Remuneration (Row 3) (₹)</label>
-            <input type="number" class="form-control" id="row3-remuneration" value="12000" oninput="calculateAll()">
+            <input type="number" class="form-control" id="row3-remuneration" value="0" oninput="calculateAll()">
           </div>
         </div>
 
@@ -1059,35 +1059,79 @@ html_code = """<!DOCTYPE html>
         </div>
       </div>
 
-      <!-- Old Regime Chapter VI-A Deductions Card (Only applicable for Old Regime) -->
+            <!-- Old Regime Detailed Chapter VI-A Deductions Card -->
       <div class="card">
         <div class="card-title">
-          <span>📑 Chapter VI-A Deductions (For Old Regime Statement)</span>
+          <span>📑 Detailed Chapter VI-A Deductions (For Old Tax Regime)</span>
+          <span style="font-size:0.8rem; color:#64748b;">(Applicable if opting for Old Regime)</span>
         </div>
+        
+        <div style="background:#f8fafc; border:1px solid #cbd5e1; border-radius:6px; padding:12px; margin-bottom:14px;">
+          <h4 style="font-size:0.9rem; color:#1e293b; margin-bottom:8px;">Section 80C Investments & Savings (Overall Max Limit: ₹1,50,000)</h4>
+          <div class="grid-4">
+            <div class="form-group">
+              <label for="ded-gpf">GPF / EPF Subscription (₹)</label>
+              <input type="number" class="form-control ded-80c-item" id="ded-gpf" value="0" oninput="calculateAll()">
+            </div>
+            <div class="form-group">
+              <label for="ded-sli">SLI (State Life Insurance) (₹)</label>
+              <input type="number" class="form-control ded-80c-item" id="ded-sli" value="0" oninput="calculateAll()">
+            </div>
+            <div class="form-group">
+              <label for="ded-gis">GIS (Group Insurance) (₹)</label>
+              <input type="number" class="form-control ded-80c-item" id="ded-gis" value="0" oninput="calculateAll()">
+            </div>
+            <div class="form-group">
+              <label for="ded-lic">LIC / Life Insurance Premium (₹)</label>
+              <input type="number" class="form-control ded-80c-item" id="ded-lic" value="0" oninput="calculateAll()">
+            </div>
+            <div class="form-group">
+              <label for="ded-tuition">Tuition Fees (max 2 children) (₹)</label>
+              <input type="number" class="form-control ded-80c-item" id="ded-tuition" value="0" oninput="calculateAll()">
+            </div>
+            <div class="form-group">
+              <label for="ded-hl-principal">Housing Loan Principal Repayment (₹)</label>
+              <input type="number" class="form-control ded-80c-item" id="ded-hl-principal" value="0" oninput="calculateAll()">
+            </div>
+            <div class="form-group">
+              <label for="ded-ppf">PPF / Sukanya / NSC / 5-Yr FD (₹)</label>
+              <input type="number" class="form-control ded-80c-item" id="ded-ppf" value="0" oninput="calculateAll()">
+            </div>
+            <div class="form-group">
+              <label for="ded-80c-other">Other 80C Investments (₹)</label>
+              <input type="number" class="form-control ded-80c-item" id="ded-80c-other" value="0" oninput="calculateAll()">
+            </div>
+          </div>
+          <div style="display:flex; justify-content:space-between; align-items:center; border-top:1px dashed #cbd5e1; padding-top:6px; margin-top:4px;">
+            <span style="font-size:0.85rem; font-weight:600; color:#334155;">Total 80C Claimed: <strong id="lbl-80c-claimed">₹0</strong></span>
+            <span style="font-size:0.85rem; font-weight:700; color:#1e40af;">Eligible Deduction u/s 80C (Capped at 1.5L): <strong id="lbl-80c-eligible">₹0</strong></span>
+          </div>
+        </div>
+
         <div class="grid-3">
           <div class="form-group">
-            <label for="ded-80c">80C: GPF, SLI, GIS, LIC, PPF, Tuition Fee (Max 1.5L)</label>
-            <input type="number" class="form-control" id="ded-80c" value="150000" oninput="calculateAll()">
+            <label for="ded-80ccd1b">80CCD(1B): Additional NPS Voluntary (Max ₹50,000)</label>
+            <input type="number" class="form-control" id="ded-80ccd1b" value="0" oninput="calculateAll()">
           </div>
           <div class="form-group">
-            <label for="ded-80ccd1b">80CCD(1B): NPS Additional Contribution (Max 50k)</label>
-            <input type="number" class="form-control" id="ded-80ccd1b" value="50000" oninput="calculateAll()">
+            <label for="ded-80d">80D: MediSep / Health Insurance (Self & Parents)</label>
+            <input type="number" class="form-control" id="ded-80d" value="0" oninput="calculateAll()">
           </div>
           <div class="form-group">
-            <label for="ded-80d">80D: Health Insurance / MediSep (Self & Parents)</label>
-            <input type="number" class="form-control" id="ded-80d" value="6000" oninput="calculateAll()">
-          </div>
-          <div class="form-group">
-            <label for="ded-24b">24(b): Housing Loan Interest (Max 2L)</label>
+            <label for="ded-24b">24(b): Housing Loan Interest (Self-occupied max 2L)</label>
             <input type="number" class="form-control" id="ded-24b" value="0" oninput="calculateAll()">
           </div>
           <div class="form-group">
-            <label for="ded-80e">80E: Higher Education Loan Interest</label>
+            <label for="ded-80e">80E: Higher Education Loan Interest (No limit)</label>
             <input type="number" class="form-control" id="ded-80e" value="0" oninput="calculateAll()">
           </div>
           <div class="form-group">
-            <label for="ded-80g">80G: Approved Donations (CMDRF, etc.)</label>
+            <label for="ded-80g">80G: Approved Donations (CMDRF, PMNRF, etc.)</label>
             <input type="number" class="form-control" id="ded-80g" value="0" oninput="calculateAll()">
+          </div>
+          <div class="form-group">
+            <label for="ded-80tta">80TTA / 80TTB: Savings Bank Interest Deduction</label>
+            <input type="number" class="form-control" id="ded-80tta" value="0" oninput="calculateAll()">
           </div>
         </div>
       </div>
@@ -1128,19 +1172,19 @@ html_code = """<!DOCTYPE html>
           <table class="eco-emp-box">
             <tr>
               <td class="label">Name:</td>
-              <td class="val"><strong id="eco-emp-name">Prof. Rajesh K</strong></td>
+              <td class="val"><strong id="eco-emp-name"></strong></td>
               <td class="label">Designation:</td>
-              <td class="val" id="eco-emp-desig">Professor</td>
+              <td class="val" id="eco-emp-desig"></td>
             </tr>
             <tr>
               <td class="label">PAN:</td>
-              <td class="val"><strong id="eco-emp-pan">ABCDE5678G</strong></td>
+              <td class="val"><strong id="eco-emp-pan"></strong></td>
               <td class="label">PEN:</td>
-              <td class="val" id="eco-emp-pen">412850</td>
+              <td class="val" id="eco-emp-pen"></td>
             </tr>
             <tr>
               <td class="label">Office:</td>
-              <td class="val" colspan="3" id="eco-emp-office">GOVT COLLEGE KOZHIKODE</td>
+              <td class="val" colspan="3" id="eco-emp-office"></td>
             </tr>
           </table>
 
@@ -1312,7 +1356,7 @@ html_code = """<!DOCTYPE html>
           <table class="eco-sig-box">
             <tr>
               <td style="width:40%;">
-                <p><strong>Place:</strong> <span id="eco-sig-place">Kozhikode</span></p>
+                <p><strong>Place:</strong> <span id="eco-sig-place"></span></p>
                 <p><strong>Date:</strong> <span id="eco-sig-date">23/11/2026</span></p>
                 <div style="margin-top:20px; font-size:7.5pt; color:#000;">
                   <em>Verified that the particulars given above are true and correct.</em>
@@ -1322,10 +1366,10 @@ html_code = """<!DOCTYPE html>
                 <div style="margin-bottom:28px;">
                   <span>Signature: __________________________</span>
                 </div>
-                <p><strong>Name:</strong> <span id="eco-sig-name">Prof. Rajesh K</span></p>
-                <p><strong>PEN:</strong> <span id="eco-sig-pen">412850</span></p>
-                <p><strong>Designation:</strong> <span id="eco-sig-desig">Professor</span></p>
-                <p><strong>Office:</strong> <span id="eco-sig-office">GOVT COLLEGE KOZHIKODE</span></p>
+                <p><strong>Name:</strong> <span id="eco-sig-name"></span></p>
+                <p><strong>PEN:</strong> <span id="eco-sig-pen"></span></p>
+                <p><strong>Designation:</strong> <span id="eco-sig-desig"></span></p>
+                <p><strong>Office:</strong> <span id="eco-sig-office"></span></p>
               </td>
             </tr>
           </table>
@@ -1335,164 +1379,238 @@ html_code = """<!DOCTYPE html>
       </div>
     </div>
 
-    <!-- ======================================================== -->
-    <!-- VIEW 3: OLD REGIME STATEMENT                             -->
+        <!-- ======================================================== -->
+    <!-- VIEW 3: DETAILED OLD REGIME STATEMENT                    -->
     <!-- ======================================================== -->
     <div id="old-regime-statement-view" style="display:none;">
       <div class="action-bar no-print">
-        <button class="btn btn-success" onclick="downloadOldRegimePdf()">📥 Download A4 PDF</button>
-        <button class="btn btn-primary" onclick="showTab('calculator')">⬅️ Back to Calculator</button>
-        <button class="btn btn-success" onclick="printOldRegimeStatement()">🖨️ Print Old Regime Statement</button>
+        <button class="btn btn-outline" onclick="showTab('calculator')">⬅️ Back to Calculator</button>
+        <button class="btn btn-success" onclick="downloadOldRegimePdf()" style="font-weight:700;">📥 Download A4 PDF (Old Regime)</button>
+        <button class="btn btn-outline" onclick="printOldRegimeStatement()">🖨️ Print Statement</button>
+        <div style="flex-grow:1;"></div>
+        <button class="btn btn-outline" onclick="exportJSON()">📥 Export JSON</button>
         <button class="btn btn-outline" onclick="showTab('new-regime')">Switch to New Regime Statement</button>
       </div>
 
       <div class="print-page-wrapper">
-      <div class="print-page">
-        <div class="eco-stmt-container" id="old-regime-single-page">
-          <div class="eco-header">
-            <h1>Income Tax Statement for the Financial Year 2026-27</h1>
-            <h2>(Assessment Year 2027-2028)</h2>
-            <p>Statement of Tax Computations under the OLD TAX REGIME (with Chapter VI-A Deductions)</p>
-            <div>
-              <span class="eco-mode-tag" id="old-badge-mode">ANTICIPATORY STATEMENT</span>
-              <span class="eco-mode-tag" style="background:#fff; color:#000; border:1px solid #000;">OLD REGIME</span>
+        <div class="print-page">
+          <div class="eco-stmt-container" id="old-regime-single-page">
+            <div class="eco-header">
+              <h1>Income Tax Statement for the Financial Year 2026-27</h1>
+              <h2>(Assessment Year 2027-2028)</h2>
+              <p>Statement of Tax Computations under the OLD TAX REGIME (with Detailed Chapter VI-A Deductions)</p>
+              <div>
+                <span class="eco-mode-tag" id="old-badge-mode">ANTICIPATORY STATEMENT</span>
+                <span class="eco-mode-tag">OLD TAX REGIME</span>
+              </div>
             </div>
-          </div>
 
-          <table class="eco-emp-box">
-            <tr>
-              <td class="label">Name:</td><td class="val"><strong id="old-emp-name">Prof. Rajesh K</strong></td>
-              <td class="label">Designation:</td><td class="val" id="old-emp-desig">Professor</td>
-            </tr>
-            <tr>
-              <td class="label">PAN:</td><td class="val"><strong id="old-emp-pan">ABCDE5678G</strong></td>
-              <td class="label">PEN:</td><td class="val" id="old-emp-pen">412850</td>
-            </tr>
-            <tr>
-              <td class="label">Office:</td><td class="val" colspan="3" id="old-emp-office">GOVT COLLEGE KOZHIKODE</td>
-            </tr>
-          </table>
+            <table class="eco-emp-box">
+              <tr>
+                <td class="label">Name:</td><td class="val"><strong id="old-emp-name"></strong></td>
+                <td class="label">Designation:</td><td class="val" id="old-emp-desig"></td>
+              </tr>
+              <tr>
+                <td class="label">PAN:</td><td class="val"><strong id="old-emp-pan"></strong></td>
+                <td class="label">PEN:</td><td class="val" id="old-emp-pen"></td>
+              </tr>
+              <tr>
+                <td class="label">Office:</td><td class="val" colspan="3" id="old-emp-office"></td>
+              </tr>
+            </table>
 
-          <table class="eco-table">
-            <thead>
+            <table class="eco-table">
+              <thead>
+                <tr>
+                  <th class="eco-col-sl">No.</th>
+                  <th class="eco-col-desc">Particulars</th>
+                  <th class="eco-col-amt">Amount (₹)</th>
+                </tr>
+              </thead>
+              <tbody>
+                <!-- Row 1: Gross Salary with Monthly Breakdown -->
+                <tr>
+                  <td class="eco-col-sl">1</td>
+                  <td class="eco-col-desc">
+                    <div><strong>Gross Salary / Pension for the month:</strong></div>
+                    <div style="display:flex; justify-content:space-between; margin:3px 0 5px 0; font-size:7.5pt; line-height:1.35;">
+                      <div style="width:48%;">
+                        <div style="display:flex; justify-content:space-between; border-bottom:1px dotted #ccc;"><span>March 2026 :</span><strong id="old-m-mar">0</strong></div>
+                        <div style="display:flex; justify-content:space-between; border-bottom:1px dotted #ccc;"><span>April 2026 :</span><strong id="old-m-apr">0</strong></div>
+                        <div style="display:flex; justify-content:space-between; border-bottom:1px dotted #ccc;"><span>May 2026 :</span><strong id="old-m-may">0</strong></div>
+                        <div style="display:flex; justify-content:space-between; border-bottom:1px dotted #ccc;"><span>June 2026 :</span><strong id="old-m-jun">0</strong></div>
+                        <div style="display:flex; justify-content:space-between; border-bottom:1px dotted #ccc;"><span>July 2026 :</span><strong id="old-m-jul">0</strong></div>
+                        <div style="display:flex; justify-content:space-between;"><span>August 2026 :</span><strong id="old-m-aug">0</strong></div>
+                      </div>
+                      <div style="width:48%;">
+                        <div style="display:flex; justify-content:space-between; border-bottom:1px dotted #ccc;"><span>September 2026 :</span><strong id="old-m-sep">0</strong></div>
+                        <div style="display:flex; justify-content:space-between; border-bottom:1px dotted #ccc;"><span>October 2026 :</span><strong id="old-m-oct">0</strong></div>
+                        <div style="display:flex; justify-content:space-between; border-bottom:1px dotted #ccc;"><span>November 2026 :</span><strong id="old-m-nov">0</strong></div>
+                        <div style="display:flex; justify-content:space-between; border-bottom:1px dotted #ccc;"><span>December 2026 :</span><strong id="old-m-dec">0</strong></div>
+                        <div style="display:flex; justify-content:space-between; border-bottom:1px dotted #ccc;"><span>January 2027 :</span><strong id="old-m-jan">0</strong></div>
+                        <div style="display:flex; justify-content:space-between;"><span>February 2027 :</span><strong id="old-m-feb">0</strong></div>
+                      </div>
+                    </div>
+                    <div style="font-size:8pt; border-top:1px solid #000; padding-top:2px;">
+                      <div style="display:flex; justify-content:space-between;"><span>Subtotal of Monthly Gross Salary (a):</span><span id="old-row1a">0</span></div>
+                      <div style="display:flex; justify-content:space-between;"><span>(b) Leave Surrender / Bonus / Arrears:</span><span id="old-row1b">0</span></div>
+                      <div style="display:flex; justify-content:space-between;"><span>(c) Excess pay refund / recovery:</span><span id="old-row1c">0</span></div>
+                    </div>
+                  </td>
+                  <td class="eco-col-amt" style="vertical-align:bottom;"><strong id="old-row1">0</strong></td>
+                </tr>
+
+                <!-- Row 2: Deductions u/s 16 -->
+                <tr>
+                  <td class="eco-col-sl">2</td>
+                  <td class="eco-col-desc">
+                    <strong>Deductions under Section 16:</strong><br>
+                    &nbsp;&nbsp;(a) Standard Deduction u/s 16(ia): <span style="float:right;">50,000</span><br>
+                    &nbsp;&nbsp;(b) Tax on Employment (Professional Tax) u/s 16(iii): <span style="float:right;" id="old-row2-pt">0</span>
+                  </td>
+                  <td class="eco-col-amt"><strong id="old-row2">50,000</strong></td>
+                </tr>
+
+                <!-- Row 3: Income from Salary -->
+                <tr>
+                  <td class="eco-col-sl">3</td>
+                  <td class="eco-col-desc">Income from Salary (1 - 2)</td>
+                  <td class="eco-col-amt" id="old-row3">0</td>
+                </tr>
+
+                <!-- Row 4: Remuneration -->
+                <tr>
+                  <td class="eco-col-sl">4</td>
+                  <td class="eco-col-desc">Remuneration (Examination / Valuation / Other Income)</td>
+                  <td class="eco-col-amt" id="old-row4">0</td>
+                </tr>
+
+                <!-- Row 5: Gross Total Income -->
+                <tr style="font-weight:bold;">
+                  <td class="eco-col-sl">5</td>
+                  <td class="eco-col-desc">Gross Total Income (GTI) (3 + 4)</td>
+                  <td class="eco-col-amt"><strong id="old-row5">0</strong></td>
+                </tr>
+
+                <!-- Row 6: Detailed Chapter VI-A Deductions Schedule -->
+                <tr>
+                  <td class="eco-col-sl">6</td>
+                  <td class="eco-col-desc">
+                    <strong>Deductions under Chapter VI-A:</strong>
+                    <div style="margin:2px 0 3px 0; padding:3px 6px; border:1px solid #000; font-size:7.5pt;">
+                      <div><strong>(A) Section 80C Deductions (Max Limit: Rs. 1,50,000):</strong></div>
+                      <div style="display:flex; justify-content:space-between;"><span>&bull; GPF / EPF Subscription:</span><span id="old-det-gpf">0</span></div>
+                      <div style="display:flex; justify-content:space-between;"><span>&bull; SLI (State Life Insurance):</span><span id="old-det-sli">0</span></div>
+                      <div style="display:flex; justify-content:space-between;"><span>&bull; GIS (Group Insurance Scheme):</span><span id="old-det-gis">0</span></div>
+                      <div style="display:flex; justify-content:space-between;"><span>&bull; LIC / Life Insurance Premium:</span><span id="old-det-lic">0</span></div>
+                      <div style="display:flex; justify-content:space-between;"><span>&bull; Tuition Fees for Children:</span><span id="old-det-tuition">0</span></div>
+                      <div style="display:flex; justify-content:space-between;"><span>&bull; Housing Loan Principal Repayment:</span><span id="old-det-hlp">0</span></div>
+                      <div style="display:flex; justify-content:space-between;"><span>&bull; PPF / Sukanya / NSC / Other 80C:</span><span id="old-det-ppf">0</span></div>
+                      <div style="display:flex; justify-content:space-between; border-top:1px dashed #000; margin-top:2px; font-weight:bold;">
+                        <span>Total 80C Claimed / Eligible Amount:</span>
+                        <span><span id="old-80c-claimed">0</span> / <span id="old-80c">0</span></span>
+                      </div>
+                    </div>
+                    <div style="font-size:7.5pt; line-height:1.4;">
+                      <div style="display:flex; justify-content:space-between;"><span>(B) u/s 80CCD(1B) - Additional NPS Contribution (Max 50k):</span><span id="old-80ccd">0</span></div>
+                      <div style="display:flex; justify-content:space-between;"><span>(C) u/s 80D - Health Insurance / MediSep (Self & Parents):</span><span id="old-80d">0</span></div>
+                      <div style="display:flex; justify-content:space-between;"><span>(D) u/s 24(b) - Interest on Housing Loan (Max 2L):</span><span id="old-24b">0</span></div>
+                      <div style="display:flex; justify-content:space-between;"><span>(E) u/s 80E - Interest on Higher Education Loan:</span><span id="old-80e">0</span></div>
+                      <div style="display:flex; justify-content:space-between;"><span>(F) u/s 80G - Approved Donations (CMDRF / PMNRF):</span><span id="old-80g">0</span></div>
+                      <div style="display:flex; justify-content:space-between;"><span>(G) u/s 80TTA - Savings Bank Interest:</span><span id="old-80tta">0</span></div>
+                    </div>
+                  </td>
+                  <td class="eco-col-amt" style="vertical-align:bottom;"><strong id="old-row6">0</strong></td>
+                </tr>
+
+                <!-- Row 7: Total Taxable Income -->
+                <tr style="font-weight:bold;">
+                  <td class="eco-col-sl">7</td>
+                  <td class="eco-col-desc">Total Taxable Income rounded off to nearest Rs. 10/- (5 - 6)</td>
+                  <td class="eco-col-amt"><strong id="old-row7">0</strong></td>
+                </tr>
+
+                <!-- Row 8: Tax on Total Income -->
+                <tr>
+                  <td class="eco-col-sl">8</td>
+                  <td class="eco-col-desc">Tax on Total Income (Old Slabs: 0-2.5L Nil, 2.5-5L 5%, 5-10L 20%, >10L 30%)</td>
+                  <td class="eco-col-amt" id="old-row8">0</td>
+                </tr>
+
+                <!-- Row 9: Rebate u/s 87A -->
+                <tr>
+                  <td class="eco-col-sl">9</td>
+                  <td class="eco-col-desc">Less: Rebate u/s 87A (Up to Rs. 12,500 if Total Income &le; Rs. 5,00,000)</td>
+                  <td class="eco-col-amt" id="old-row9">0</td>
+                </tr>
+
+                <!-- Row 10: Tax after Rebate -->
+                <tr>
+                  <td class="eco-col-sl">10</td>
+                  <td class="eco-col-desc">Income Tax after Rebate (8 - 9)</td>
+                  <td class="eco-col-amt" id="old-row10">0</td>
+                </tr>
+
+                <!-- Row 11: Cess -->
+                <tr>
+                  <td class="eco-col-sl">11</td>
+                  <td class="eco-col-desc">Health and Education Cess @ 4%</td>
+                  <td class="eco-col-amt" id="old-row11">0</td>
+                </tr>
+
+                <!-- Row 12: Total Tax Payable -->
+                <tr style="font-weight:bold;">
+                  <td class="eco-col-sl">12</td>
+                  <td class="eco-col-desc">Total Tax Payable (10 + 11)</td>
+                  <td class="eco-col-amt"><strong id="old-row12">0</strong></td>
+                </tr>
+
+                <!-- Row 13: Relief u/s 89 -->
+                <tr>
+                  <td class="eco-col-sl">13</td>
+                  <td class="eco-col-desc">Less: Relief for arrears of salary u/s 89(1) (from Form 10E)</td>
+                  <td class="eco-col-amt" id="old-row13">0</td>
+                </tr>
+
+                <!-- Row 14: TDS Deducted -->
+                <tr>
+                  <td class="eco-col-sl">14</td>
+                  <td class="eco-col-desc">Income Tax deducted from salary (TDS) / Advance tax paid</td>
+                  <td class="eco-col-amt" id="old-row14">0</td>
+                </tr>
+
+                <!-- Row 15: Balance to be paid -->
+                <tr style="font-weight:bold; font-size:9pt;">
+                  <td class="eco-col-sl">15</td>
+                  <td class="eco-col-desc">
+                    Balance Income Tax to be paid (12 - 13 - 14):
+                    <div style="font-size:7.5pt; font-weight:normal;" id="old-anticipatory-note"></div>
+                  </td>
+                  <td class="eco-col-amt"><strong style="font-size:10pt;" id="old-row15">0</strong></td>
+                </tr>
+              </tbody>
+            </table>
+
+            <table class="eco-sig-box">
               <tr>
-                <th class="eco-col-sl">No.</th>
-                <th class="eco-col-desc">Particulars</th>
-                <th class="eco-col-amt">Amount (₹)</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <td class="eco-col-sl">1</td>
-                <td class="eco-col-desc">Gross Salary (Monthly Salary + Allowances + Arrears - Excess)</td>
-                <td class="eco-col-amt" id="old-row1">0</td>
-              </tr>
-              <tr>
-                <td class="eco-col-sl">2</td>
-                <td class="eco-col-desc">
-                  Deductions under Section 16:<br>
-                  &nbsp;&nbsp;(a) Standard Deduction u/s 16(ia): <span style="float:right;">50,000</span><br>
-                  &nbsp;&nbsp;(b) Professional Tax: <span style="float:right;" id="old-row2-pt">2,500</span>
-                </td>
-                <td class="eco-col-amt" id="old-row2">52,500</td>
-              </tr>
-              <tr>
-                <td class="eco-col-sl">3</td>
-                <td class="eco-col-desc">Income from Salary (1 - 2)</td>
-                <td class="eco-col-amt" id="old-row3">0</td>
-              </tr>
-              <tr>
-                <td class="eco-col-sl">4</td>
-                <td class="eco-col-desc">Remuneration / Other Income</td>
-                <td class="eco-col-amt" id="old-row4">0</td>
-              </tr>
-              <tr>
-                <td class="eco-col-sl">5</td>
-                <td class="eco-col-desc">Gross Total Income (3 + 4)</td>
-                <td class="eco-col-amt" id="old-row5">0</td>
-              </tr>
-              <tr>
-                <td class="eco-col-sl">6</td>
-                <td class="eco-col-desc">
-                  Deductions under Chapter VI-A:<br>
-                  &nbsp;&nbsp;u/s 80C (GPF, SLI, GIS, LIC, etc. max 1.5L): <span style="float:right;" id="old-80c">0</span><br>
-                  &nbsp;&nbsp;u/s 80CCD(1B) (NPS voluntary max 50k): <span style="float:right;" id="old-80ccd">0</span><br>
-                  &nbsp;&nbsp;u/s 80D (MediSep / Health Insurance): <span style="float:right;" id="old-80d">0</span><br>
-                  &nbsp;&nbsp;u/s 24(b) (Housing Loan Interest): <span style="float:right;" id="old-24b">0</span><br>
-                  &nbsp;&nbsp;u/s 80E / 80G / Others: <span style="float:right;" id="old-other-ded">0</span><br>
-                  <div style="border-top:1px dashed #000; margin-top:2px; padding-top:2px; font-weight:bold; display:flex; justify-content:space-between;">
-                    <span>Total Chapter VI-A Deductions:</span>
-                    <span id="old-tot-ded">0</span>
+                <td style="width:40%;">
+                  <p><strong>Place:</strong> <span id="old-sig-place"></span></p>
+                  <p><strong>Date:</strong> <span id="old-sig-date"></span></p>
+                  <div style="margin-top:16px; font-size:7.5pt; color:#000;">
+                    <em>Verified that the particulars given above are true and correct.</em>
                   </div>
                 </td>
-                <td class="eco-col-amt" id="old-row6">0</td>
-              </tr>
-              <tr style="font-weight:bold;">
-                <td class="eco-col-sl">7</td>
-                <td class="eco-col-desc">Total Taxable Income (5 - 6)</td>
-                <td class="eco-col-amt" id="old-row7">0</td>
-              </tr>
-              <tr>
-                <td class="eco-col-sl">8</td>
-                <td class="eco-col-desc">Tax on Total Income (Old Slabs: 0-2.5L Nil, 2.5-5L 5%, 5-10L 20%, >10L 30%)</td>
-                <td class="eco-col-amt" id="old-row8">0</td>
-              </tr>
-              <tr>
-                <td class="eco-col-sl">9</td>
-                <td class="eco-col-desc">Less: Rebate u/s 87A (Up to Rs. 12,500 if Income &le; Rs. 5,00,000)</td>
-                <td class="eco-col-amt" id="old-row9">0</td>
-              </tr>
-              <tr>
-                <td class="eco-col-sl">10</td>
-                <td class="eco-col-desc">Income Tax after Rebate</td>
-                <td class="eco-col-amt" id="old-row10">0</td>
-              </tr>
-              <tr>
-                <td class="eco-col-sl">11</td>
-                <td class="eco-col-desc">Health & Education Cess @ 4%</td>
-                <td class="eco-col-amt" id="old-row11">0</td>
-              </tr>
-              <tr style="font-weight:bold;">
-                <td class="eco-col-sl">12</td>
-                <td class="eco-col-desc">Total Tax Payable (10 + 11)</td>
-                <td class="eco-col-amt" id="old-row12">0</td>
-              </tr>
-              <tr>
-                <td class="eco-col-sl">13</td>
-                <td class="eco-col-desc">Less: Relief u/s 89(1) for Arrears</td>
-                <td class="eco-col-amt" id="old-row13">0</td>
-              </tr>
-              <tr>
-                <td class="eco-col-sl">14</td>
-                <td class="eco-col-desc">Tax Deducted from Salary (TDS) / Advance Tax Paid</td>
-                <td class="eco-col-amt" id="old-row14">0</td>
-              </tr>
-              <tr style="font-weight:bold;">
-                <td class="eco-col-sl">15</td>
-                <td class="eco-col-desc">
-                  Balance Tax to be Paid:
-                  <div style="font-size:7.5pt; font-weight:normal;" id="old-anticipatory-note"></div>
+                <td style="width:60%; text-align:right;">
+                  <div style="margin-bottom:24px;"><span>Signature: __________________________</span></div>
+                  <p><strong>Name:</strong> <span id="old-sig-name"></span></p>
+                  <p><strong>PEN:</strong> <span id="old-sig-pen"></span></p>
+                  <p><strong>Designation:</strong> <span id="old-sig-desig"></span></p>
+                  <p><strong>Office:</strong> <span id="old-sig-office"></span></p>
                 </td>
-                <td class="eco-col-amt" style="font-size:10pt;" id="old-row15">0</td>
               </tr>
-            </tbody>
-          </table>
-
-          <table class="eco-sig-box">
-            <tr>
-              <td style="width:40%;">
-                <p><strong>Place:</strong> <span id="old-sig-place">Kozhikode</span></p>
-                <p><strong>Date:</strong> <span id="old-sig-date">23/11/2026</span></p>
-              </td>
-              <td style="width:60%; text-align:right;">
-                <p>Signature: __________________________</p>
-                <p><strong>Name:</strong> <span id="old-sig-name">Prof. Rajesh K</span></p>
-                <p><strong>Designation:</strong> <span id="old-sig-desig">Professor</span></p>
-              </td>
-            </tr>
-          </table>
+            </table>
+          </div>
         </div>
-      </div>
       </div>
     </div>
 
@@ -1809,10 +1927,8 @@ html_code = """<!DOCTYPE html>
       { key: 'feb', name: 'February 2027', short: 'Feb' }
     ];
 
-    // Form 10E previous years list
-    let tableAEntries = [
-      { id: 1, year: '2024 - 25', income: 750000, arrear: 80000, age: 'Individual', regime: 'OLD' }
-    ];
+    // Form 10E previous years list (Empty by default)
+    let tableAEntries = [];
 
     // Initialize salary table inputs
     function initSalaryTable() {
@@ -2165,18 +2281,34 @@ html_code = """<!DOCTYPE html>
       setText('eco-sig-desig', document.getElementById('emp-designation').value || '');
       setText('eco-sig-office', document.getElementById('emp-office').value || '');
 
-      // --- Populate Old Regime Statement ---
+      // --- Populate Detailed Old Regime Statement ---
       let oldStdDed = 50000;
       let oldProfTax = row2eProfTax;
       let oldSalaryIncome = Math.max(0, row1GrossSalary - (oldStdDed + oldProfTax));
       let oldGrossTotIncome = oldSalaryIncome + row3Remun;
 
-      let ded80c = Math.min(getNum('ded-80c'), 150000);
+      // Sum detailed 80C items
+      let gpf = getNum('ded-gpf');
+      let sli = getNum('ded-sli');
+      let gis = getNum('ded-gis');
+      let lic = getNum('ded-lic');
+      let tuition = getNum('ded-tuition');
+      let hlp = getNum('ded-hl-principal');
+      let ppf = getNum('ded-ppf');
+      let other80c = getNum('ded-80c-other');
+      let tot80cClaimed = gpf + sli + gis + lic + tuition + hlp + ppf + other80c;
+      let ded80cEligible = Math.min(tot80cClaimed, 150000);
+
+      setText('lbl-80c-claimed', '₹' + formatINR(tot80cClaimed));
+      setText('lbl-80c-eligible', '₹' + formatINR(ded80cEligible));
+
       let ded80ccd = Math.min(getNum('ded-80ccd1b'), 50000);
       let ded80d = getNum('ded-80d');
       let ded24b = Math.min(getNum('ded-24b'), 200000);
-      let dedOther = getNum('ded-80e') + getNum('ded-80g');
-      let totalOldDeductions = ded80c + ded80ccd + ded80d + ded24b + dedOther;
+      let ded80e = getNum('ded-80e');
+      let ded80g = getNum('ded-80g');
+      let ded80tta = Math.min(getNum('ded-80tta'), 10000);
+      let totalOldDeductions = ded80cEligible + ded80ccd + ded80d + ded24b + ded80e + ded80g + ded80tta;
 
       let oldTaxableIncome = Math.max(0, oldGrossTotIncome - totalOldDeductions);
       oldTaxableIncome = Math.round(oldTaxableIncome / 10) * 10;
@@ -2210,13 +2342,35 @@ html_code = """<!DOCTYPE html>
       setText('old-row4', formatINR(row3Remun));
       setText('old-row5', formatINR(oldGrossTotIncome));
 
-      setText('old-80c', formatINR(ded80c));
+      // Monthly breakdown in Old Regime Statement
+      months.forEach(m => {
+        let el = document.getElementById('old-m-' + m.key);
+        if (el) el.textContent = formatINR(getNum('basic-' + m.key) + getNum('allow-' + m.key));
+      });
+      setText('old-row1a', formatINR(totGross));
+      setText('old-row1b', formatINR(row1bTotal));
+      setText('old-row1c', formatINR(row1cExcess));
+
+      setText('old-det-gpf', formatINR(gpf));
+      setText('old-det-sli', formatINR(sli));
+      setText('old-det-gis', formatINR(gis));
+      setText('old-det-lic', formatINR(lic));
+      setText('old-det-tuition', formatINR(tuition));
+      setText('old-det-hlp', formatINR(hlp));
+      setText('old-det-ppf', formatINR(ppf + other80c));
+      setText('old-80c-claimed', formatINR(tot80cClaimed));
+      setText('old-80c', formatINR(ded80cEligible));
+
       setText('old-80ccd', formatINR(ded80ccd));
       setText('old-80d', formatINR(ded80d));
       setText('old-24b', formatINR(ded24b));
-      setText('old-other-ded', formatINR(dedOther));
-      setText('old-tot-ded', formatINR(totalOldDeductions));
+      setText('old-80e', formatINR(ded80e));
+      setText('old-80g', formatINR(ded80g));
+      setText('old-80tta', formatINR(ded80tta));
       setText('old-row6', formatINR(totalOldDeductions));
+
+      setText('old-sig-pen', document.getElementById('emp-pen').value || '');
+      setText('old-sig-office', document.getElementById('emp-office').value || '');
 
       setText('old-row7', formatINR(oldTaxableIncome));
       setText('old-row8', formatINR(oldTaxObj.tax));
@@ -2250,6 +2404,14 @@ html_code = """<!DOCTYPE html>
       setText('f10e-ver-desig', document.getElementById('emp-designation').value);
       setText('f10e-ver-place', document.getElementById('emp-place').value || '');
       setText('f10e-ver-date', formatDate(document.getElementById('stmt-date').value));
+
+      // Auto-save user entered data so it persists across page refreshes
+      if (window._autoSaveEnabled) {
+        try {
+          const draft = collectFormData();
+          localStorage.setItem('income_tax_2026_27_draft', JSON.stringify(draft));
+        } catch (e) {}
+      }
     }
 
     // Date formatter dd/mm/yyyy
@@ -2474,8 +2636,9 @@ html_code = """<!DOCTYPE html>
       setNum('row2e-proftax', 2500);
       setNum('row11-relief89', 0);
 
+      window._autoSaveEnabled = true;
       calculateAll();
-      alert('✓ Loaded Sample Employee Data (Prof. Rajesh K) successfully!');
+      showToast('📄 Loaded sample teacher data (Prof. Rajesh K).');
     }
 
     // Clear All Data
@@ -2508,15 +2671,31 @@ html_code = """<!DOCTYPE html>
       setNum('row2e-proftax', 0);
       setNum('row11-relief89', 0);
 
-      setNum('ded-80c', 0);
+      setNum('ded-gpf', 0);
+      setNum('ded-sli', 0);
+      setNum('ded-gis', 0);
+      setNum('ded-lic', 0);
+      setNum('ded-tuition', 0);
+      setNum('ded-hl-principal', 0);
+      setNum('ded-ppf', 0);
+      setNum('ded-80c-other', 0);
       setNum('ded-80ccd1b', 0);
       setNum('ded-80d', 0);
       setNum('ded-24b', 0);
       setNum('ded-80e', 0);
       setNum('ded-80g', 0);
+      setNum('ded-80tta', 0);
+
+      tableAEntries = [];
+      renderTableA();
+
+      // Clear saved draft from browser storage
+      try {
+        localStorage.removeItem('income_tax_2026_27_draft');
+      } catch (e) {}
 
       calculateAll();
-      alert('✓ All fields cleared.');
+      showToast('🧹 All data cleared and storage reset.');
     }
 
     // Copy Any Month Salary down to all Subsequent Months
@@ -2671,12 +2850,20 @@ html_code = """<!DOCTYPE html>
           npsEmployer: getNum('row2c-nps'),
           profTax: getNum('row2e-proftax'),
           relief89: getNum('row11-relief89'),
-          ded80c: getNum('ded-80c'),
+          gpf: getNum('ded-gpf'),
+          sli: getNum('ded-sli'),
+          gis: getNum('ded-gis'),
+          lic: getNum('ded-lic'),
+          tuition: getNum('ded-tuition'),
+          hlp: getNum('ded-hl-principal'),
+          ppf: getNum('ded-ppf'),
+          other80c: getNum('ded-80c-other'),
           ded80ccd1b: getNum('ded-80ccd1b'),
           ded80d: getNum('ded-80d'),
           ded24b: getNum('ded-24b'),
           ded80e: getNum('ded-80e'),
-          ded80g: getNum('ded-80g')
+          ded80g: getNum('ded-80g'),
+          ded80tta: getNum('ded-80tta')
         },
         tableAEntries: tableAEntries
       };
@@ -2731,12 +2918,20 @@ html_code = """<!DOCTYPE html>
         setNum('row2c-nps', data.deductions.npsEmployer || 0);
         setNum('row2e-proftax', data.deductions.profTax || 0);
         setNum('row11-relief89', data.deductions.relief89 || 0);
-        setNum('ded-80c', data.deductions.ded80c || 0);
+        setNum('ded-gpf', data.deductions.gpf || 0);
+        setNum('ded-sli', data.deductions.sli || 0);
+        setNum('ded-gis', data.deductions.gis || 0);
+        setNum('ded-lic', data.deductions.lic || 0);
+        setNum('ded-tuition', data.deductions.tuition || 0);
+        setNum('ded-hl-principal', data.deductions.hlp || 0);
+        setNum('ded-ppf', data.deductions.ppf || 0);
+        setNum('ded-80c-other', data.deductions.other80c || 0);
         setNum('ded-80ccd1b', data.deductions.ded80ccd1b || 0);
         setNum('ded-80d', data.deductions.ded80d || 0);
         setNum('ded-24b', data.deductions.ded24b || 0);
         setNum('ded-80e', data.deductions.ded80e || 0);
         setNum('ded-80g', data.deductions.ded80g || 0);
+        setNum('ded-80tta', data.deductions.ded80tta || 0);
       }
 
       if (Array.isArray(data.tableAEntries)) {
@@ -2809,7 +3004,7 @@ html_code = """<!DOCTYPE html>
       reader.readAsText(file);
     }
 
-    // High-Resolution A4 PDF Generation with Zero Margin Clipping
+    // High-Resolution Vector A4 PDF Generation using Isolated Clone
     function downloadPdfFromElement(elementId, filename) {
       const element = document.getElementById(elementId);
       if (!element) {
@@ -2820,8 +3015,25 @@ html_code = """<!DOCTYPE html>
       showToast('⏳ Rendering neat A4 PDF... Please wait.');
 
       if (typeof html2pdf !== 'undefined') {
+        // Clone element into an isolated fixed-width container so screen width or responsive styles NEVER cause cut-offs
+        const clone = element.cloneNode(true);
+        clone.id = 'pdf-export-clone';
+        clone.style.width = '740px';
+        clone.style.maxWidth = '740px';
+        clone.style.minWidth = '740px';
+        clone.style.background = '#ffffff';
+        clone.style.color = '#000000';
+        clone.style.padding = '0';
+        clone.style.margin = '0 auto';
+        clone.style.position = 'absolute';
+        clone.style.left = '-9999px';
+        clone.style.top = '0';
+        clone.style.zIndex = '-9999';
+        clone.style.boxSizing = 'border-box';
+        document.body.appendChild(clone);
+
         const opt = {
-          margin: [8, 8, 8, 8], // 8mm uniform margins
+          margin: [10, 10, 10, 10], // 10mm uniform margins on standard A4
           filename: filename,
           image: { type: 'jpeg', quality: 0.98 },
           html2canvas: {
@@ -2829,16 +3041,17 @@ html_code = """<!DOCTYPE html>
             useCORS: true,
             letterRendering: true,
             scrollX: 0,
-            scrollY: 0,
-            windowWidth: 790
+            scrollY: 0
           },
           jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' }
         };
 
-        html2pdf().set(opt).from(element).save().then(() => {
+        html2pdf().set(opt).from(clone).save().then(() => {
+          if (clone.parentNode) clone.parentNode.removeChild(clone);
           showToast('✓ Neat A4 PDF downloaded: ' + filename);
         }).catch(err => {
           console.warn('html2pdf fallback to window.print():', err);
+          if (clone.parentNode) clone.parentNode.removeChild(clone);
           window.print();
         });
       } else {
@@ -2871,8 +3084,25 @@ html_code = """<!DOCTYPE html>
     // Initialization
     document.addEventListener('DOMContentLoaded', function() {
       initSalaryTable();
-      loadSampleData();
       onYearSelectionChange();
+
+      // Check if user has saved draft in localStorage
+      const saved = localStorage.getItem('income_tax_2026_27_draft');
+      if (saved) {
+        try {
+          const parsed = JSON.parse(saved);
+          restoreFormData(parsed);
+          window._autoSaveEnabled = true;
+          showToast('📂 Restored your saved data.');
+          return;
+        } catch (err) {
+          console.warn('Could not restore draft:', err);
+        }
+      }
+
+      // No saved data: start with clean blank form
+      window._autoSaveEnabled = true;
+      calculateAll();
     });
   </script>
 </body>
