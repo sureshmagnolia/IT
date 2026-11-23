@@ -1637,11 +1637,11 @@ html_code = """<!DOCTYPE html>
                 <strong id="eco-row4-main">0</strong>
               </div>
               <div class="sub-row">
-                <span>5. Tax on Total Income (as per New Tax Slabs FY 2026-27: 0-3L Nil, 3-7L 5%, 7-10L 10%, 10-12L 15%, 12-15L 20%, >15L 30%):</span>
+                <span>5. Tax on Total Income:</span>
                 <span id="eco-row5-main">0</span>
               </div>
               <div class="sub-row">
-                <span>6. Less: Rebate u/s 87A (Up to Rs. 25,000 if Total Income &le; Rs. 7,00,000):</span>
+                <span>6. Less: Rebate for the Income upto 12 Lakhs u/s 87 A (Max: Rs. 60,000/-):</span>
                 <span id="eco-row6-main">0</span>
               </div>
               <div class="sub-row">
@@ -2259,15 +2259,15 @@ html_code = """<!DOCTYPE html>
           <div style="background:#f0fdf4; border:1px solid #86efac; border-radius:6px; padding:15px;">
             <h4 style="color:#15803d; margin-bottom:10px;">🌟 New Tax Regime (Section 115BAC)</h4>
             <ul style="font-size:0.875rem; line-height:1.6; margin-left:20px; color:#1e293b;">
-              <li><strong>Standard Deduction:</strong> ₹75,000 (Salaried / Pensioners u/s 16(ia))</li>
-              <li><strong>₹0 to ₹3,00,000:</strong> Nil</li>
-              <li><strong>₹3,00,001 to ₹7,00,000:</strong> 5%</li>
-              <li><strong>₹7,00,001 to ₹10,00,000:</strong> 10%</li>
-              <li><strong>₹10,00,001 to ₹12,00,000:</strong> 15%</li>
-              <li><strong>₹12,00,001 to ₹15,00,000:</strong> 20%</li>
-              <li><strong>Above ₹15,00,000:</strong> 30%</li>
-              <li><strong>Rebate u/s 87A:</strong> Full tax rebate up to ₹25,000 for Taxable Income up to ₹7,00,000 (Zero tax up to ₹7,75,000 gross salary). Marginal relief applies if taxable income slightly exceeds ₹7 Lakh (up to ₹7,27,778).</li>
-              <li><strong>Deductions:</strong> Section 16(ia) Std Ded (₹75,000) & Section 80CCD(2) Employer NPS allowed. (Professional Tax u/s 16(iii) & Chapter VI-A 80C/80D are not allowed).</li>
+              <li><strong>Standard Deduction:</strong> ₹75,000 (Salaried / Pensioners)</li>
+              <li><strong>₹0 to ₹4,00,000:</strong> Nil</li>
+              <li><strong>₹4,00,001 to ₹8,00,000:</strong> 5%</li>
+              <li><strong>₹8,00,001 to ₹12,00,000:</strong> 10%</li>
+              <li><strong>₹12,00,001 to ₹16,00,000:</strong> 15%</li>
+              <li><strong>₹16,00,001 to ₹20,00,000:</strong> 20%</li>
+              <li><strong>₹20,00,001 to ₹24,00,000:</strong> 25%</li>
+              <li><strong>Above ₹24,00,000:</strong> 30%</li>
+              <li><strong>Rebate u/s 87A:</strong> Full tax rebate up to ₹60,000 for Taxable Income up to ₹12,00,000 (Zero tax up to ₹12,75,000 gross). Marginal relief applies if income is slightly above ₹12 Lakh.</li>
               <li><strong>Health & Education Cess:</strong> 4%</li>
             </ul>
           </div>
@@ -2389,32 +2389,25 @@ html_code = """<!DOCTYPE html>
 
     // --- Slabs and Calculations for FY 2026-27 ---
 
-    // New Regime Tax Computation for FY 2026-27 (AY 2027-28)
-    // Slabs as amended by Finance (No. 2) Act, 2024 u/s 115BAC:
-    // 0 to 3,00,000: Nil
-    // 3,00,001 to 7,00,000: 5% (Tax on 4L = 20,000)
-    // 7,00,001 to 10,00,000: 10% (Tax on 3L = 30,000; Cum: 50,000)
-    // 10,00,001 to 12,00,000: 15% (Tax on 2L = 30,000; Cum: 80,000)
-    // 12,00,001 to 15,00,000: 20% (Tax on 3L = 60,000; Cum: 1,40,000)
-    // Above 15,00,000: 30%
+    // New Regime Tax Computation for FY 2026-27 (AY 2027-28) - Ecostatt Model
+    // Slabs: 0-4L Nil, 4-8L 5%, 8-12L 10%, 12-16L 15%, 16-20L 20%, 20-24L 25%, >24L 30%
     function computeNewRegimeTax(taxableIncome) {
       let income = Math.max(0, taxableIncome);
       let tax = 0;
 
-      if (income > 300000) tax += Math.min(income - 300000, 400000) * 0.05;
-      if (income > 700000) tax += Math.min(income - 700000, 300000) * 0.10;
-      if (income > 1000000) tax += Math.min(income - 1000000, 200000) * 0.15;
-      if (income > 1200000) tax += Math.min(income - 1200000, 300000) * 0.20;
-      if (income > 1500000) tax += (income - 1500000) * 0.30;
+      if (income > 400000) tax += Math.min(income - 400000, 400000) * 0.05;
+      if (income > 800000) tax += Math.min(income - 800000, 400000) * 0.10;
+      if (income > 1200000) tax += Math.min(income - 1200000, 400000) * 0.15;
+      if (income > 1600000) tax += Math.min(income - 1600000, 400000) * 0.20;
+      if (income > 2000000) tax += Math.min(income - 2000000, 400000) * 0.25;
+      if (income > 2400000) tax += (income - 2400000) * 0.30;
 
-      // Section 87A Rebate:
-      // Full rebate up to ₹25,000 if taxable income <= ₹7,00,000 (Zero tax).
-      // Marginal Relief: If taxable income > ₹7,00,000, tax payable shall not exceed (income - 7,00,000).
+      // Section 87A Rebate (Ecostatt: Income up to 12 Lakhs u/s 87A, Max Rs. 60,000)
       let rebate = 0;
-      if (income <= 700000) {
-        rebate = tax;
-      } else if (income > 700000) {
-        let excess = income - 700000;
+      if (income <= 1200000) {
+        rebate = Math.min(tax, 60000);
+      } else if (income > 1200000 && income <= 1275000) {
+        let excess = income - 1200000;
         if (tax > excess) {
           rebate = tax - excess;
         }
@@ -2424,13 +2417,13 @@ html_code = """<!DOCTYPE html>
 
       // Surcharge
       let surcharge = 0;
-      if (income > 50000000) surcharge = taxAfterRebate * 0.25; // Surcharge capped at 25% under New Regime
+      if (income > 50000000) surcharge = taxAfterRebate * 0.25;
       else if (income > 20000000) surcharge = taxAfterRebate * 0.25;
       else if (income > 10000000) surcharge = taxAfterRebate * 0.15;
       else if (income > 5000000) surcharge = taxAfterRebate * 0.10;
 
       let cess = Math.round((taxAfterRebate + surcharge) * 0.04);
-      let totalTax = Math.round(taxAfterRebate + surcharge + cess);
+      let totalTax = Math.round((taxAfterRebate + surcharge + cess) / 10) * 10;
 
       return { tax: Math.round(tax), rebate: Math.round(rebate), taxAfterRebate: Math.round(taxAfterRebate), surcharge: Math.round(surcharge), cess, totalTax };
     }
@@ -2459,7 +2452,7 @@ html_code = """<!DOCTYPE html>
       else if (income > 5000000) surcharge = taxAfterRebate * 0.10;
 
       let cess = Math.round((taxAfterRebate + surcharge) * 0.04);
-      let totalTax = Math.round(taxAfterRebate + surcharge + cess);
+      let totalTax = Math.round((taxAfterRebate + surcharge + cess) / 10) * 10;
 
       return { tax: Math.round(tax), rebate: Math.round(rebate), taxAfterRebate: Math.round(taxAfterRebate), surcharge: Math.round(surcharge), cess, totalTax };
     }
