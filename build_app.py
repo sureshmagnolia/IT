@@ -285,6 +285,96 @@ html_code = """<!DOCTYPE html>
       color: #000000;
     }
 
+    
+    /* Toolbar & UI Polish */
+    .action-bar {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      margin-bottom: 20px;
+      align-items: center;
+      background: #ffffff;
+      border: 1px solid #cbd5e1;
+      padding: 12px 16px;
+      border-radius: var(--radius);
+      box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+    }
+
+    .toolbar-group {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      align-items: center;
+    }
+
+    .toolbar-label {
+      font-size: 0.75rem;
+      font-weight: 700;
+      color: #64748b;
+      text-transform: uppercase;
+      margin-right: 4px;
+    }
+
+    /* Fixed 184mm width for statement container to guarantee zero PDF cut-off */
+    .eco-stmt-container {
+      font-family: Arial, "Helvetica Neue", Helvetica, sans-serif;
+      color: #000000;
+      font-size: 8.5pt;
+      line-height: 1.18;
+      width: 184mm;
+      max-width: 184mm;
+      margin: 0 auto;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    .eco-emp-box {
+      width: 100%;
+      table-layout: fixed;
+      border-collapse: collapse;
+      margin-bottom: 5px;
+      font-size: 8.5pt;
+      color: #000000;
+    }
+
+    .eco-emp-box .label {
+      font-weight: bold;
+      width: 16%;
+      background: #ffffff;
+      color: #000000;
+    }
+
+    .eco-emp-box .val {
+      width: 34%;
+      color: #000000;
+    }
+
+    .eco-table {
+      width: 100%;
+      table-layout: fixed;
+      border-collapse: collapse;
+      margin-bottom: 5px;
+      font-size: 8pt;
+      color: #000000;
+    }
+
+    .eco-col-sl { width: 5%; text-align: center; font-weight: bold; color: #000000; }
+    .eco-col-desc { width: 73%; color: #000000; }
+    .eco-col-amt { width: 22%; text-align: right; font-variant-numeric: tabular-nums; font-weight: 600; color: #000000; padding-right: 8px; }
+
+    .eco-sig-box {
+      width: 100%;
+      table-layout: fixed;
+      margin-top: 8px;
+      font-size: 8pt;
+      page-break-inside: avoid;
+      color: #000000;
+    }
+
+    .eco-sig-box td:last-child {
+      padding-right: 8px;
+    }
+
     .eco-stmt-container {
       font-family: Arial, "Helvetica Neue", Helvetica, sans-serif;
       color: #000000;
@@ -761,16 +851,31 @@ html_code = """<!DOCTYPE html>
     <!-- ========================================== -->
     <div id="calculator-form-view">
 
-      <!-- Action Bar -->
+            <!-- Action Bar: Data Actions, Backup/Restore, Outputs -->
       <div class="action-bar no-print">
-        <button class="btn btn-outline" onclick="loadSampleData()" title="Load imaginary sample teacher data">📄 Load Sample Data</button>
-        <button class="btn btn-primary" onclick="copyMarchSalary()" style="background:#1d4ed8; color:#fff; font-weight:700; box-shadow:0 2px 4px rgba(29,78,216,0.3);" title="Copy March salary down to April - February">⬇️ Copy Down Monthly Gross</button>
-        <button class="btn btn-warning" onclick="applyDAHikePrompt()">📈 Apply DA Hike %</button>
-        <button class="btn btn-danger" onclick="clearAllData()">🧹 Clear All Data</button>
-        <div style="flex-grow:1;"></div>
-        <button class="btn btn-outline" onclick="showTab('new-regime')">👁️ View New Regime Statement</button>
-        <button class="btn btn-success" onclick="downloadNewRegimePdf()">📥 Download A4 PDF</button>
-        <button class="btn btn-outline" onclick="printNewRegimeStatement()">🖨️ Print Statement</button>
+        <div class="toolbar-group">
+          <span class="toolbar-label">Quick Actions:</span>
+          <button class="btn btn-outline" onclick="loadSampleData()" title="Load sample college professor data">📄 Load Sample</button>
+          <button class="btn btn-primary" onclick="copyMarchSalary()" title="Copy March salary down to April - February">⬇️ Copy March Down</button>
+          <button class="btn btn-warning" onclick="applyDAHikePrompt()" title="Apply percentage DA hike from a month">📈 DA Hike</button>
+          <button class="btn btn-danger" onclick="clearAllData()" title="Clear all entered fields to zero">🧹 Clear All</button>
+        </div>
+
+        <div class="toolbar-group">
+          <span class="toolbar-label">Save & Backup:</span>
+          <button class="btn btn-outline" onclick="saveDraft()" title="Save current draft to browser memory">💾 Save Draft</button>
+          <button class="btn btn-outline" onclick="restoreDraft()" title="Restore previously saved draft">📂 Load Draft</button>
+          <button class="btn btn-outline" onclick="exportJSON()" title="Download a JSON backup file to your computer">📥 Export JSON</button>
+          <button class="btn btn-outline" onclick="triggerImportJSON()" title="Upload a previously saved JSON file">📤 Import JSON</button>
+          <input type="file" id="json-file-input" accept=".json" style="display:none;" onchange="handleFileImport(event)">
+        </div>
+
+        <div class="toolbar-group" style="margin-left:auto;">
+          <span class="toolbar-label">Outputs:</span>
+          <button class="btn btn-outline" onclick="showTab('new-regime')">👁️ View Statement</button>
+          <button class="btn btn-success" onclick="downloadNewRegimePdf()" title="Download crisp, neat single-page A4 PDF">📥 Download A4 PDF</button>
+          <button class="btn btn-secondary" onclick="printNewRegimeStatement()" title="Print directly or save via browser print dialog">🖨️ Print</button>
+        </div>
       </div>
 
       <!-- Live Tax Comparison Card -->
@@ -994,13 +1099,14 @@ html_code = """<!DOCTYPE html>
     <!-- Matches Prof. Rajesh K PDF Model Byte-for-Byte                -->
     <!-- ======================================================== -->
     <div id="new-regime-statement-view" style="display:none;">
-      
       <div class="action-bar no-print">
-        <button class="btn btn-primary" onclick="showTab('calculator')">⬅️ Back to Calculator</button>
-        <button class="btn btn-success" onclick="downloadNewRegimePdf()">📥 Download A4 PDF (New Regime)</button>
+        <button class="btn btn-outline" onclick="showTab('calculator')">⬅️ Back to Calculator</button>
+        <button class="btn btn-success" onclick="downloadNewRegimePdf()" style="font-weight:700;">📥 Download A4 PDF (New Regime)</button>
         <button class="btn btn-outline" onclick="printNewRegimeStatement()">🖨️ Print Statement</button>
-        <button class="btn btn-outline" onclick="showTab('old-regime')">Switch to Old Regime Statement</button>
-        <button class="btn btn-warning" onclick="showTab('form-10e')">Form 10E (Sec 89)</button>
+        <div style="flex-grow:1;"></div>
+        <button class="btn btn-outline" onclick="exportJSON()" title="Export JSON backup">📥 Export JSON</button>
+        <button class="btn btn-outline" onclick="showTab('form-10e')">📑 Form 10E (Sec 89)</button>
+        <button class="btn btn-outline" onclick="showTab('old-regime')">⚖️ Old Regime</button>
       </div>
 
       <div class="print-page-wrapper">
@@ -1048,46 +1154,49 @@ html_code = """<!DOCTYPE html>
               </tr>
             </thead>
             <tbody>
-              <!-- Row 1: Gross Salary -->
+                            <!-- Row 1: Gross Salary (Clean Ecostatt 2-Column Format) -->
               <tr>
                 <td class="eco-col-sl">1</td>
                 <td class="eco-col-desc">
-                  <strong>Gross Salary:</strong>
-                  <div style="margin-top:2px;">
-                    <em>(a) Monthly Gross Salary (March 2026 to February 2027):</em>
-                    <table class="sub-salary-table">
-                      <tr>
-                        <th>Mar</th><th>Apr</th><th>May</th><th>Jun</th><th>Jul</th><th>Aug</th>
-                      </tr>
-                      <tr>
-                        <td id="m-mar">0</td><td id="m-apr">0</td><td id="m-may">0</td><td id="m-jun">0</td><td id="m-jul">0</td><td id="m-aug">0</td>
-                      </tr>
-                      <tr>
-                        <th>Sep</th><th>Oct</th><th>Nov</th><th>Dec</th><th>Jan</th><th>Feb</th>
-                      </tr>
-                      <tr>
-                        <td id="m-sep">0</td><td id="m-oct">0</td><td id="m-nov">0</td><td id="m-dec">0</td><td id="m-jan">0</td><td id="m-feb">0</td>
-                      </tr>
-                    </table>
+                  <div><strong>Gross Salary / Pension for the month:</strong> <span style="font-size:7.5pt; font-style:italic;">(includes Basic Pay, DA, HRA, Allowances, etc.)</span></div>
+                  <div style="display:flex; justify-content:space-between; margin:4px 0 6px 0; font-size:8pt; line-height:1.35;">
+                    <div style="width:48%;">
+                      <div style="display:flex; justify-content:space-between; border-bottom:1px dotted #ccc; padding:1.5px 0;"><span>March 2026 :</span><strong id="m-mar">0</strong></div>
+                      <div style="display:flex; justify-content:space-between; border-bottom:1px dotted #ccc; padding:1.5px 0;"><span>April 2026 :</span><strong id="m-apr">0</strong></div>
+                      <div style="display:flex; justify-content:space-between; border-bottom:1px dotted #ccc; padding:1.5px 0;"><span>May 2026 :</span><strong id="m-may">0</strong></div>
+                      <div style="display:flex; justify-content:space-between; border-bottom:1px dotted #ccc; padding:1.5px 0;"><span>June 2026 :</span><strong id="m-jun">0</strong></div>
+                      <div style="display:flex; justify-content:space-between; border-bottom:1px dotted #ccc; padding:1.5px 0;"><span>July 2026 :</span><strong id="m-jul">0</strong></div>
+                      <div style="display:flex; justify-content:space-between; padding:1.5px 0;"><span>August 2026 :</span><strong id="m-aug">0</strong></div>
+                    </div>
+                    <div style="width:48%;">
+                      <div style="display:flex; justify-content:space-between; border-bottom:1px dotted #ccc; padding:1.5px 0;"><span>September 2026 :</span><strong id="m-sep">0</strong></div>
+                      <div style="display:flex; justify-content:space-between; border-bottom:1px dotted #ccc; padding:1.5px 0;"><span>October 2026 :</span><strong id="m-oct">0</strong></div>
+                      <div style="display:flex; justify-content:space-between; border-bottom:1px dotted #ccc; padding:1.5px 0;"><span>November 2026 :</span><strong id="m-nov">0</strong></div>
+                      <div style="display:flex; justify-content:space-between; border-bottom:1px dotted #ccc; padding:1.5px 0;"><span>December 2026 :</span><strong id="m-dec">0</strong></div>
+                      <div style="display:flex; justify-content:space-between; border-bottom:1px dotted #ccc; padding:1.5px 0;"><span>January 2027 :</span><strong id="m-jan">0</strong></div>
+                      <div style="display:flex; justify-content:space-between; padding:1.5px 0;"><span>February 2027 :</span><strong id="m-feb">0</strong></div>
+                    </div>
                   </div>
-                  <div style="display:flex; justify-content:space-between; margin-top:2px;">
-                    <span>Subtotal of Monthly Gross Salary (a):</span>
-                    <strong id="eco-row1a">0</strong>
-                  </div>
-                  <div style="display:flex; justify-content:space-between;">
-                    <span>(b) Leave Surrender / Bonus / Arrears / Other:</span>
-                    <span id="eco-row1b">0</span>
-                  </div>
-                  <div style="display:flex; justify-content:space-between;">
-                    <span>(c) Excess pay refund / recovery:</span>
-                    <span id="eco-row1c">0</span>
-                  </div>
-                  <div style="display:flex; justify-content:space-between; border-top:1px dashed #000; padding-top:2px; font-weight:bold;">
-                    <span>Total Salary (a + b - c):</span>
-                    <span id="eco-row1-tot">0</span>
+                  <div style="font-size:8pt; border-top:1px solid #000; padding-top:3px; margin-top:2px;">
+                    <div style="display:flex; justify-content:space-between;">
+                      <span>Subtotal of Monthly Gross Salary (a):</span>
+                      <strong id="eco-row1a">0</strong>
+                    </div>
+                    <div style="display:flex; justify-content:space-between;">
+                      <span>(b) Leave Surrender / Bonus / Arrears / Other:</span>
+                      <span id="eco-row1b">0</span>
+                    </div>
+                    <div style="display:flex; justify-content:space-between;">
+                      <span>(c) Excess pay refund / recovery:</span>
+                      <span id="eco-row1c">0</span>
+                    </div>
+                    <div style="display:flex; justify-content:space-between; font-weight:bold; margin-top:2px; padding-top:2px; border-top:1px dashed #000;">
+                      <span>Total Salary Income (a + b - c):</span>
+                      <span id="eco-row1-tot">0</span>
+                    </div>
                   </div>
                 </td>
-                <td class="eco-col-amt"><strong id="eco-row1-main">0</strong></td>
+                <td class="eco-col-amt" style="vertical-align:bottom; padding-bottom:6px;"><strong id="eco-row1-main" style="font-size:9.5pt;">0</strong></td>
               </tr>
 
               <!-- Row 2: Deductions -->
@@ -2530,6 +2639,177 @@ html_code = """<!DOCTYPE html>
       }, 4000);
     }
 
+    
+    // --- Data Management: Save, Restore, Export, Import JSON ---
+    function collectFormData() {
+      const data = {
+        app: 'IncomeTaxCalculator',
+        version: '2026-27',
+        exportedAt: new Date().toISOString(),
+        employee: {
+          name: document.getElementById('emp-name').value,
+          pan: document.getElementById('emp-pan').value,
+          pen: document.getElementById('emp-pen').value,
+          designation: document.getElementById('emp-designation').value,
+          office: document.getElementById('emp-office').value,
+          place: document.getElementById('emp-place').value,
+          stmtMode: document.getElementById('stmt-mode').value,
+          stmtDate: document.getElementById('stmt-date').value,
+          pendingMonths: getNum('pending-months')
+        },
+        salaryMonths: {},
+        additionalIncome: {
+          surrender: getNum('row1b-surrender'),
+          bonus: getNum('row1b-bonus'),
+          arrears: getNum('row1b-arrears'),
+          other: getNum('row1b-other'),
+          excess: getNum('row1c-excess'),
+          remuneration: getNum('row3-remuneration')
+        },
+        deductions: {
+          conveyance: getNum('row2b-conveyance'),
+          npsEmployer: getNum('row2c-nps'),
+          profTax: getNum('row2e-proftax'),
+          relief89: getNum('row11-relief89'),
+          ded80c: getNum('ded-80c'),
+          ded80ccd1b: getNum('ded-80ccd1b'),
+          ded80d: getNum('ded-80d'),
+          ded24b: getNum('ded-24b'),
+          ded80e: getNum('ded-80e'),
+          ded80g: getNum('ded-80g')
+        },
+        tableAEntries: tableAEntries
+      };
+
+      months.forEach(m => {
+        data.salaryMonths[m.key] = {
+          basic: getNum('basic-' + m.key),
+          allow: getNum('allow-' + m.key),
+          pf: getNum('pf-' + m.key),
+          tds: getNum('tds-' + m.key)
+        };
+      });
+
+      return data;
+    }
+
+    function restoreFormData(data) {
+      if (!data) return;
+      if (data.employee) {
+        document.getElementById('emp-name').value = data.employee.name || '';
+        document.getElementById('emp-pan').value = data.employee.pan || '';
+        document.getElementById('emp-pen').value = data.employee.pen || '';
+        document.getElementById('emp-designation').value = data.employee.designation || '';
+        document.getElementById('emp-office').value = data.employee.office || '';
+        document.getElementById('emp-place').value = data.employee.place || '';
+        if (data.employee.stmtMode) document.getElementById('stmt-mode').value = data.employee.stmtMode;
+        if (data.employee.stmtDate) document.getElementById('stmt-date').value = data.employee.stmtDate;
+        if (data.employee.pendingMonths) setNum('pending-months', data.employee.pendingMonths);
+      }
+
+      if (data.salaryMonths) {
+        months.forEach(m => {
+          const sm = data.salaryMonths[m.key] || {};
+          setNum('basic-' + m.key, sm.basic || 0);
+          setNum('allow-' + m.key, sm.allow || 0);
+          setNum('pf-' + m.key, sm.pf || 0);
+          setNum('tds-' + m.key, sm.tds || 0);
+        });
+      }
+
+      if (data.additionalIncome) {
+        setNum('row1b-surrender', data.additionalIncome.surrender || 0);
+        setNum('row1b-bonus', data.additionalIncome.bonus || 0);
+        setNum('row1b-arrears', data.additionalIncome.arrears || 0);
+        setNum('row1b-other', data.additionalIncome.other || 0);
+        setNum('row1c-excess', data.additionalIncome.excess || 0);
+        setNum('row3-remuneration', data.additionalIncome.remuneration || 0);
+      }
+
+      if (data.deductions) {
+        setNum('row2b-conveyance', data.deductions.conveyance || 0);
+        setNum('row2c-nps', data.deductions.npsEmployer || 0);
+        setNum('row2e-proftax', data.deductions.profTax || 0);
+        setNum('row11-relief89', data.deductions.relief89 || 0);
+        setNum('ded-80c', data.deductions.ded80c || 0);
+        setNum('ded-80ccd1b', data.deductions.ded80ccd1b || 0);
+        setNum('ded-80d', data.deductions.ded80d || 0);
+        setNum('ded-24b', data.deductions.ded24b || 0);
+        setNum('ded-80e', data.deductions.ded80e || 0);
+        setNum('ded-80g', data.deductions.ded80g || 0);
+      }
+
+      if (Array.isArray(data.tableAEntries)) {
+        tableAEntries = data.tableAEntries;
+        renderTableA();
+      }
+
+      calculateAll();
+    }
+
+    function saveDraft() {
+      const data = collectFormData();
+      localStorage.setItem('income_tax_2026_27_draft', JSON.stringify(data));
+      showToast('💾 Draft saved successfully to browser storage!');
+    }
+
+    function restoreDraft() {
+      const raw = localStorage.getItem('income_tax_2026_27_draft');
+      if (!raw) {
+        alert('No saved draft found in this browser storage.');
+        return;
+      }
+      try {
+        const data = JSON.parse(raw);
+        restoreFormData(data);
+        showToast('📂 Saved draft restored successfully!');
+      } catch (e) {
+        alert('Failed to restore draft: ' + e.message);
+      }
+    }
+
+    function exportJSON() {
+      const data = collectFormData();
+      const jsonStr = JSON.stringify(data, null, 2);
+      const blob = new Blob([jsonStr], { type: 'application/json' });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      const name = (document.getElementById('emp-name').value || 'tax_statement').replace(/[^a-zA-Z0-9_-]/g, '_');
+      a.href = url;
+      a.download = `${name}_income_tax_2026_27.json`;
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
+      URL.revokeObjectURL(url);
+      showToast('📥 Data exported as JSON file successfully!');
+    }
+
+    function triggerImportJSON() {
+      const fileInput = document.getElementById('json-file-input');
+      if (fileInput) {
+        fileInput.value = '';
+        fileInput.click();
+      }
+    }
+
+    function handleFileImport(event) {
+      const file = event.target.files && event.target.files[0];
+      if (!file) return;
+
+      const reader = new FileReader();
+      reader.onload = function(e) {
+        try {
+          const data = JSON.parse(e.target.result);
+          restoreFormData(data);
+          showToast('📤 Data imported from ' + file.name + ' successfully!');
+        } catch (err) {
+          alert('Invalid JSON file format: ' + err.message);
+        }
+      };
+      reader.readAsText(file);
+    }
+
+    // High-Resolution A4 PDF Generation with Zero Margin Clipping
     function downloadPdfFromElement(elementId, filename) {
       const element = document.getElementById(elementId);
       if (!element) {
@@ -2537,25 +2817,31 @@ html_code = """<!DOCTYPE html>
         return;
       }
 
-      showToast('⏳ Rendering neat A4 PDF... Please wait a few seconds.');
+      showToast('⏳ Rendering neat A4 PDF... Please wait.');
 
       if (typeof html2pdf !== 'undefined') {
         const opt = {
-          margin: [8, 10, 8, 10], // mm
+          margin: [8, 8, 8, 8], // 8mm uniform margins
           filename: filename,
           image: { type: 'jpeg', quality: 0.98 },
-          html2canvas: { scale: 2, useCORS: true, letterRendering: true, logging: false },
+          html2canvas: {
+            scale: 2,
+            useCORS: true,
+            letterRendering: true,
+            scrollX: 0,
+            scrollY: 0,
+            windowWidth: 790
+          },
           jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' }
         };
 
         html2pdf().set(opt).from(element).save().then(() => {
           showToast('✓ Neat A4 PDF downloaded: ' + filename);
         }).catch(err => {
-          console.warn('html2pdf encountered error, falling back to print dialog:', err);
+          console.warn('html2pdf fallback to window.print():', err);
           window.print();
         });
       } else {
-        // Fallback to print dialog
         window.print();
       }
     }
