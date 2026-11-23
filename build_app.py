@@ -526,7 +526,216 @@ html_code = """<!DOCTYPE html>
         display: none !important;
       }
     }
+
+    /* Mobile-Friendly & Zero Horizontal Scroll Styles */
+    html, body {
+      overflow-x: hidden;
+      width: 100%;
+      max-width: 100vw;
+      margin: 0;
+      padding: 0;
+    }
+
+    .container {
+      width: 100%;
+      max-width: 1200px;
+      margin: 16px auto;
+      padding: 0 12px;
+      overflow-x: hidden;
+    }
+
+    .btn {
+      white-space: normal;
+      text-align: center;
+      line-height: 1.3;
+    }
+
+    .print-page-wrapper {
+      width: 100%;
+      overflow-x: auto;
+      -webkit-overflow-scrolling: touch;
+      padding: 2px;
+      margin-bottom: 25px;
+    }
+
+    @media screen and (max-width: 768px) {
+      .top-nav {
+        flex-direction: column;
+        align-items: stretch;
+        padding: 10px 12px;
+        gap: 8px;
+      }
+
+      .brand-title {
+        font-size: 1.05rem;
+        justify-content: center;
+        text-align: center;
+      }
+
+      .brand-subtitle {
+        text-align: center;
+        font-size: 0.75rem;
+      }
+
+      .nav-tabs-wrapper {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 4px;
+        width: 100%;
+      }
+
+      .tab-btn {
+        flex: 1 1 calc(50% - 6px);
+        padding: 7px 6px;
+        font-size: 0.75rem;
+        justify-content: center;
+        text-align: center;
+      }
+
+      .action-bar {
+        flex-direction: column;
+        align-items: stretch;
+        gap: 8px;
+        padding: 10px;
+      }
+
+      .action-bar .btn {
+        width: 100%;
+        justify-content: center;
+        padding: 9px 12px;
+        font-size: 0.85rem;
+      }
+
+      .grid-2, .grid-3, .grid-4 {
+        grid-template-columns: 1fr !important;
+        gap: 10px !important;
+      }
+
+      .card {
+        padding: 14px 12px;
+        margin-bottom: 14px;
+      }
+
+      /* Responsive Mobile Monthly Salary Cards */
+      .salary-table, .salary-table thead, .salary-table tbody, .salary-table tr, .salary-table td, .salary-table th {
+        display: block;
+        width: 100%;
+      }
+
+      .salary-table thead {
+        display: none;
+      }
+
+      .salary-table tbody tr {
+        background: #ffffff;
+        border: 1px solid #cbd5e1;
+        border-radius: 8px;
+        margin-bottom: 12px;
+        padding: 10px 12px;
+        box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+      }
+
+      .salary-table tbody td {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        border: none;
+        padding: 6px 0;
+        text-align: left;
+        border-bottom: 1px solid #f1f5f9;
+        font-size: 0.85rem;
+      }
+
+      .salary-table tbody td:first-child {
+        background: #f8fafc;
+        padding: 6px 8px;
+        border-radius: 4px;
+        font-weight: 700;
+        color: #1e3a8a;
+        margin-bottom: 4px;
+        border-bottom: none;
+      }
+
+      .salary-table tbody td:last-child {
+        border-bottom: none;
+        justify-content: center;
+        padding-top: 8px;
+      }
+
+      .salary-table tbody td::before {
+        content: attr(data-label);
+        font-weight: 600;
+        font-size: 0.8rem;
+        color: #475569;
+        min-width: 120px;
+        text-align: left;
+      }
+
+      .salary-table tbody td:first-child::before,
+      .salary-table tbody td:last-child::before {
+        display: none;
+      }
+
+      .salary-table tbody td input {
+        max-width: 150px;
+        font-size: 0.85rem;
+        padding: 5px 8px;
+      }
+
+      .salary-table tfoot tr {
+        background: #f8fafc;
+        border: 2px solid #94a3b8;
+        border-radius: 8px;
+        padding: 10px 12px;
+        margin-top: 8px;
+      }
+
+      .salary-table tfoot td {
+        display: flex;
+        justify-content: space-between;
+        border: none;
+        padding: 4px 0;
+        font-size: 0.85rem;
+      }
+
+      .salary-table tfoot td::before {
+        content: attr(data-label);
+        font-weight: 700;
+        color: #1e293b;
+      }
+
+      /* Print Page Preview on Mobile */
+      .print-page {
+        padding: 6mm 6mm;
+        box-shadow: none;
+        border: 1px solid #cbd5e1;
+      }
+
+      .eco-header h1 {
+        font-size: 9pt;
+      }
+      .eco-header h2 {
+        font-size: 8pt;
+      }
+      .eco-header p {
+        font-size: 7pt;
+      }
+      .eco-table {
+        font-size: 7pt;
+      }
+      .eco-table th, .eco-table td {
+        padding: 2px 2px;
+      }
+      .sub-salary-table {
+        font-size: 6.5pt;
+      }
+      .sub-salary-table th, .sub-salary-table td {
+        padding: 1px 1px;
+      }
+    }
+
   </style>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
 </head>
 <body>
 
@@ -560,7 +769,8 @@ html_code = """<!DOCTYPE html>
         <button class="btn btn-danger" onclick="clearAllData()">🧹 Clear All Data</button>
         <div style="flex-grow:1;"></div>
         <button class="btn btn-outline" onclick="showTab('new-regime')">👁️ View New Regime Statement</button>
-        <button class="btn btn-success" onclick="printNewRegimeStatement()">🖨️ Print Single-Page Statement</button>
+        <button class="btn btn-success" onclick="downloadNewRegimePdf()">📥 Download A4 PDF</button>
+        <button class="btn btn-outline" onclick="printNewRegimeStatement()">🖨️ Print Statement</button>
       </div>
 
       <!-- Live Tax Comparison Card -->
@@ -787,11 +997,13 @@ html_code = """<!DOCTYPE html>
       
       <div class="action-bar no-print">
         <button class="btn btn-primary" onclick="showTab('calculator')">⬅️ Back to Calculator</button>
-        <button class="btn btn-success" onclick="printNewRegimeStatement()">🖨️ Print New Regime Statement (Single Page A4)</button>
+        <button class="btn btn-success" onclick="downloadNewRegimePdf()">📥 Download A4 PDF (New Regime)</button>
+        <button class="btn btn-outline" onclick="printNewRegimeStatement()">🖨️ Print Statement</button>
         <button class="btn btn-outline" onclick="showTab('old-regime')">Switch to Old Regime Statement</button>
         <button class="btn btn-warning" onclick="showTab('form-10e')">Form 10E (Sec 89)</button>
       </div>
 
+      <div class="print-page-wrapper">
       <div class="print-page">
         <div class="eco-stmt-container" id="ecostatt-single-page">
           
@@ -1011,6 +1223,7 @@ html_code = """<!DOCTYPE html>
 
         </div>
       </div>
+      </div>
     </div>
 
     <!-- ======================================================== -->
@@ -1018,13 +1231,15 @@ html_code = """<!DOCTYPE html>
     <!-- ======================================================== -->
     <div id="old-regime-statement-view" style="display:none;">
       <div class="action-bar no-print">
+        <button class="btn btn-success" onclick="downloadOldRegimePdf()">📥 Download A4 PDF</button>
         <button class="btn btn-primary" onclick="showTab('calculator')">⬅️ Back to Calculator</button>
         <button class="btn btn-success" onclick="printOldRegimeStatement()">🖨️ Print Old Regime Statement</button>
         <button class="btn btn-outline" onclick="showTab('new-regime')">Switch to New Regime Statement</button>
       </div>
 
+      <div class="print-page-wrapper">
       <div class="print-page">
-        <div class="eco-stmt-container">
+        <div class="eco-stmt-container" id="old-regime-single-page">
           <div class="eco-header">
             <h1>Income Tax Statement for the Financial Year 2026-27</h1>
             <h2>(Assessment Year 2027-2028)</h2>
@@ -1169,6 +1384,7 @@ html_code = """<!DOCTYPE html>
           </table>
         </div>
       </div>
+      </div>
     </div>
 
     <!-- ======================================================== -->
@@ -1178,6 +1394,7 @@ html_code = """<!DOCTYPE html>
     <div id="form-10e-view" style="display:none;">
 
       <div class="action-bar no-print">
+        <button class="btn btn-success" onclick="downloadForm10EPdf()">📥 Download Form 10E (A4 PDF)</button>
         <button class="btn btn-primary" onclick="showTab('calculator')">⬅️ Back to Calculator</button>
         <button class="btn btn-success" onclick="apply10eToStatement()">⚡ Apply Relief to Statement (Row 11)</button>
         <button class="btn btn-secondary" onclick="printForm10E()">🖨️ Print Form 10E & Table A</button>
@@ -1259,8 +1476,9 @@ html_code = """<!DOCTYPE html>
       </div>
 
       <!-- Printable Form 10E & Table A Document -->
+      <div class="print-page-wrapper">
       <div class="print-page">
-        <div class="eco-stmt-container">
+        <div class="eco-stmt-container" id="form-10e-single-page">
 
           <!-- Header -->
           <div class="eco-header">
@@ -1412,6 +1630,7 @@ html_code = """<!DOCTYPE html>
 
         </div>
       </div>
+      </div>
     </div>
 
     <!-- ======================================================== -->
@@ -1498,13 +1717,13 @@ html_code = """<!DOCTYPE html>
           `<button type="button" class="btn btn-outline" style="padding:2px 8px; font-size:0.75rem; background:#eff6ff; color:#1d4ed8; border-color:#93c5fd; white-space:nowrap;" onclick="copyMonthDown(${idx})" title="Copy ${m.name} values down to remaining months">⬇️ Copy Down</button>`;
 
         tr.innerHTML = `
-          <td style="text-align:left; font-weight:600;">${m.name}</td>
-          <td><input type="number" class="form-control m-basic" id="basic-${m.key}" value="0" oninput="calculateAll()"></td>
-          <td><input type="number" class="form-control m-allow" id="allow-${m.key}" value="0" oninput="calculateAll()"></td>
-          <td style="font-weight:600;" id="m-tot-${m.key}">0</td>
-          <td><input type="number" class="form-control m-pf" id="pf-${m.key}" value="0" oninput="calculateAll()"></td>
-          <td><input type="number" class="form-control m-tds" id="tds-${m.key}" value="0" oninput="calculateAll()"></td>
-          <td style="text-align:center;">${copyBtnHtml}</td>
+          <td data-label="Month" style="text-align:left; font-weight:600;">${m.name}</td>
+          <td data-label="Basic Pay + DA"><input type="number" class="form-control m-basic" id="basic-${m.key}" value="0" oninput="calculateAll()"></td>
+          <td data-label="Other Allowances"><input type="number" class="form-control m-allow" id="allow-${m.key}" value="0" oninput="calculateAll()"></td>
+          <td data-label="Monthly Gross" style="font-weight:700; color:#1e3a8a;" id="m-tot-${m.key}">0</td>
+          <td data-label="PF / NPS Deducted"><input type="number" class="form-control m-pf" id="pf-${m.key}" value="0" oninput="calculateAll()"></td>
+          <td data-label="Tax Deducted (TDS)"><input type="number" class="form-control m-tds" id="tds-${m.key}" value="0" oninput="calculateAll()"></td>
+          <td data-label="Action" style="text-align:center;">${copyBtnHtml}</td>
         `;
         tbody.appendChild(tr);
       });
@@ -2273,6 +2492,93 @@ html_code = """<!DOCTYPE html>
         window.print();
         window.setTimeout(() => { document.body.className = ''; }, 1000);
       }, 200);
+    }
+
+
+    // --- Direct A4 PDF Download & Toast Notifications ---
+    function showToast(msg) {
+      let toast = document.getElementById('app-toast');
+      if (!toast) {
+        toast = document.createElement('div');
+        toast.id = 'app-toast';
+        toast.style.cssText = `
+          position: fixed;
+          bottom: 24px;
+          right: 24px;
+          background: #0f172a;
+          color: #ffffff;
+          padding: 12px 20px;
+          border-radius: 8px;
+          font-size: 0.875rem;
+          font-weight: 600;
+          box-shadow: 0 10px 25px -5px rgba(0,0,0,0.4);
+          z-index: 99999;
+          transition: opacity 0.3s ease, transform 0.3s ease;
+          max-width: 90vw;
+          border: 1px solid #334155;
+        `;
+        document.body.appendChild(toast);
+      }
+      toast.textContent = msg;
+      toast.style.opacity = '1';
+      toast.style.transform = 'translateY(0)';
+      clearTimeout(window._toastTimer);
+      window._toastTimer = setTimeout(() => {
+        toast.style.opacity = '0';
+        toast.style.transform = 'translateY(10px)';
+      }, 4000);
+    }
+
+    function downloadPdfFromElement(elementId, filename) {
+      const element = document.getElementById(elementId);
+      if (!element) {
+        alert('Statement element not found.');
+        return;
+      }
+
+      showToast('⏳ Rendering neat A4 PDF... Please wait a few seconds.');
+
+      if (typeof html2pdf !== 'undefined') {
+        const opt = {
+          margin: [8, 10, 8, 10], // mm
+          filename: filename,
+          image: { type: 'jpeg', quality: 0.98 },
+          html2canvas: { scale: 2, useCORS: true, letterRendering: true, logging: false },
+          jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' }
+        };
+
+        html2pdf().set(opt).from(element).save().then(() => {
+          showToast('✓ Neat A4 PDF downloaded: ' + filename);
+        }).catch(err => {
+          console.warn('html2pdf encountered error, falling back to print dialog:', err);
+          window.print();
+        });
+      } else {
+        // Fallback to print dialog
+        window.print();
+      }
+    }
+
+    function downloadNewRegimePdf() {
+      showTab('new-regime');
+      setTimeout(() => {
+        downloadPdfFromElement('ecostatt-single-page', 'Income_Tax_Statement_2026-27_New_Regime.pdf');
+      }, 250);
+    }
+
+    function downloadOldRegimePdf() {
+      showTab('old-regime');
+      setTimeout(() => {
+        downloadPdfFromElement('old-regime-single-page', 'Income_Tax_Statement_2026-27_Old_Regime.pdf');
+      }, 250);
+    }
+
+    function downloadForm10EPdf() {
+      showTab('form-10e');
+      renderTableA();
+      setTimeout(() => {
+        downloadPdfFromElement('form-10e-single-page', 'Form_10E_Section_89_Relief_2026-27.pdf');
+      }, 250);
     }
 
     // Initialization
