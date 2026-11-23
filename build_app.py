@@ -2011,7 +2011,7 @@ html_code = """<!DOCTYPE html>
 
       // --- Populate New Regime Statement (Single Page A4) ---
       setText('eco-badge-mode', modeText);
-      setText('eco-emp-name', document.getElementById('emp-name').value || 'Not Available');
+      setText('eco-emp-name', document.getElementById('emp-name').value || '');
       setText('eco-emp-desig', document.getElementById('emp-designation').value || '');
       setText('eco-emp-pan', (document.getElementById('emp-pan').value || '').toUpperCase());
       setText('eco-emp-pen', document.getElementById('emp-pen').value || '');
@@ -2049,7 +2049,7 @@ html_code = """<!DOCTYPE html>
         setText('eco-anticipatory-note', `(Final Assessment for FY 2026-27 / AY 2027-28)`);
       }
 
-      setText('eco-sig-place', document.getElementById('emp-place').value || 'Kozhikode');
+      setText('eco-sig-place', document.getElementById('emp-place').value || '');
       setText('eco-sig-date', formatDate(document.getElementById('stmt-date').value));
       setText('eco-sig-name', document.getElementById('emp-name').value || 'Prof. Rajesh K');
       setText('eco-sig-pen', document.getElementById('emp-pen').value || '');
@@ -2125,7 +2125,7 @@ html_code = """<!DOCTYPE html>
         setText('old-anticipatory-note', `(Final Assessment)`);
       }
 
-      setText('old-sig-place', document.getElementById('emp-place').value || 'Kozhikode');
+      setText('old-sig-place', document.getElementById('emp-place').value || '');
       setText('old-sig-date', formatDate(document.getElementById('stmt-date').value));
       setText('old-sig-name', document.getElementById('emp-name').value);
       setText('old-sig-desig', document.getElementById('emp-designation').value);
@@ -2139,7 +2139,7 @@ html_code = """<!DOCTYPE html>
       setText('f10e-ver-name', document.getElementById('emp-name').value);
       setText('f10e-ver-name2', document.getElementById('emp-name').value);
       setText('f10e-ver-desig', document.getElementById('emp-designation').value);
-      setText('f10e-ver-place', document.getElementById('emp-place').value || 'Kozhikode');
+      setText('f10e-ver-place', document.getElementById('emp-place').value || '');
       setText('f10e-ver-date', formatDate(document.getElementById('stmt-date').value));
     }
 
@@ -2379,6 +2379,7 @@ html_code = """<!DOCTYPE html>
       document.getElementById('emp-pen').value = '';
       document.getElementById('emp-designation').value = '';
       document.getElementById('emp-office').value = '';
+      document.getElementById('emp-place').value = '';
 
       months.forEach(m => {
         setNum('basic-' + m.key, 0);
