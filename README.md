@@ -1,53 +1,82 @@
-# Income Tax Statement & Anticipatory / Final Calculator (FY 2026–27 / AY 2027–28)
+# Income Tax Statement & Anticipatory / Final Calculator FY 2026-27 (AY 2027-28)
+### With Form 10E (Section 89(1) Arrear Relief) & Single-Page A4 Portrait Statement
 
-A standalone, 100% offline, client-side HTML application for Indian salaried employees and government personnel (matching the structure and conventions of [ecostatt.com](https://ecostatt.com/income-tax/tax-calculator2026-27/)).
+A modern, responsive, standalone web application patterned after [ecostatt.com](https://ecostatt.com/income-tax/tax-calculator2026-27/) and the statutory Indian Income Tax guidelines for **Financial Year 2026–27 (Assessment Year 2027–2028)**.
 
----
-
-## 🌟 Newly Added Features
-
-1. **Clean Start & "✕ Clear All Data"**:
-   - The form now starts clean with empty fields and default zero balances (it does **not** force sample data on startup).
-   - A dedicated **"✕ Clear All Data"** button in the header resets all inputs, allowances, deductions, and schedules with a single click.
-   - Sample buttons (**"Kerala Govt Sample"** and **"Central/PSU Sample"**) remain available whenever you want to test.
-
-2. **"↓ Copy Down" on Monthly Gross Income**:
-   - Each monthly card (March through January) now features a **"↓ Copy Down"** button.
-   - Enter your salary in any month (e.g., March or a pay revision in July) and click **"↓ Copy Down"** to copy that exact amount downward to all subsequent months automatically.
-   - Includes a **"Copy March to All 12 Months"** master button and a **"Quick DA Hike"** helper.
-
-3. **Anticipatory Statement vs. Final Statement Modes**:
-   - Switch easily between **Anticipatory Statement** and **Final Statement**:
-     - **Anticipatory Statement** *(during the year)*:
-       - Enter the tax already deducted from salary till date.
-       - Choose your pending recovery period (e.g., *October 2026 to February 2027 = 5 Months*).
-       - Automatically computes the exact **Monthly TDS Installment** (`Balance Tax / Pending Months`).
-       - Formats official titles, text, and Section E schedule for anticipatory submission.
-     - **Final Statement** *(at year-end in Jan/Feb)*:
-       - Computes final annual tax liability vs total annual TDS deducted.
-       - Shows net balance tax to be deducted from February salary or refund due.
-       - Optional challan entry (BSR code, challan serial no, date, and amount).
-       - Updates declarations and certifications for final year-end closing.
-
-4. **Print Statements for Both Regimes (or Single Regime)**:
-   - On the statement view, choose your print layout:
-     - 🔘 **Both Regimes (Comparative Dual Statement)**: Prints the full itemized computation for *both* New Tax Regime (u/s 115BAC) and Old Tax Regime, along with the comparative abstract, recommendation, recovery schedule, declaration, and DDO certificate.
-     - 🔘 **New Tax Regime Only**: Formatted statement exclusively for Section 115BAC.
-     - 🔘 **Old Tax Regime Only**: Formatted statement exclusively for Old Regime with Chapter VI-A deductions.
-
-5. **A4 Print Ready (`@media print`)**:
-   - Formatted for clean printing to physical paper or **Save as PDF** via your browser's Print dialog (`Ctrl+P` or the **"Print / Save to PDF"** button).
-   - Hides web toolbars, buttons, and responsive controls, rendering crisp black borders and clean page breaks.
+Live Web App: **[https://sureshmagnolia.github.io/IT/](https://sureshmagnolia.github.io/IT/)**
 
 ---
 
-## 🚀 How to Open and Use
+## 🌟 Key Features
 
-1. Navigate to:
-   `C:\Users\sures\.gemini\antigravity\scratch\income-tax-calculator-2026-27\`
-2. Double-click [index.html](file:///C:/Users/sures/.gemini/antigravity/scratch/income-tax-calculator-2026-27/index.html) to open in your browser.
-3. Choose your **Statement Mode** (*Anticipatory* or *Final*).
-4. Enter your March salary and click **"Copy March to All 12 Months"** or click **"↓ Copy Down"** on any month where a revision occurred.
-5. Fill in any arrears, HRA details, or Chapter VI-A deductions.
-6. Check the live comparison cards to see which regime saves more tax.
-7. Click **"2. Official Printable Statement"** to view and print your statement!
+### 1. Single-Page A4 Portrait Statement (New Regime)
+- **Exact Layout Replication:** Replicates the 14-row Ecostatt statement format matching the model PDF `Income Tax 2026-27 Statement-- Suresh V (2).pdf`.
+- **Strict A4 Portrait Containment:** Engineered with `@page { size: A4 portrait; margin: 8mm 10mm; }` to fit the complete statement on **exactly 1 page** without any second-page spillovers.
+- Contains:
+  - Header: Title, AY 2027-28 / FY 2026-27, Anticipatory/Final tag, New Regime (u/s 115BAC) badge.
+  - Employee Particulars: Name, Designation, PAN, PEN, Office.
+  - Row 1: Gross Salary with 2x6 Monthly Breakdown (March 2026 to February 2027), Surrender, Bonus, Arrears, and Excess Pay.
+  - Row 2: Standard Deduction (₹75,000), Conveyance, NPS Employer 80CCD(2), Professional Tax.
+  - Row 3: Remuneration (Valuation / Exam / Other Income).
+  - Row 4: Total Income (rounded to nearest ₹10).
+  - Row 5–10: Tax computation, Rebate u/s 87A (up to ₹60,000 for income &le; ₹12L + marginal relief), Surcharge, 4% Health & Education Cess.
+  - Row 11: **Relief for arrears of salary u/s 89(1)** (synced directly from Form 10E).
+  - Row 12: Balance Tax Payable (Row 10 - Row 11).
+  - Row 13: Income Tax deducted from salary / Advance tax paid (TDS).
+  - Row 14: Balance Income Tax to be paid + Anticipatory note showing monthly deduction installment.
+  - Dual Signatures Block: Place & Date on left, Employee Signature/Designation/Office on right.
+
+### 2. Form 10E Calculation (Section 89(1) Arrear Relief)
+- Patterned after [ecostatt.com Form 10E Calculation](https://ecostatt.com/income-tax/tax-calculator2026-27/form10e-calculation/).
+- **Historical Tax Formulas Supported:** FY 2010–11 through FY 2025–26:
+  - Supports both **OLD Regime** and **NEW Regime** (from FY 2020-21 onwards).
+  - Age categories: Individual, Senior Citizen (60–79), Super Senior (80+).
+  - Historical standard deductions, tax slabs, rebate u/s 87A, surcharge tiers, and cess (3% / 4%).
+- **Interactive Table A Generator:**
+  - Add arrears across multiple previous financial years (e.g., DA arrears, pay revision arrears).
+  - Automatically computes tax without arrear, tax with arrear, and tax difference for each year.
+- **Annexure I Summary:**
+  - Step 1: Current Year (FY 2026-27) Tax with arrears ($A_1$)
+  - Step 2: Current Year Tax without arrears ($A_2$)
+  - Step 3: Current Year Tax on arrears: $A = A_1 - A_2$
+  - Step 4: Previous Years Total Tax on arrears: $B = \sum \text{Diff}$
+  - Step 5: **Relief u/s 89(1)**: $\max(0, A - B)$
+- **One-Click Application:** Button `⚡ Apply Relief to Statement (Row 11)` automatically injects the calculated relief into Row 11 of the Income Tax Statement and recalculates balance tax and pending monthly deductions.
+- **Printable Statutory Form 10E:** Generates the official Form No. 10E with Rule 21AA verification and Table A ready for DDO submission.
+
+### 3. Anticipatory Statement & Monthly TDS Deduction
+- Toggle between **ANTICIPATORY STATEMENT** and **FINAL STATEMENT**.
+- Specify **Pending Months** (1 to 12).
+- Automatically calculates:
+  $$\text{Monthly TDS} = \frac{\text{Balance Tax Payable (Row 12)} - \text{TDS Deducted (Row 13)}}{\text{Pending Months}}$$
+- Displays note on statement: `(To be deducted @ ₹X / month for Y pending months)`.
+
+### 4. Usability Tools
+- **📋 Copy March Gross Down:** Copies March Basic Pay, Allowances, PF, and TDS down to all 12 months in one click.
+- **📈 Apply DA Hike %:** Prompt to apply DA percentage hike (e.g. 4%) from any specified month.
+- **📄 Load Suresh V Sample:** Instant one-click pre-population matching the model PDF.
+- **🧹 Clear All Data:** Resets all fields to blank/zero for a fresh start.
+- **⚖️ Old Regime Comparison:** Side-by-side comparison with Chapter VI-A deductions (80C, 80CCD(1B), 80D, 24(b), etc.).
+
+---
+
+## 🖨️ Printing Instructions
+
+1. Click **Print New Regime Statement (Single Page A4)** or press `Ctrl + P`.
+2. In the print dialog:
+   - **Destination:** Save as PDF or select your printer.
+   - **Paper Size:** A4.
+   - **Orientation:** Portrait.
+   - **Margins:** Default or None (margins are built into the CSS).
+   - **Headers and Footers:** Uncheck (to hide URL and timestamp).
+   - **Background graphics:** Check (to preserve subtle table shading).
+3. The statement will fit on **exactly 1 single page**.
+
+---
+
+## 🚀 Deployment
+
+The site is hosted via GitHub Pages:
+- Repository: [https://github.com/sureshmagnolia/IT](https://github.com/sureshmagnolia/IT)
+- Live URL: [https://sureshmagnolia.github.io/IT/](https://sureshmagnolia.github.io/IT/)
+- Deployment workflow: `.github/workflows/deploy.yml` triggers on every push to `main`.
