@@ -279,10 +279,15 @@ html_code = """<!DOCTYPE html>
       }
     }
 
-    /* Base Single Page Statement Styles (Matches Prof. Rajesh K PDF) */
+        /* Pure Black & White Print Form Styles */
+    .print-page {
+      background: #ffffff;
+      color: #000000;
+    }
+
     .eco-stmt-container {
       font-family: Arial, "Helvetica Neue", Helvetica, sans-serif;
-      color: #000;
+      color: #000000;
       font-size: 8.5pt;
       line-height: 1.18;
       width: 100%;
@@ -293,6 +298,7 @@ html_code = """<!DOCTYPE html>
     .eco-header {
       text-align: center;
       margin-bottom: 6px;
+      color: #000000;
     }
 
     .eco-header h1 {
@@ -301,29 +307,34 @@ html_code = """<!DOCTYPE html>
       margin: 0 0 2px 0;
       text-transform: uppercase;
       letter-spacing: 0.3px;
+      color: #000000;
     }
 
     .eco-header h2 {
       font-size: 9.5pt;
       font-weight: bold;
       margin: 0 0 2px 0;
+      color: #000000;
     }
 
     .eco-header p {
       font-size: 7.5pt;
       margin: 0;
       font-style: italic;
+      color: #000000;
     }
 
     .eco-mode-tag {
       font-size: 8pt;
       font-weight: bold;
       text-transform: uppercase;
-      border: 1px solid #000;
+      border: 1px solid #000000;
       padding: 1px 6px;
       display: inline-block;
       margin-top: 3px;
-      border-radius: 3px;
+      border-radius: 2px;
+      background: #ffffff;
+      color: #000000;
     }
 
     .eco-emp-box {
@@ -331,22 +342,27 @@ html_code = """<!DOCTYPE html>
       border-collapse: collapse;
       margin-bottom: 5px;
       font-size: 8.5pt;
+      color: #000000;
     }
 
     .eco-emp-box td {
-      border: 1px solid #000;
+      border: 1px solid #000000;
       padding: 2.5px 5px;
       vertical-align: middle;
+      color: #000000;
+      background: #ffffff;
     }
 
     .eco-emp-box .label {
       font-weight: bold;
       width: 15%;
-      background: #f8f8f8;
+      background: #ffffff;
+      color: #000000;
     }
 
     .eco-emp-box .val {
       width: 35%;
+      color: #000000;
     }
 
     .eco-table {
@@ -354,45 +370,54 @@ html_code = """<!DOCTYPE html>
       border-collapse: collapse;
       margin-bottom: 5px;
       font-size: 8pt;
+      color: #000000;
     }
 
     .eco-table th, .eco-table td {
-      border: 1px solid #000;
+      border: 1px solid #000000;
       padding: 2.5px 4px;
       vertical-align: middle;
+      color: #000000;
+      background: #ffffff;
     }
 
     .eco-table th {
-      background: #f0f0f0;
+      background: #ffffff;
       font-weight: bold;
       text-align: center;
+      color: #000000;
     }
 
-    .eco-col-sl { width: 5%; text-align: center; font-weight: bold; }
-    .eco-col-desc { width: 68%; }
-    .eco-col-amt { width: 27%; text-align: right; font-variant-numeric: tabular-nums; font-weight: 500; }
+    .eco-col-sl { width: 5%; text-align: center; font-weight: bold; color: #000000; }
+    .eco-col-desc { width: 68%; color: #000000; }
+    .eco-col-amt { width: 27%; text-align: right; font-variant-numeric: tabular-nums; font-weight: 500; color: #000000; }
 
     .sub-salary-table {
       width: 100%;
       border-collapse: collapse;
       margin: 3px 0;
       font-size: 7.5pt;
+      color: #000000;
     }
 
     .sub-salary-table th, .sub-salary-table td {
-      border: 1px solid #444;
+      border: 1px solid #000000;
       padding: 1.5px 2px;
       text-align: center;
+      color: #000000;
+      background: #ffffff;
     }
 
     .sub-salary-table th {
-      background: #fafafa;
-      font-weight: 600;
+      background: #ffffff;
+      font-weight: bold;
+      color: #000000;
     }
 
     .sub-salary-table td {
       text-align: right;
       padding-right: 3px;
+      color: #000000;
     }
 
     .eco-sig-box {
@@ -400,19 +425,32 @@ html_code = """<!DOCTYPE html>
       margin-top: 8px;
       font-size: 8pt;
       page-break-inside: avoid;
+      color: #000000;
     }
 
     .eco-sig-box td {
       vertical-align: top;
       padding: 0 4px;
+      color: #000000;
     }
 
-    /* Print media overrides */
+    /* Print media overrides - STRICT PURE BLACK AND WHITE */
     @media print {
+      *, *::before, *::after {
+        color: #000000 !important;
+        background-color: transparent !important;
+        border-color: #000000 !important;
+        box-shadow: none !important;
+        text-shadow: none !important;
+      }
+
       body, html {
-        background: #fff !important;
+        background: #ffffff !important;
+        color: #000000 !important;
         margin: 0 !important;
         padding: 0 !important;
+        -webkit-print-color-adjust: exact !important;
+        print-color-adjust: exact !important;
       }
 
       .no-print, .top-nav, .action-bar, .card, footer, #calculator-form-view, #tax-slabs-view {
@@ -427,6 +465,28 @@ html_code = """<!DOCTYPE html>
         width: 100% !important;
         max-width: 100% !important;
         min-height: auto !important;
+        background: #ffffff !important;
+        color: #000000 !important;
+      }
+
+      .eco-stmt-container, .eco-stmt-container * {
+        color: #000000 !important;
+        background: #ffffff !important;
+        border-color: #000000 !important;
+      }
+
+      .eco-mode-tag {
+        background: #ffffff !important;
+        color: #000000 !important;
+        border: 1px solid #000000 !important;
+      }
+
+      .eco-table th, .eco-table td,
+      .eco-emp-box td, .eco-emp-box th,
+      .sub-salary-table th, .sub-salary-table td {
+        border: 1px solid #000000 !important;
+        background: #ffffff !important;
+        color: #000000 !important;
       }
 
       /* Specific print control */
@@ -605,7 +665,7 @@ html_code = """<!DOCTYPE html>
               <!-- Dynamically populated -->
             </tbody>
             <tfoot>
-              <tr style="background:#f1f5f9; font-weight:bold;">
+              <tr style="background:#fff; font-weight:bold;">
                 <td style="text-align:left;">Total (a):</td>
                 <td id="tot-basic">0</td>
                 <td id="tot-allow">0</td>
@@ -742,7 +802,7 @@ html_code = """<!DOCTYPE html>
             <p>to be furnished by the employees / officers whose income exceeds Rs. 2,50,000/-</p>
             <div>
               <span class="eco-mode-tag" id="eco-badge-mode">ANTICIPATORY STATEMENT</span>
-              <span class="eco-mode-tag" style="background:#000; color:#fff;">NEW REGIME (U/S 115BAC)</span>
+              <span class="eco-mode-tag" style="background:#fff; color:#000; border:1px solid #000;">NEW REGIME (U/S 115BAC)</span>
             </div>
           </div>
 
@@ -810,7 +870,7 @@ html_code = """<!DOCTYPE html>
                     <span>(c) Excess pay refund / recovery:</span>
                     <span id="eco-row1c">0</span>
                   </div>
-                  <div style="display:flex; justify-content:space-between; border-top:1px dashed #666; padding-top:2px; font-weight:bold;">
+                  <div style="display:flex; justify-content:space-between; border-top:1px dashed #000; padding-top:2px; font-weight:bold;">
                     <span>Total Salary (a + b - c):</span>
                     <span id="eco-row1-tot">0</span>
                   </div>
@@ -828,7 +888,7 @@ html_code = """<!DOCTYPE html>
                   &nbsp;&nbsp;(c) Employer Contribution to NPS u/s 80CCD(2): <span style="float:right;" id="eco-row2c">0</span><br>
                   &nbsp;&nbsp;(d) Entertainment Allowance: <span style="float:right;">0</span><br>
                   &nbsp;&nbsp;(e) Tax on Employment (Professional Tax): <span style="float:right;" id="eco-row2e">0</span><br>
-                  <div style="border-top:1px dashed #666; margin-top:2px; padding-top:2px; display:flex; justify-content:space-between; font-weight:bold;">
+                  <div style="border-top:1px dashed #000; margin-top:2px; padding-top:2px; display:flex; justify-content:space-between; font-weight:bold;">
                     <span>Total Deductions (a + b + c + d + e):</span>
                     <span id="eco-row2-sub">75,000</span>
                   </div>
@@ -844,7 +904,7 @@ html_code = """<!DOCTYPE html>
               </tr>
 
               <!-- Row 4: Total Income -->
-              <tr style="background:#fdfdfd; font-weight:bold;">
+              <tr style="font-weight:bold;">
                 <td class="eco-col-sl">4</td>
                 <td class="eco-col-desc">Total Income rounded off to nearest Rs. 10/- [ (1 - 2) + 3 ]</td>
                 <td class="eco-col-amt"><strong id="eco-row4-main">0</strong></td>
@@ -886,7 +946,7 @@ html_code = """<!DOCTYPE html>
               </tr>
 
               <!-- Row 10: Total Tax Payable -->
-              <tr style="background:#f9f9f9; font-weight:bold;">
+              <tr style="font-weight:bold;">
                 <td class="eco-col-sl">10</td>
                 <td class="eco-col-desc">Total Tax Payable (7 + 8 + 9)</td>
                 <td class="eco-col-amt"><strong id="eco-row10-main">0</strong></td>
@@ -914,11 +974,11 @@ html_code = """<!DOCTYPE html>
               </tr>
 
               <!-- Row 14: Balance to be paid -->
-              <tr style="background:#f4f4f4; font-weight:bold; font-size:9pt;">
+              <tr style="font-weight:bold; font-size:9pt;">
                 <td class="eco-col-sl">14</td>
                 <td class="eco-col-desc">
                   Balance Income Tax to be paid (12 - 13):
-                  <div style="font-size:7.5pt; font-weight:normal; color:#222; margin-top:2px;" id="eco-anticipatory-note">
+                  <div style="font-size:7.5pt; font-weight:normal; color:#000; margin-top:2px;" id="eco-anticipatory-note">
                     (To be deducted @ ₹0 / month for 3 pending months)
                   </div>
                 </td>
@@ -933,7 +993,7 @@ html_code = """<!DOCTYPE html>
               <td style="width:40%;">
                 <p><strong>Place:</strong> <span id="eco-sig-place">Kozhikode</span></p>
                 <p><strong>Date:</strong> <span id="eco-sig-date">23/11/2026</span></p>
-                <div style="margin-top:20px; font-size:7.5pt; color:#555;">
+                <div style="margin-top:20px; font-size:7.5pt; color:#000;">
                   <em>Verified that the particulars given above are true and correct.</em>
                 </div>
               </td>
@@ -971,7 +1031,7 @@ html_code = """<!DOCTYPE html>
             <p>Statement of Tax Computations under the OLD TAX REGIME (with Chapter VI-A Deductions)</p>
             <div>
               <span class="eco-mode-tag" id="old-badge-mode">ANTICIPATORY STATEMENT</span>
-              <span class="eco-mode-tag" style="background:#0d9488; color:#fff;">OLD REGIME</span>
+              <span class="eco-mode-tag" style="background:#fff; color:#000; border:1px solid #000;">OLD REGIME</span>
             </div>
           </div>
 
@@ -1036,14 +1096,14 @@ html_code = """<!DOCTYPE html>
                   &nbsp;&nbsp;u/s 80D (MediSep / Health Insurance): <span style="float:right;" id="old-80d">0</span><br>
                   &nbsp;&nbsp;u/s 24(b) (Housing Loan Interest): <span style="float:right;" id="old-24b">0</span><br>
                   &nbsp;&nbsp;u/s 80E / 80G / Others: <span style="float:right;" id="old-other-ded">0</span><br>
-                  <div style="border-top:1px dashed #666; margin-top:2px; padding-top:2px; font-weight:bold; display:flex; justify-content:space-between;">
+                  <div style="border-top:1px dashed #000; margin-top:2px; padding-top:2px; font-weight:bold; display:flex; justify-content:space-between;">
                     <span>Total Chapter VI-A Deductions:</span>
                     <span id="old-tot-ded">0</span>
                   </div>
                 </td>
                 <td class="eco-col-amt" id="old-row6">0</td>
               </tr>
-              <tr style="font-weight:bold; background:#fafafa;">
+              <tr style="font-weight:bold;">
                 <td class="eco-col-sl">7</td>
                 <td class="eco-col-desc">Total Taxable Income (5 - 6)</td>
                 <td class="eco-col-amt" id="old-row7">0</td>
@@ -1083,7 +1143,7 @@ html_code = """<!DOCTYPE html>
                 <td class="eco-col-desc">Tax Deducted from Salary (TDS) / Advance Tax Paid</td>
                 <td class="eco-col-amt" id="old-row14">0</td>
               </tr>
-              <tr style="background:#f4f4f4; font-weight:bold;">
+              <tr style="font-weight:bold;">
                 <td class="eco-col-sl">15</td>
                 <td class="eco-col-desc">
                   Balance Tax to be Paid:
@@ -1229,7 +1289,7 @@ html_code = """<!DOCTYPE html>
           </table>
 
           <!-- ANNEXURE I: Statutory Section 89(1) Relief Computation Summary -->
-          <div style="font-size:8.5pt; font-weight:bold; margin:6px 0 3px 0; background:#f0f0f0; padding:3px 6px; border:1px solid #000;">
+          <div style="font-size:8.5pt; font-weight:bold; margin:6px 0 3px 0; background:#fff; padding:3px 6px; border:1px solid #000; color:#000;">
             ANNEXURE - I : Computation of Relief under Section 89(1) on Salary received in Arrears
           </div>
 
@@ -1262,10 +1322,10 @@ html_code = """<!DOCTYPE html>
                 <td>Tax on Total Income as per item 3 (including cess)</td>
                 <td class="eco-col-amt" id="f10e-step2-tax">0</td>
               </tr>
-              <tr style="background:#fdfdfd; font-weight:bold;">
+              <tr style="font-weight:bold;">
                 <td>5</td>
                 <td><strong>Tax on Arrears in Current Year (FY 2026-27) [ Item 2 - Item 4 ] (A)</strong></td>
-                <td class="eco-col-amt"><strong id="f10e-tax-cur-arrear" style="color:#1e3a8a;">0</strong></td>
+                <td class="eco-col-amt"><strong id="f10e-tax-cur-arrear" style="color:#000;">0</strong></td>
               </tr>
               <tr>
                 <td>6</td>
@@ -1277,31 +1337,31 @@ html_code = """<!DOCTYPE html>
                 <td>Total Tax on Total Income of Previous Years <strong>excluding Arrears</strong> (Sum of Col 6 of Table A)</td>
                 <td class="eco-col-amt" id="f10e-prev-without-tax">0</td>
               </tr>
-              <tr style="background:#fdfdfd; font-weight:bold;">
+              <tr style="font-weight:bold;">
                 <td>8</td>
                 <td><strong>Total Tax on Arrears in Previous Years [ Item 6 - Item 7 ] (B)</strong></td>
-                <td class="eco-col-amt"><strong id="f10e-tax-prev-arrear" style="color:#0d9488;">0</strong></td>
+                <td class="eco-col-amt"><strong id="f10e-tax-prev-arrear" style="color:#000;">0</strong></td>
               </tr>
-              <tr style="background:#e0f2fe; font-weight:bold; font-size:9.5pt; border:2px solid #0284c7;">
+              <tr style="background:#fff; font-weight:bold; font-size:9.5pt; border:2px solid #000; color:#000;">
                 <td>9</td>
                 <td>
                   <strong>RELIEF UNDER SECTION 89(1) [ Item 5 - Item 8 ] (A - B)</strong>
-                  <div style="font-size:7pt; font-weight:normal; color:#555;">(Transferred to Row 11 of Income Tax Statement)</div>
+                  <div style="font-size:7pt; font-weight:normal; color:#000;">(Transferred to Row 11 of Income Tax Statement)</div>
                 </td>
-                <td class="eco-col-amt"><strong id="f10e-final-relief" style="color:#0369a1; font-size:11pt;">0</strong></td>
+                <td class="eco-col-amt"><strong id="f10e-final-relief" style="color:#000; font-size:11pt;">0</strong></td>
               </tr>
             </tbody>
           </table>
 
           <!-- TABLE A -->
-          <div style="font-size:8.5pt; font-weight:bold; margin:10px 0 3px 0; background:#f0f0f0; padding:3px 6px; border:1px solid #000; display:flex; justify-content:space-between; align-items:center;">
+          <div style="font-size:8.5pt; font-weight:bold; margin:10px 0 3px 0; background:#fff; padding:3px 6px; border:1px solid #000; color:#000; display:flex; justify-content:space-between; align-items:center;">
             <span>TABLE "A" : Details of Previous Financial Years' Tax and Arrear Computations</span>
             <span style="font-size:7.5pt; font-weight:normal;">[See rule 21AA(2)(a)]</span>
           </div>
 
           <table class="eco-table" id="table-a-grid">
             <thead>
-              <tr style="background:#e2e8f0;">
+              <tr style="background:#fff;">
                 <th style="width:4%;">Sl.</th>
                 <th style="width:14%;">Financial Year</th>
                 <th style="width:13%;">Taxable Income (without arrear)<br>(₹)</th>
@@ -1312,7 +1372,7 @@ html_code = """<!DOCTYPE html>
                 <th style="width:12%;">Difference in Tax<br>(₹)</th>
                 <th style="width:6%;" class="no-print-10e">Action</th>
               </tr>
-              <tr style="background:#f8fafc; font-size:7pt; text-align:center;">
+              <tr style="background:#fff; font-size:7pt; text-align:center;">
                 <th>(1)</th><th>(2)</th><th>(3)</th><th>(4)</th><th>(5)</th><th>(6)</th><th>(7)</th><th>(8)</th><th class="no-print-10e">-</th>
               </tr>
             </thead>
@@ -1320,13 +1380,13 @@ html_code = """<!DOCTYPE html>
               <!-- Dynamically rendered -->
             </tbody>
             <tfoot>
-              <tr style="background:#f1f5f9; font-weight:bold;">
+              <tr style="background:#fff; font-weight:bold;">
                 <td colspan="3" style="text-align:right;">Total:</td>
                 <td id="tbla-tot-arrear" style="text-align:right;">0</td>
                 <td></td>
                 <td id="tbla-tot-tax-wo" style="text-align:right;">0</td>
                 <td id="tbla-tot-tax-w" style="text-align:right;">0</td>
-                <td id="tbla-tot-diff" style="text-align:right; color:#0d9488;">0</td>
+                <td id="tbla-tot-diff" style="text-align:right; color:#000;">0</td>
                 <td class="no-print-10e"></td>
               </tr>
             </tfoot>
@@ -1951,13 +2011,13 @@ html_code = """<!DOCTYPE html>
         let tr = document.createElement('tr');
         tr.innerHTML = `
           <td style="text-align:center;">${idx + 1}</td>
-          <td style="font-weight:600;">${entry.year} <small style="color:#64748b;">(${entry.regime})</small></td>
+          <td style="font-weight:600;">${entry.year} <small style="color:#000;">(${entry.regime})</small></td>
           <td style="text-align:right;">${formatINR(entry.income)}</td>
-          <td style="text-align:right; font-weight:600; color:#1e3a8a;">${formatINR(entry.arrear)}</td>
+          <td style="text-align:right; font-weight:600; color:#000;">${formatINR(entry.arrear)}</td>
           <td style="text-align:right;">${formatINR(incomeWithArrear)}</td>
           <td style="text-align:right;">${formatINR(taxWithout)}</td>
           <td style="text-align:right;">${formatINR(taxWith)}</td>
-          <td style="text-align:right; font-weight:bold; color:#0d9488;">${formatINR(diff)}</td>
+          <td style="text-align:right; font-weight:bold; color:#000;">${formatINR(diff)}</td>
           <td style="text-align:center;" class="no-print-10e">
             <button class="btn btn-danger" style="padding:2px 6px; font-size:0.7rem;" onclick="deleteTableAEntry(${entry.id})">✕</button>
           </td>
