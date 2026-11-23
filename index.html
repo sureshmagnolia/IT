@@ -319,9 +319,11 @@
       line-height: 1.18;
       width: 184mm;
       max-width: 184mm;
+      min-width: 184mm;
       margin: 0 auto;
       padding: 0;
       box-sizing: border-box;
+      background: #ffffff;
     }
 
     .eco-emp-box {
@@ -371,15 +373,7 @@
       padding-right: 8px;
     }
 
-    .eco-stmt-container {
-      font-family: Arial, "Helvetica Neue", Helvetica, sans-serif;
-      color: #000000;
-      font-size: 8.5pt;
-      line-height: 1.18;
-      width: 100%;
-      margin: 0;
-      padding: 0;
-    }
+
 
     .eco-header {
       text-align: center;
@@ -821,7 +815,12 @@
     }
 
   </style>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+  <script src="html2pdf.bundle.min.js"></script>
+  <script>
+    if (typeof html2pdf === 'undefined') {
+      document.write('<script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"><\/script>');
+    }
+  </script>
 </head>
 <body>
 
@@ -1194,30 +1193,51 @@
               </tr>
             </thead>
             <tbody>
-                            <!-- Row 1: Gross Salary (Clean Ecostatt 2-Column Format) -->
+                            <!-- Row 1: Gross Salary (Exact Format Matching Reference Model) -->
               <tr>
                 <td class="eco-col-sl">1</td>
                 <td class="eco-col-desc">
-                  <div><strong>Gross Salary / Pension for the month:</strong> <span style="font-size:7.5pt; font-style:italic;">(includes Basic Pay, DA, HRA, Allowances, etc.)</span></div>
-                  <div style="display:flex; justify-content:space-between; margin:4px 0 6px 0; font-size:8pt; line-height:1.35;">
-                    <div style="width:48%;">
-                      <div style="display:flex; justify-content:space-between; border-bottom:1px dotted #ccc; padding:1.5px 0;"><span>March 2026 :</span><strong id="m-mar">0</strong></div>
-                      <div style="display:flex; justify-content:space-between; border-bottom:1px dotted #ccc; padding:1.5px 0;"><span>April 2026 :</span><strong id="m-apr">0</strong></div>
-                      <div style="display:flex; justify-content:space-between; border-bottom:1px dotted #ccc; padding:1.5px 0;"><span>May 2026 :</span><strong id="m-may">0</strong></div>
-                      <div style="display:flex; justify-content:space-between; border-bottom:1px dotted #ccc; padding:1.5px 0;"><span>June 2026 :</span><strong id="m-jun">0</strong></div>
-                      <div style="display:flex; justify-content:space-between; border-bottom:1px dotted #ccc; padding:1.5px 0;"><span>July 2026 :</span><strong id="m-jul">0</strong></div>
-                      <div style="display:flex; justify-content:space-between; padding:1.5px 0;"><span>August 2026 :</span><strong id="m-aug">0</strong></div>
-                    </div>
-                    <div style="width:48%;">
-                      <div style="display:flex; justify-content:space-between; border-bottom:1px dotted #ccc; padding:1.5px 0;"><span>September 2026 :</span><strong id="m-sep">0</strong></div>
-                      <div style="display:flex; justify-content:space-between; border-bottom:1px dotted #ccc; padding:1.5px 0;"><span>October 2026 :</span><strong id="m-oct">0</strong></div>
-                      <div style="display:flex; justify-content:space-between; border-bottom:1px dotted #ccc; padding:1.5px 0;"><span>November 2026 :</span><strong id="m-nov">0</strong></div>
-                      <div style="display:flex; justify-content:space-between; border-bottom:1px dotted #ccc; padding:1.5px 0;"><span>December 2026 :</span><strong id="m-dec">0</strong></div>
-                      <div style="display:flex; justify-content:space-between; border-bottom:1px dotted #ccc; padding:1.5px 0;"><span>January 2027 :</span><strong id="m-jan">0</strong></div>
-                      <div style="display:flex; justify-content:space-between; padding:1.5px 0;"><span>February 2027 :</span><strong id="m-feb">0</strong></div>
-                    </div>
-                  </div>
-                  <div style="font-size:8pt; border-top:1px solid #000; padding-top:3px; margin-top:2px;">
+                  <div><strong>Gross Salary:</strong></div>
+                  <div style="font-size:7.5pt; margin:1px 0 3px 0;"><em>(a) Monthly Gross Salary (March 2026 to February 2027):</em></div>
+                  <table style="width:100%; border-collapse:collapse; text-align:center; font-size:7.5pt; margin-bottom:4px; border:1px solid #000;">
+                    <thead>
+                      <tr style="border-bottom:1px solid #000; font-weight:bold; background:#fff;">
+                        <th style="border-right:1px solid #000; padding:2px 1px; width:16.66%;">Mar</th>
+                        <th style="border-right:1px solid #000; padding:2px 1px; width:16.66%;">Apr</th>
+                        <th style="border-right:1px solid #000; padding:2px 1px; width:16.66%;">May</th>
+                        <th style="border-right:1px solid #000; padding:2px 1px; width:16.66%;">Jun</th>
+                        <th style="border-right:1px solid #000; padding:2px 1px; width:16.66%;">Jul</th>
+                        <th style="padding:2px 1px; width:16.66%;">Aug</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr style="border-bottom:1px solid #000; background:#fff;">
+                        <td style="border-right:1px solid #000; padding:2px 1px;" id="m-mar">0</td>
+                        <td style="border-right:1px solid #000; padding:2px 1px;" id="m-apr">0</td>
+                        <td style="border-right:1px solid #000; padding:2px 1px;" id="m-may">0</td>
+                        <td style="border-right:1px solid #000; padding:2px 1px;" id="m-jun">0</td>
+                        <td style="border-right:1px solid #000; padding:2px 1px;" id="m-jul">0</td>
+                        <td style="padding:2px 1px;" id="m-aug">0</td>
+                      </tr>
+                      <tr style="border-bottom:1px solid #000; font-weight:bold; background:#fff;">
+                        <th style="border-right:1px solid #000; padding:2px 1px;">Sep</th>
+                        <th style="border-right:1px solid #000; padding:2px 1px;">Oct</th>
+                        <th style="border-right:1px solid #000; padding:2px 1px;">Nov</th>
+                        <th style="border-right:1px solid #000; padding:2px 1px;">Dec</th>
+                        <th style="border-right:1px solid #000; padding:2px 1px;">Jan</th>
+                        <th style="padding:2px 1px;">Feb</th>
+                      </tr>
+                      <tr style="background:#fff;">
+                        <td style="border-right:1px solid #000; padding:2px 1px;" id="m-sep">0</td>
+                        <td style="border-right:1px solid #000; padding:2px 1px;" id="m-oct">0</td>
+                        <td style="border-right:1px solid #000; padding:2px 1px;" id="m-nov">0</td>
+                        <td style="border-right:1px solid #000; padding:2px 1px;" id="m-dec">0</td>
+                        <td style="border-right:1px solid #000; padding:2px 1px;" id="m-jan">0</td>
+                        <td style="padding:2px 1px;" id="m-feb">0</td>
+                      </tr>
+                    </tbody>
+                  </table>
+                  <div style="font-size:7.5pt; line-height:1.35;">
                     <div style="display:flex; justify-content:space-between;">
                       <span>Subtotal of Monthly Gross Salary (a):</span>
                       <strong id="eco-row1a">0</strong>
@@ -1231,12 +1251,12 @@
                       <span id="eco-row1c">0</span>
                     </div>
                     <div style="display:flex; justify-content:space-between; font-weight:bold; margin-top:2px; padding-top:2px; border-top:1px dashed #000;">
-                      <span>Total Salary Income (a + b - c):</span>
+                      <span>Total Salary (a + b - c):</span>
                       <span id="eco-row1-tot">0</span>
                     </div>
                   </div>
                 </td>
-                <td class="eco-col-amt" style="vertical-align:bottom; padding-bottom:6px;"><strong id="eco-row1-main" style="font-size:9.5pt;">0</strong></td>
+                <td class="eco-col-amt" style="vertical-align:bottom; padding-bottom:4px;"><strong id="eco-row1-main" style="font-size:9.5pt;">0</strong></td>
               </tr>
 
               <!-- Row 2: Deductions -->
@@ -1424,36 +1444,70 @@
                 </tr>
               </thead>
               <tbody>
-                <!-- Row 1: Gross Salary with Monthly Breakdown -->
+                <!-- Row 1: Gross Salary with Monthly Breakdown (Exact 6-Column Layout) -->
                 <tr>
                   <td class="eco-col-sl">1</td>
                   <td class="eco-col-desc">
-                    <div><strong>Gross Salary / Pension for the month:</strong></div>
-                    <div style="display:flex; justify-content:space-between; margin:3px 0 5px 0; font-size:7.5pt; line-height:1.35;">
-                      <div style="width:48%;">
-                        <div style="display:flex; justify-content:space-between; border-bottom:1px dotted #ccc;"><span>March 2026 :</span><strong id="old-m-mar">0</strong></div>
-                        <div style="display:flex; justify-content:space-between; border-bottom:1px dotted #ccc;"><span>April 2026 :</span><strong id="old-m-apr">0</strong></div>
-                        <div style="display:flex; justify-content:space-between; border-bottom:1px dotted #ccc;"><span>May 2026 :</span><strong id="old-m-may">0</strong></div>
-                        <div style="display:flex; justify-content:space-between; border-bottom:1px dotted #ccc;"><span>June 2026 :</span><strong id="old-m-jun">0</strong></div>
-                        <div style="display:flex; justify-content:space-between; border-bottom:1px dotted #ccc;"><span>July 2026 :</span><strong id="old-m-jul">0</strong></div>
-                        <div style="display:flex; justify-content:space-between;"><span>August 2026 :</span><strong id="old-m-aug">0</strong></div>
+                    <div><strong>Gross Salary:</strong></div>
+                    <div style="font-size:7.5pt; margin:1px 0 3px 0;"><em>(a) Monthly Gross Salary (March 2026 to February 2027):</em></div>
+                    <table style="width:100%; border-collapse:collapse; text-align:center; font-size:7.5pt; margin-bottom:4px; border:1px solid #000;">
+                      <thead>
+                        <tr style="border-bottom:1px solid #000; font-weight:bold; background:#fff;">
+                          <th style="border-right:1px solid #000; padding:2px 1px; width:16.66%;">Mar</th>
+                          <th style="border-right:1px solid #000; padding:2px 1px; width:16.66%;">Apr</th>
+                          <th style="border-right:1px solid #000; padding:2px 1px; width:16.66%;">May</th>
+                          <th style="border-right:1px solid #000; padding:2px 1px; width:16.66%;">Jun</th>
+                          <th style="border-right:1px solid #000; padding:2px 1px; width:16.66%;">Jul</th>
+                          <th style="padding:2px 1px; width:16.66%;">Aug</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr style="border-bottom:1px solid #000; background:#fff;">
+                          <td style="border-right:1px solid #000; padding:2px 1px;" id="old-m-mar">0</td>
+                          <td style="border-right:1px solid #000; padding:2px 1px;" id="old-m-apr">0</td>
+                          <td style="border-right:1px solid #000; padding:2px 1px;" id="old-m-may">0</td>
+                          <td style="border-right:1px solid #000; padding:2px 1px;" id="old-m-jun">0</td>
+                          <td style="border-right:1px solid #000; padding:2px 1px;" id="old-m-jul">0</td>
+                          <td style="padding:2px 1px;" id="old-m-aug">0</td>
+                        </tr>
+                        <tr style="border-bottom:1px solid #000; font-weight:bold; background:#fff;">
+                          <th style="border-right:1px solid #000; padding:2px 1px;">Sep</th>
+                          <th style="border-right:1px solid #000; padding:2px 1px;">Oct</th>
+                          <th style="border-right:1px solid #000; padding:2px 1px;">Nov</th>
+                          <th style="border-right:1px solid #000; padding:2px 1px;">Dec</th>
+                          <th style="border-right:1px solid #000; padding:2px 1px;">Jan</th>
+                          <th style="padding:2px 1px;">Feb</th>
+                        </tr>
+                        <tr style="background:#fff;">
+                          <td style="border-right:1px solid #000; padding:2px 1px;" id="old-m-sep">0</td>
+                          <td style="border-right:1px solid #000; padding:2px 1px;" id="old-m-oct">0</td>
+                          <td style="border-right:1px solid #000; padding:2px 1px;" id="old-m-nov">0</td>
+                          <td style="border-right:1px solid #000; padding:2px 1px;" id="old-m-dec">0</td>
+                          <td style="border-right:1px solid #000; padding:2px 1px;" id="old-m-jan">0</td>
+                          <td style="padding:2px 1px;" id="old-m-feb">0</td>
+                        </tr>
+                      </tbody>
+                    </table>
+                    <div style="font-size:7.5pt; line-height:1.35;">
+                      <div style="display:flex; justify-content:space-between;">
+                        <span>Subtotal of Monthly Gross Salary (a):</span>
+                        <strong id="old-row1a">0</strong>
                       </div>
-                      <div style="width:48%;">
-                        <div style="display:flex; justify-content:space-between; border-bottom:1px dotted #ccc;"><span>September 2026 :</span><strong id="old-m-sep">0</strong></div>
-                        <div style="display:flex; justify-content:space-between; border-bottom:1px dotted #ccc;"><span>October 2026 :</span><strong id="old-m-oct">0</strong></div>
-                        <div style="display:flex; justify-content:space-between; border-bottom:1px dotted #ccc;"><span>November 2026 :</span><strong id="old-m-nov">0</strong></div>
-                        <div style="display:flex; justify-content:space-between; border-bottom:1px dotted #ccc;"><span>December 2026 :</span><strong id="old-m-dec">0</strong></div>
-                        <div style="display:flex; justify-content:space-between; border-bottom:1px dotted #ccc;"><span>January 2027 :</span><strong id="old-m-jan">0</strong></div>
-                        <div style="display:flex; justify-content:space-between;"><span>February 2027 :</span><strong id="old-m-feb">0</strong></div>
+                      <div style="display:flex; justify-content:space-between;">
+                        <span>(b) Leave Surrender / Bonus / Arrears:</span>
+                        <span id="old-row1b">0</span>
                       </div>
-                    </div>
-                    <div style="font-size:8pt; border-top:1px solid #000; padding-top:2px;">
-                      <div style="display:flex; justify-content:space-between;"><span>Subtotal of Monthly Gross Salary (a):</span><span id="old-row1a">0</span></div>
-                      <div style="display:flex; justify-content:space-between;"><span>(b) Leave Surrender / Bonus / Arrears:</span><span id="old-row1b">0</span></div>
-                      <div style="display:flex; justify-content:space-between;"><span>(c) Excess pay refund / recovery:</span><span id="old-row1c">0</span></div>
+                      <div style="display:flex; justify-content:space-between;">
+                        <span>(c) Excess pay refund / recovery:</span>
+                        <span id="old-row1c">0</span>
+                      </div>
+                      <div style="display:flex; justify-content:space-between; font-weight:bold; margin-top:2px; padding-top:2px; border-top:1px dashed #000;">
+                        <span>Total Salary (a + b - c):</span>
+                        <span id="old-row1-tot">0</span>
+                      </div>
                     </div>
                   </td>
-                  <td class="eco-col-amt" style="vertical-align:bottom;"><strong id="old-row1">0</strong></td>
+                  <td class="eco-col-amt" style="vertical-align:bottom; padding-bottom:4px;"><strong id="old-row1">0</strong></td>
                 </tr>
 
                 <!-- Row 2: Deductions u/s 16 -->
@@ -1713,15 +1767,15 @@
           <!-- Employee Particulars -->
           <table class="eco-emp-box" style="margin-bottom:8px;">
             <tr>
-              <td class="label">1. Name of Employee:</td><td class="val"><strong id="f10e-disp-name">Prof. Rajesh K</strong></td>
-              <td class="label">2. PAN:</td><td class="val"><strong id="f10e-disp-pan">ABCDE5678G</strong></td>
+              <td class="label">1. Name of Employee:</td><td class="val"><strong id="f10e-disp-name"></strong></td>
+              <td class="label">2. PAN:</td><td class="val"><strong id="f10e-disp-pan"></strong></td>
             </tr>
             <tr>
-              <td class="label">3. Designation:</td><td class="val" id="f10e-disp-desig">Professor</td>
-              <td class="label">4. PEN:</td><td class="val" id="f10e-disp-pen">412850</td>
+              <td class="label">3. Designation:</td><td class="val" id="f10e-disp-desig"></td>
+              <td class="label">4. PEN:</td><td class="val" id="f10e-disp-pen"></td>
             </tr>
             <tr>
-              <td class="label">5. Office / Address:</td><td class="val" colspan="3" id="f10e-disp-office">GOVT COLLEGE KOZHIKODE</td>
+              <td class="label">5. Office / Address:</td><td class="val" colspan="3" id="f10e-disp-office"></td>
             </tr>
             <tr>
               <td class="label">6. Assessment Year:</td><td class="val"><strong>2027 - 2028</strong></td>
@@ -1836,17 +1890,17 @@
           <!-- Verification statement -->
           <div style="margin-top:14px; font-size:8pt; line-height:1.4;">
             <p>
-              I, <strong id="f10e-ver-name">Prof. Rajesh K</strong>, do hereby declare that what is stated above is true to the best of my information and belief.
+              I, <strong id="f10e-ver-name"></strong>, do hereby declare that what is stated above is true to the best of my information and belief.
             </p>
             <div style="display:flex; justify-content:space-between; margin-top:20px;">
               <div>
-                <p><strong>Place:</strong> <span id="f10e-ver-place">Kozhikode</span></p>
+                <p><strong>Place:</strong> <span id="f10e-ver-place"></span></p>
                 <p><strong>Date:</strong> <span id="f10e-ver-date">23/11/2026</span></p>
               </div>
               <div style="text-align:right;">
                 <p>Signature: __________________________</p>
-                <p><strong>Name:</strong> <span id="f10e-ver-name2">Prof. Rajesh K</span></p>
-                <p><strong>Designation:</strong> <span id="f10e-ver-desig">Professor</span></p>
+                <p><strong>Name:</strong> <span id="f10e-ver-name2"></span></p>
+                <p><strong>Designation:</strong> <span id="f10e-ver-desig"></span></p>
               </div>
             </div>
           </div>
@@ -2270,9 +2324,11 @@
         setText('eco-anticipatory-note', `(Final Assessment for FY 2026-27 / AY 2027-28)`);
       }
 
-      setText('eco-sig-place', document.getElementById('emp-place').value || '');
+      const empName = (document.getElementById('emp-name').value || '').trim();
+      const empPlace = (document.getElementById('emp-place').value || '').trim();
+      setText('eco-sig-place', empPlace || '________________');
       setText('eco-sig-date', formatDate(document.getElementById('stmt-date').value));
-      setText('eco-sig-name', document.getElementById('emp-name').value || 'Prof. Rajesh K');
+      setText('eco-sig-name', empName);
       setText('eco-sig-pen', document.getElementById('emp-pen').value || '');
       setText('eco-sig-desig', document.getElementById('emp-designation').value || '');
       setText('eco-sig-office', document.getElementById('emp-office').value || '');
@@ -2346,6 +2402,7 @@
       setText('old-row1a', formatINR(totGross));
       setText('old-row1b', formatINR(row1bTotal));
       setText('old-row1c', formatINR(row1cExcess));
+      setText('old-row1-tot', formatINR(row1GrossSalary));
 
       setText('old-det-gpf', formatINR(gpf));
       setText('old-det-sli', formatINR(sli));
@@ -2384,21 +2441,21 @@
         setText('old-anticipatory-note', `(Final Assessment)`);
       }
 
-      setText('old-sig-place', document.getElementById('emp-place').value || '');
+      setText('old-sig-place', empPlace || '________________');
       setText('old-sig-date', formatDate(document.getElementById('stmt-date').value));
-      setText('old-sig-name', document.getElementById('emp-name').value);
-      setText('old-sig-desig', document.getElementById('emp-designation').value);
+      setText('old-sig-name', empName);
+      setText('old-sig-desig', document.getElementById('emp-designation').value || '');
 
       // --- Update Form 10E Static Employee particulars ---
-      setText('f10e-disp-name', document.getElementById('emp-name').value);
+      setText('f10e-disp-name', empName);
       setText('f10e-disp-pan', (document.getElementById('emp-pan').value || '').toUpperCase());
-      setText('f10e-disp-desig', document.getElementById('emp-designation').value);
-      setText('f10e-disp-pen', document.getElementById('emp-pen').value);
-      setText('f10e-disp-office', document.getElementById('emp-office').value);
-      setText('f10e-ver-name', document.getElementById('emp-name').value);
-      setText('f10e-ver-name2', document.getElementById('emp-name').value);
-      setText('f10e-ver-desig', document.getElementById('emp-designation').value);
-      setText('f10e-ver-place', document.getElementById('emp-place').value || '');
+      setText('f10e-disp-desig', document.getElementById('emp-designation').value || '');
+      setText('f10e-disp-pen', document.getElementById('emp-pen').value || '');
+      setText('f10e-disp-office', document.getElementById('emp-office').value || '');
+      setText('f10e-ver-name', empName);
+      setText('f10e-ver-name2', empName);
+      setText('f10e-ver-desig', document.getElementById('emp-designation').value || '');
+      setText('f10e-ver-place', empPlace || '________________');
       setText('f10e-ver-date', formatDate(document.getElementById('stmt-date').value));
 
       // Auto-save user entered data so it persists across page refreshes
@@ -3000,7 +3057,7 @@
       reader.readAsText(file);
     }
 
-    // High-Resolution Vector A4 PDF Generation using Isolated Clone
+    // High-Resolution Vector A4 PDF Generation using Isolated Visual Overlay
     function downloadPdfFromElement(elementId, filename) {
       const element = document.getElementById(elementId);
       if (!element) {
@@ -3011,43 +3068,72 @@
       showToast('⏳ Rendering neat A4 PDF... Please wait.');
 
       if (typeof html2pdf !== 'undefined') {
-        // Clone element into an isolated fixed-width container so screen width or responsive styles NEVER cause cut-offs
+        const overlay = document.createElement('div');
+        overlay.id = 'pdf-render-overlay';
+        overlay.style.position = 'fixed';
+        overlay.style.top = '0';
+        overlay.style.left = '0';
+        overlay.style.width = '100vw';
+        overlay.style.height = '100vh';
+        overlay.style.backgroundColor = '#ffffff';
+        overlay.style.zIndex = '9999999';
+        overlay.style.overflow = 'hidden';
+        overlay.style.margin = '0';
+        overlay.style.padding = '0';
+
+        const banner = document.createElement('div');
+        banner.style.textAlign = 'center';
+        banner.style.padding = '10px';
+        banner.style.fontSize = '13px';
+        banner.style.fontWeight = 'bold';
+        banner.style.color = '#000000';
+        banner.style.background = '#f8fafc';
+        banner.style.borderBottom = '1px solid #cbd5e1';
+        banner.innerHTML = '⏳ Generating crisp vector A4 PDF... Please wait a moment.';
+        overlay.appendChild(banner);
+
+        const container = document.createElement('div');
+        container.style.width = '740px';
+        container.style.margin = '10px auto 0 auto';
+        container.style.background = '#ffffff';
+        container.style.boxSizing = 'border-box';
+
         const clone = element.cloneNode(true);
         clone.id = 'pdf-export-clone';
-        clone.style.width = '740px';
+        clone.style.width = '100%';
         clone.style.maxWidth = '740px';
         clone.style.minWidth = '740px';
+        clone.style.margin = '0';
+        clone.style.padding = '0';
         clone.style.background = '#ffffff';
         clone.style.color = '#000000';
-        clone.style.padding = '0';
-        clone.style.margin = '0 auto';
-        clone.style.position = 'absolute';
-        clone.style.left = '-9999px';
-        clone.style.top = '0';
-        clone.style.zIndex = '-9999';
         clone.style.boxSizing = 'border-box';
-        document.body.appendChild(clone);
+
+        container.appendChild(clone);
+        overlay.appendChild(container);
+        document.body.appendChild(overlay);
 
         const opt = {
-          margin: [10, 10, 10, 10], // 10mm uniform margins on standard A4
+          margin: [8, 8, 8, 8], // 8mm margins on standard A4
           filename: filename,
           image: { type: 'jpeg', quality: 0.98 },
           html2canvas: {
             scale: 2,
             useCORS: true,
             letterRendering: true,
+            scrollY: 0,
             scrollX: 0,
-            scrollY: 0
+            logging: false
           },
           jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' }
         };
 
         html2pdf().set(opt).from(clone).save().then(() => {
-          if (clone.parentNode) clone.parentNode.removeChild(clone);
+          if (overlay.parentNode) document.body.removeChild(overlay);
           showToast('✓ Neat A4 PDF downloaded: ' + filename);
         }).catch(err => {
           console.warn('html2pdf fallback to window.print():', err);
-          if (clone.parentNode) clone.parentNode.removeChild(clone);
+          if (overlay.parentNode) document.body.removeChild(overlay);
           window.print();
         });
       } else {
