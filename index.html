@@ -250,8 +250,87 @@
       background: linear-gradient(135deg, #f0fdf4 0%, #ecfdf5 100%);
       border: 1px solid #86efac;
       border-radius: var(--radius);
-      padding: 18px;
+      padding: 16px 18px;
       margin-bottom: 20px;
+    }
+
+    .regime-compare-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-bottom: 12px;
+      border-bottom: 1px solid #bbf7d0;
+      padding-bottom: 10px;
+    }
+
+    .regime-compare-title {
+      font-size: 0.95rem;
+      font-weight: 700;
+      color: #065f46;
+      text-transform: uppercase;
+      letter-spacing: 0.3px;
+    }
+
+    .regime-compare-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr 1.3fr;
+      gap: 12px;
+      align-items: stretch;
+    }
+
+    .regime-box {
+      background: #ffffff;
+      border: 1px solid #bbf7d0;
+      border-radius: 8px;
+      padding: 10px 14px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.03);
+    }
+
+    .regime-box-label {
+      font-size: 0.775rem;
+      font-weight: 600;
+      color: #475569;
+      margin-bottom: 3px;
+      text-transform: uppercase;
+    }
+
+    .regime-box-val {
+      font-size: 1.35rem;
+      font-weight: 800;
+      line-height: 1.15;
+    }
+
+    .regime-box-sub {
+      font-size: 0.75rem;
+      color: #64748b;
+      margin-top: 3px;
+    }
+
+    .bottom-action-bar {
+      background: #f8fafc;
+      border: 2px solid #3b82f6;
+      box-shadow: 0 4px 6px -1px rgba(0,0,0,0.05);
+      margin-top: 24px;
+      padding: 18px 22px;
+    }
+
+    .bottom-action-content {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 14px;
+    }
+
+    .bottom-btn-group {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
     }
 
     /* ========================================================
@@ -334,6 +413,13 @@
       width: 100%;
       box-sizing: border-box;
       page-break-inside: avoid;
+    }
+
+    .stmt-block-signature {
+      border: none !important;
+      background: transparent !important;
+      margin-top: 8px;
+      margin-bottom: 0px;
     }
 
     .stmt-block-header {
@@ -687,6 +773,11 @@
         border: 1px solid #000000 !important;
       }
 
+      .stmt-block-signature {
+        border: none !important;
+        background: transparent !important;
+      }
+
       .eco-table th, .eco-table td,
       .eco-emp-box td, .eco-emp-box th,
       .sub-salary-table th, .sub-salary-table td {
@@ -758,6 +849,8 @@
 
     .print-page-wrapper {
       width: 100%;
+      display: flex;
+      justify-content: center;
       overflow-x: auto;
       -webkit-overflow-scrolling: touch;
       padding: 2px;
@@ -823,9 +916,10 @@
       }
 
       /* Responsive Mobile Monthly Salary Cards */
-      .salary-table, .salary-table thead, .salary-table tbody, .salary-table tr, .salary-table td, .salary-table th {
+      .salary-table, .salary-table thead, .salary-table tbody, .salary-table tfoot, .salary-table tr, .salary-table td, .salary-table th {
         display: block;
         width: 100%;
+        box-sizing: border-box;
       }
 
       .salary-table thead {
@@ -839,6 +933,7 @@
         margin-bottom: 12px;
         padding: 10px 12px;
         box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+        box-sizing: border-box;
       }
 
       .salary-table tbody td {
@@ -850,6 +945,7 @@
         text-align: left;
         border-bottom: 1px solid #f1f5f9;
         font-size: 0.85rem;
+        box-sizing: border-box;
       }
 
       .salary-table tbody td:first-child {
@@ -888,26 +984,121 @@
         padding: 5px 8px;
       }
 
+      .salary-table tfoot {
+        display: block;
+        width: 100%;
+        box-sizing: border-box;
+        margin-top: 10px;
+      }
+
       .salary-table tfoot tr {
+        display: block;
+        width: 100%;
         background: #f8fafc;
-        border: 2px solid #94a3b8;
+        border: 2px solid #3b82f6;
         border-radius: 8px;
-        padding: 10px 12px;
-        margin-top: 8px;
+        padding: 10px 14px;
+        box-sizing: border-box;
+        box-shadow: 0 2px 4px rgba(0,0,0,0.05);
       }
 
       .salary-table tfoot td {
         display: flex;
         justify-content: space-between;
+        align-items: center;
         border: none;
-        padding: 4px 0;
+        border-bottom: 1px dashed #cbd5e1;
+        padding: 6px 0;
         font-size: 0.85rem;
+        box-sizing: border-box;
+        width: 100%;
+      }
+
+      .salary-table tfoot td:last-child {
+        display: none !important;
+      }
+
+      .salary-table tfoot td.total-heading {
+        background: #1e3a8a;
+        color: #ffffff;
+        font-weight: 700;
+        font-size: 0.85rem;
+        padding: 8px 10px;
+        border-radius: 6px;
+        margin-bottom: 8px;
+        border-bottom: none;
+        justify-content: center;
+        text-align: center;
+        text-transform: uppercase;
+        letter-spacing: 0.3px;
+      }
+
+      .salary-table tfoot td.total-heading::before {
+        display: none !important;
       }
 
       .salary-table tfoot td::before {
         content: attr(data-label);
-        font-weight: 700;
-        color: #1e293b;
+        font-weight: 600;
+        color: #334155;
+        font-size: 0.825rem;
+      }
+
+      /* Mobile comparison grid and bottom actions */
+      .regime-compare-header {
+        flex-direction: column;
+        align-items: stretch;
+        gap: 8px;
+        text-align: center;
+      }
+
+      .regime-compare-title {
+        text-align: center;
+      }
+
+      .regime-badge {
+        align-self: center;
+        width: 100%;
+        text-align: center;
+        padding: 6px 12px;
+        font-size: 0.85rem;
+      }
+
+      .regime-compare-grid {
+        grid-template-columns: 1fr 1fr;
+        gap: 8px;
+      }
+
+      .regime-box-tds {
+        grid-column: span 2;
+        background: #fef2f2;
+        border-color: #fecaca;
+        text-align: center;
+        align-items: center;
+      }
+
+      .bottom-action-bar {
+        padding: 14px 12px !important;
+      }
+
+      .bottom-action-content {
+        flex-direction: column !important;
+        align-items: stretch !important;
+        text-align: center;
+      }
+
+      .bottom-btn-group {
+        flex-direction: column;
+        gap: 8px;
+        width: 100%;
+        margin-top: 10px;
+      }
+
+      .bottom-btn-group .btn {
+        width: 100% !important;
+        justify-content: center !important;
+        padding: 11px 16px !important;
+        font-size: 0.95rem !important;
       }
 
       /* Print Page Preview on Mobile */
@@ -977,7 +1168,6 @@
         <div class="toolbar-group">
           <span class="toolbar-label">Quick Actions:</span>
           <button class="btn btn-outline" onclick="loadSampleData()" title="Load sample college professor data">📄 Load Sample</button>
-          <button class="btn btn-primary" onclick="copyMarchSalary()" title="Copy March salary down to April - February">⬇️ Copy March Down</button>
           <button class="btn btn-warning" onclick="applyDAHikePrompt()" title="Apply percentage DA hike from a month">📈 DA Hike</button>
           <button class="btn btn-danger" onclick="clearAllData()" title="Clear all entered fields to zero">🧹 Clear All</button>
         </div>
@@ -999,29 +1189,27 @@
         </div>
       </div>
 
-      <!-- Live Tax Comparison Card -->
+      <!-- Live Tax Comparison Card (Responsive Grid) -->
       <div class="summary-card">
-        <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:10px;">
-          <div>
-            <span style="font-size:0.9rem; font-weight:700; color:#065f46; text-transform:uppercase;">Tax Regime Comparison</span>
-            <div style="display:flex; gap:20px; align-items:baseline; margin-top:4px;">
-              <div>
-                <span style="font-size:0.8rem; color:#475569;">New Regime Tax: </span>
-                <span style="font-size:1.3rem; font-weight:800; color:#1e3a8a;" id="top-new-tax">₹0</span>
-              </div>
-              <div>
-                <span style="font-size:0.8rem; color:#475569;">Old Regime Tax: </span>
-                <span style="font-size:1.3rem; font-weight:800; color:#0d9488;" id="top-old-tax">₹0</span>
-              </div>
-              <div id="top-regime-recommendation" class="badge badge-success" style="font-size:0.85rem; padding:4px 10px;">
-                Comparing...
-              </div>
-            </div>
+        <div class="regime-compare-header">
+          <span class="regime-compare-title">📊 Tax Regime Comparison (FY 2026-27)</span>
+          <div id="top-regime-recommendation" class="badge badge-success regime-badge">
+            Comparing...
           </div>
-          <div style="text-align:right;">
-            <div style="font-size:0.8rem; color:#475569;">Anticipatory Monthly Deduction:</div>
-            <div style="font-size:1.25rem; font-weight:800; color:#b91c1c;" id="top-monthly-tds">₹0 / month</div>
-            <div style="font-size:0.75rem; color:#64748b;" id="top-pending-months-label">(for remaining months)</div>
+        </div>
+        <div class="regime-compare-grid">
+          <div class="regime-box">
+            <span class="regime-box-label">New Regime Tax</span>
+            <span class="regime-box-val" style="color:#1e3a8a;" id="top-new-tax">₹0</span>
+          </div>
+          <div class="regime-box">
+            <span class="regime-box-label">Old Regime Tax</span>
+            <span class="regime-box-val" style="color:#0d9488;" id="top-old-tax">₹0</span>
+          </div>
+          <div class="regime-box regime-box-tds">
+            <span class="regime-box-label">Anticipatory Monthly Deduction</span>
+            <span class="regime-box-val" style="color:#b91c1c;" id="top-monthly-tds">₹0 / month</span>
+            <span class="regime-box-sub" id="top-pending-months-label">(for remaining months)</span>
           </div>
         </div>
       </div>
@@ -1082,7 +1270,6 @@
       <div class="card">
         <div class="card-title">
           <span>📅 Monthly Gross Salary (March 2026 to February 2027)</span>
-          <button class="btn btn-outline" style="font-size:0.75rem; padding:4px 8px;" onclick="copyMarchSalary()">📋 Copy March to All Months</button>
         </div>
         <div class="table-responsive">
           <table class="salary-table" id="salary-input-table">
@@ -1102,13 +1289,13 @@
             </tbody>
             <tfoot>
               <tr style="background:#fff; font-weight:bold;">
-                <td style="text-align:left;">Total (a):</td>
-                <td id="tot-basic">0</td>
-                <td id="tot-allow">0</td>
-                <td id="tot-gross" style="color:#1e3a8a; font-size:0.95rem;">0</td>
-                <td id="tot-pf">0</td>
-                <td id="tot-tds" style="color:#dc2626; font-size:0.95rem;">0</td>
-                <td style="text-align:center;"><small style="color:#64748b;">-</small></td>
+                <td class="total-heading" style="text-align:left;">Total of Monthly Gross Salary (a):</td>
+                <td id="tot-basic" data-label="Total Basic Pay + DA:">0</td>
+                <td id="tot-allow" data-label="Total Other Allowances:">0</td>
+                <td id="tot-gross" data-label="Total Monthly Gross Salary:" style="color:#1e3a8a; font-weight:700; font-size:0.95rem;">0</td>
+                <td id="tot-pf" data-label="Total PF / NPS Deducted:">0</td>
+                <td id="tot-tds" data-label="Total TDS Deducted:" style="color:#dc2626; font-weight:700; font-size:0.95rem;">0</td>
+                <td class="total-dash" style="text-align:center;"><small style="color:#64748b;">-</small></td>
               </tr>
             </tfoot>
           </table>
@@ -1253,6 +1440,22 @@
           <div class="form-group">
             <label for="ded-80tta">80TTA / 80TTB: Savings Bank Interest Deduction</label>
             <input type="number" class="form-control" id="ded-80tta" value="0" oninput="calculateAll()">
+          </div>
+        </div>
+      </div>
+
+      <!-- Bottom Action Bar for Quick Save & Statement Generation -->
+      <div class="card bottom-action-bar">
+        <div class="bottom-action-content">
+          <div>
+            <h4 style="margin:0 0 4px 0; color:#1e3a8a; font-size:1.05rem; font-weight:700;">✅ Done Entering Data?</h4>
+            <p style="margin:0; font-size:0.85rem; color:#475569;">Save your draft securely or generate your official printable/downloadable A4 statement.</p>
+          </div>
+          <div class="bottom-btn-group">
+            <button class="btn btn-outline" style="font-weight:700;" onclick="saveDraft()">💾 Save Data</button>
+            <button class="btn btn-success" style="font-weight:700; font-size:0.95rem;" onclick="showTab('new-regime')">📄 Generate Statement (New Regime)</button>
+            <button class="btn btn-primary" style="font-weight:700;" onclick="showTab('old-regime')">⚖️ Generate Statement (Old Regime)</button>
+            <button class="btn btn-outline" onclick="exportJSON()">📥 Export JSON</button>
           </div>
         </div>
       </div>
@@ -1487,19 +1690,19 @@
             </div>
           </div>
 
-          <!-- Block 7: Declaration & Signatures -->
-          <div class="stmt-block" style="padding:4px 8px;">
+          <!-- Block 7: Declaration & Signatures (No Border, Generous Signing Space) -->
+          <div class="stmt-block stmt-block-signature" style="border:none; margin-top:8px; padding:4px 2px;">
             <div style="display:flex; justify-content:space-between; align-items:flex-start; font-size:7.5pt;">
-              <div style="width:40%;">
+              <div style="width:44%;">
                 <p style="margin:2px 0;"><strong>Place:</strong> <span id="eco-sig-place"></span></p>
                 <p style="margin:2px 0;"><strong>Date:</strong> <span id="eco-sig-date">23/11/2026</span></p>
-                <div style="margin-top:14px; font-size:7pt; color:#000;">
+                <div style="margin-top:36px; font-size:7.5pt; color:#000;">
                   <em>Verified that the particulars given above are true and correct.</em>
                 </div>
               </div>
-              <div style="width:58%; text-align:right;">
-                <div style="margin-bottom:18px;">
-                  <span>Signature: __________________________</span>
+              <div style="width:54%; text-align:right;">
+                <div style="margin-bottom:45px; padding-top:4px;">
+                  <span>Signature: ________________________________</span>
                 </div>
                 <p style="margin:1.5px 0;"><strong>Name:</strong> <span id="eco-sig-name"></span></p>
                 <p style="margin:1.5px 0;"><strong>PEN:</strong> <span id="eco-sig-pen"></span></p>
@@ -1752,18 +1955,20 @@
               </div>
             </div>
 
-            <!-- Block 8: Declaration & Signatures -->
-            <div class="stmt-block" style="padding:4px 8px;">
+            <!-- Block 8: Declaration & Signatures (No Border, Generous Signing Space) -->
+            <div class="stmt-block stmt-block-signature" style="border:none; margin-top:8px; padding:4px 2px;">
               <div style="display:flex; justify-content:space-between; align-items:flex-start; font-size:7.5pt;">
-                <div style="width:40%;">
+                <div style="width:44%;">
                   <p style="margin:2px 0;"><strong>Place:</strong> <span id="old-sig-place"></span></p>
                   <p style="margin:2px 0;"><strong>Date:</strong> <span id="old-sig-date"></span></p>
-                  <div style="margin-top:14px; font-size:7pt; color:#000;">
+                  <div style="margin-top:36px; font-size:7.5pt; color:#000;">
                     <em>Verified that the particulars given above are true and correct.</em>
                   </div>
                 </div>
-                <div style="width:58%; text-align:right;">
-                  <div style="margin-bottom:18px;"><span>Signature: __________________________</span></div>
+                <div style="width:54%; text-align:right;">
+                  <div style="margin-bottom:45px; padding-top:4px;">
+                    <span>Signature: ________________________________</span>
+                  </div>
                   <p style="margin:1.5px 0;"><strong>Name:</strong> <span id="old-sig-name"></span></p>
                   <p style="margin:1.5px 0;"><strong>PEN:</strong> <span id="old-sig-pen"></span></p>
                   <p style="margin:1.5px 0;"><strong>Designation:</strong> <span id="old-sig-desig"></span></p>
@@ -3226,8 +3431,10 @@
         overlay.appendChild(container);
         document.body.appendChild(overlay);
 
+        // 670px at 96 DPI is 177.27mm. Total A4 portrait width is 210mm.
+        // Exact symmetrical margins to center the 670px blocks on A4 page: (210 - 177.27) / 2 = 16.36mm (~16.4mm).
         const opt = {
-          margin: [6, 8, 6, 8], // 6mm top/bottom, 8mm left/right on standard A4
+          margin: [6, 16.4, 6, 16.4],
           filename: filename,
           image: { type: 'jpeg', quality: 0.98 },
           html2canvas: {
