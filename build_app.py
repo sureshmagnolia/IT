@@ -1637,11 +1637,11 @@ html_code = """<!DOCTYPE html>
                 <strong id="eco-row4-main">0</strong>
               </div>
               <div class="sub-row">
-                <span>5. Tax on Total Income (as per New Tax Slab FY 2026-27):</span>
+                <span>5. Tax on Total Income (as per New Tax Slabs FY 2026-27: 0-3L Nil, 3-7L 5%, 7-10L 10%, 10-12L 15%, 12-15L 20%, >15L 30%):</span>
                 <span id="eco-row5-main">0</span>
               </div>
               <div class="sub-row">
-                <span>6. Less: Rebate u/s 87A (Up to Rs. 60,000 if Total Income &le; Rs. 12,00,000):</span>
+                <span>6. Less: Rebate u/s 87A (Up to Rs. 25,000 if Total Income &le; Rs. 7,00,000):</span>
                 <span id="eco-row6-main">0</span>
               </div>
               <div class="sub-row">
@@ -1876,27 +1876,38 @@ html_code = """<!DOCTYPE html>
                 <span>6. Deductions under Chapter VI-A:</span>
                 <span id="old-row6">0</span>
               </div>
-              <div class="block-body">
-                <div style="border:1px solid #000; padding:3px 6px; margin-bottom:3px; font-size:7.5pt;">
-                  <div style="font-weight:bold; margin-bottom:2px;">(A) Section 80C Deductions (Max Limit: Rs. 1,50,000):</div>
-                  <div class="sub-row"><span>&bull; GPF / EPF Subscription:</span><span id="old-det-gpf">0</span></div>
-                  <div class="sub-row"><span>&bull; SLI (State Life Insurance):</span><span id="old-det-sli">0</span></div>
-                  <div class="sub-row"><span>&bull; GIS (Group Insurance Scheme):</span><span id="old-det-gis">0</span></div>
-                  <div class="sub-row"><span>&bull; LIC / Life Insurance Premium:</span><span id="old-det-lic">0</span></div>
-                  <div class="sub-row"><span>&bull; Tuition Fees for Children:</span><span id="old-det-tuition">0</span></div>
-                  <div class="sub-row"><span>&bull; Housing Loan Principal Repayment:</span><span id="old-det-hlp">0</span></div>
-                  <div class="sub-row"><span>&bull; PPF / Sukanya / NSC / Other 80C:</span><span id="old-det-ppf">0</span></div>
-                  <div class="sub-row sub-row-total">
-                    <span>Total 80C Claimed / Eligible Amount:</span>
-                    <span><span id="old-80c-claimed">0</span> / <span id="old-80c">0</span></span>
+              <div class="block-body" style="padding: 2.5px 6px;">
+                <div style="border:1px solid #000; padding:2px 5px; margin-bottom:2px; font-size:7.2pt;">
+                  <div style="font-weight:bold; margin-bottom:1.5px; display:flex; justify-content:space-between; border-bottom:1px dashed #000; padding-bottom:1.5px;">
+                    <span>(A) Section 80C Deductions (Max Limit: ₹1,50,000):</span>
+                    <span>Claimed: <span id="old-80c-claimed">0</span> | Eligible: <strong id="old-80c">0</strong></span>
+                  </div>
+                  <div style="display:flex; justify-content:space-between; gap:8px;">
+                    <div style="width:49%;">
+                      <div class="sub-row" style="padding:0.5px 0;"><span>&bull; GPF / EPF Subscription:</span><span id="old-det-gpf">0</span></div>
+                      <div class="sub-row" style="padding:0.5px 0;"><span>&bull; SLI (State Life Ins.):</span><span id="old-det-sli">0</span></div>
+                      <div class="sub-row" style="padding:0.5px 0;"><span>&bull; GIS (Group Ins.):</span><span id="old-det-gis">0</span></div>
+                      <div class="sub-row" style="padding:0.5px 0;"><span>&bull; LIC / Life Ins. Prem.:</span><span id="old-det-lic">0</span></div>
+                    </div>
+                    <div style="width:49%;">
+                      <div class="sub-row" style="padding:0.5px 0;"><span>&bull; Tuition Fees (Children):</span><span id="old-det-tuition">0</span></div>
+                      <div class="sub-row" style="padding:0.5px 0;"><span>&bull; Housing Loan Principal:</span><span id="old-det-hlp">0</span></div>
+                      <div class="sub-row" style="padding:0.5px 0;"><span>&bull; PPF / Sukanya / NSC:</span><span id="old-det-ppf">0</span></div>
+                    </div>
                   </div>
                 </div>
-                <div class="sub-row"><span>(B) u/s 80CCD(1B) - Additional NPS Contribution (Max 50k):</span><span id="old-80ccd">0</span></div>
-                <div class="sub-row"><span>(C) u/s 80D - Health Insurance / MediSep (Self & Parents):</span><span id="old-80d">0</span></div>
-                <div class="sub-row"><span>(D) u/s 24(b) - Interest on Housing Loan (Max 2L):</span><span id="old-24b">0</span></div>
-                <div class="sub-row"><span>(E) u/s 80E - Interest on Higher Education Loan:</span><span id="old-80e">0</span></div>
-                <div class="sub-row"><span>(F) u/s 80G - Approved Donations (CMDRF / PMNRF):</span><span id="old-80g">0</span></div>
-                <div class="sub-row"><span>(G) u/s 80TTA - Savings Bank Interest:</span><span id="old-80tta">0</span></div>
+                <div style="display:flex; justify-content:space-between; gap:8px; font-size:7.2pt;">
+                  <div style="width:49%;">
+                    <div class="sub-row" style="padding:1px 0;"><span>(B) u/s 80CCD(1B) NPS (Max 50k):</span><span id="old-80ccd">0</span></div>
+                    <div class="sub-row" style="padding:1px 0;"><span>(C) u/s 80D MediSep / Health Ins.:</span><span id="old-80d">0</span></div>
+                    <div class="sub-row" style="padding:1px 0;"><span>(D) u/s 24(b) Housing Loan Int.:</span><span id="old-24b">0</span></div>
+                  </div>
+                  <div style="width:49%;">
+                    <div class="sub-row" style="padding:1px 0;"><span>(E) u/s 80E Education Loan Int.:</span><span id="old-80e">0</span></div>
+                    <div class="sub-row" style="padding:1px 0;"><span>(F) u/s 80G Approved Donations:</span><span id="old-80g">0</span></div>
+                    <div class="sub-row" style="padding:1px 0;"><span>(G) u/s 80TTA Savings Bank Int.:</span><span id="old-80tta">0</span></div>
+                  </div>
+                </div>
               </div>
             </div>
 
@@ -1960,17 +1971,17 @@ html_code = """<!DOCTYPE html>
             </div>
 
             <!-- Block 8: Declaration & Signatures (No Border, Generous Signing Space) -->
-            <div class="stmt-block stmt-block-signature" style="border:none; margin-top:8px; padding:4px 2px;">
+            <div class="stmt-block stmt-block-signature" style="border:none; margin-top:5px; padding:2px 2px;">
               <div style="display:flex; justify-content:space-between; align-items:flex-start; font-size:7.5pt;">
                 <div style="width:44%;">
                   <p style="margin:2px 0;"><strong>Place:</strong> <span id="old-sig-place"></span></p>
                   <p style="margin:2px 0;"><strong>Date:</strong> <span id="old-sig-date"></span></p>
-                  <div style="margin-top:36px; font-size:7.5pt; color:#000;">
+                  <div style="margin-top:24px; font-size:7.5pt; color:#000;">
                     <em>Verified that the particulars given above are true and correct.</em>
                   </div>
                 </div>
                 <div style="width:54%; text-align:right;">
-                  <div style="margin-bottom:45px; padding-top:4px;">
+                  <div style="margin-bottom:34px; padding-top:2px;">
                     <span>Signature: ________________________________</span>
                   </div>
                   <p style="margin:1.5px 0;"><strong>Name:</strong> <span id="old-sig-name"></span></p>
@@ -2248,15 +2259,15 @@ html_code = """<!DOCTYPE html>
           <div style="background:#f0fdf4; border:1px solid #86efac; border-radius:6px; padding:15px;">
             <h4 style="color:#15803d; margin-bottom:10px;">🌟 New Tax Regime (Section 115BAC)</h4>
             <ul style="font-size:0.875rem; line-height:1.6; margin-left:20px; color:#1e293b;">
-              <li><strong>Standard Deduction:</strong> ₹75,000 (Salaried / Pensioners)</li>
-              <li><strong>₹0 to ₹4,00,000:</strong> Nil</li>
-              <li><strong>₹4,00,001 to ₹8,00,000:</strong> 5%</li>
-              <li><strong>₹8,00,001 to ₹12,00,000:</strong> 10%</li>
-              <li><strong>₹12,00,001 to ₹16,00,000:</strong> 15%</li>
-              <li><strong>₹16,00,001 to ₹20,00,000:</strong> 20%</li>
-              <li><strong>₹20,00,001 to ₹24,00,000:</strong> 25%</li>
-              <li><strong>Above ₹24,00,000:</strong> 30%</li>
-              <li><strong>Rebate u/s 87A:</strong> Full tax rebate up to ₹60,000 for Taxable Income up to ₹12,00,000 (Zero tax up to ₹12,75,000 gross). Marginal relief applies if income is slightly above ₹12 Lakh.</li>
+              <li><strong>Standard Deduction:</strong> ₹75,000 (Salaried / Pensioners u/s 16(ia))</li>
+              <li><strong>₹0 to ₹3,00,000:</strong> Nil</li>
+              <li><strong>₹3,00,001 to ₹7,00,000:</strong> 5%</li>
+              <li><strong>₹7,00,001 to ₹10,00,000:</strong> 10%</li>
+              <li><strong>₹10,00,001 to ₹12,00,000:</strong> 15%</li>
+              <li><strong>₹12,00,001 to ₹15,00,000:</strong> 20%</li>
+              <li><strong>Above ₹15,00,000:</strong> 30%</li>
+              <li><strong>Rebate u/s 87A:</strong> Full tax rebate up to ₹25,000 for Taxable Income up to ₹7,00,000 (Zero tax up to ₹7,75,000 gross salary). Marginal relief applies if taxable income slightly exceeds ₹7 Lakh (up to ₹7,27,778).</li>
+              <li><strong>Deductions:</strong> Section 16(ia) Std Ded (₹75,000) & Section 80CCD(2) Employer NPS allowed. (Professional Tax u/s 16(iii) & Chapter VI-A 80C/80D are not allowed).</li>
               <li><strong>Health & Education Cess:</strong> 4%</li>
             </ul>
           </div>
@@ -2379,25 +2390,31 @@ html_code = """<!DOCTYPE html>
     // --- Slabs and Calculations for FY 2026-27 ---
 
     // New Regime Tax Computation for FY 2026-27 (AY 2027-28)
+    // Slabs as amended by Finance (No. 2) Act, 2024 u/s 115BAC:
+    // 0 to 3,00,000: Nil
+    // 3,00,001 to 7,00,000: 5% (Tax on 4L = 20,000)
+    // 7,00,001 to 10,00,000: 10% (Tax on 3L = 30,000; Cum: 50,000)
+    // 10,00,001 to 12,00,000: 15% (Tax on 2L = 30,000; Cum: 80,000)
+    // 12,00,001 to 15,00,000: 20% (Tax on 3L = 60,000; Cum: 1,40,000)
+    // Above 15,00,000: 30%
     function computeNewRegimeTax(taxableIncome) {
       let income = Math.max(0, taxableIncome);
       let tax = 0;
 
-      // Slabs: 0-4L Nil, 4-8L 5%, 8-12L 10%, 12-16L 15%, 16-20L 20%, 20-24L 25%, >24L 30%
-      if (income > 400000) tax += Math.min(income - 400000, 400000) * 0.05;
-      if (income > 800000) tax += Math.min(income - 800000, 400000) * 0.10;
-      if (income > 1200000) tax += Math.min(income - 1200000, 400000) * 0.15;
-      if (income > 1600000) tax += Math.min(income - 1600000, 400000) * 0.20;
-      if (income > 2000000) tax += Math.min(income - 2000000, 400000) * 0.25;
-      if (income > 2400000) tax += (income - 2400000) * 0.30;
+      if (income > 300000) tax += Math.min(income - 300000, 400000) * 0.05;
+      if (income > 700000) tax += Math.min(income - 700000, 300000) * 0.10;
+      if (income > 1000000) tax += Math.min(income - 1000000, 200000) * 0.15;
+      if (income > 1200000) tax += Math.min(income - 1200000, 300000) * 0.20;
+      if (income > 1500000) tax += (income - 1500000) * 0.30;
 
-      // Section 87A Rebate
+      // Section 87A Rebate:
+      // Full rebate up to ₹25,000 if taxable income <= ₹7,00,000 (Zero tax).
+      // Marginal Relief: If taxable income > ₹7,00,000, tax payable shall not exceed (income - 7,00,000).
       let rebate = 0;
-      if (income <= 1200000) {
-        rebate = Math.min(tax, 60000);
-      } else if (income > 1200000 && income <= 1275000) {
-        // Marginal relief: Tax payable cannot exceed excess income over 12 Lakhs
-        let excess = income - 1200000;
+      if (income <= 700000) {
+        rebate = tax;
+      } else if (income > 700000) {
+        let excess = income - 700000;
         if (tax > excess) {
           rebate = tax - excess;
         }
@@ -2407,7 +2424,7 @@ html_code = """<!DOCTYPE html>
 
       // Surcharge
       let surcharge = 0;
-      if (income > 50000000) surcharge = taxAfterRebate * 0.25;
+      if (income > 50000000) surcharge = taxAfterRebate * 0.25; // Surcharge capped at 25% under New Regime
       else if (income > 20000000) surcharge = taxAfterRebate * 0.25;
       else if (income > 10000000) surcharge = taxAfterRebate * 0.15;
       else if (income > 5000000) surcharge = taxAfterRebate * 0.10;
@@ -2568,11 +2585,13 @@ html_code = """<!DOCTYPE html>
       let row1GrossSalary = Math.max(0, totGross + row1bTotal - row1cExcess);
 
       // Row 2 Deductions (New Regime)
+      // Note: u/s 115BAC(2)(i), Professional Tax u/s 16(iii) is NOT deductible under New Regime.
+      // Standard Deduction u/s 16(ia) is ₹75,000. Employer NPS contribution u/s 80CCD(2) is allowed.
       let row2aStdDed = 75000;
       let row2bConvey = getNum('row2b-conveyance');
       let row2cNps = getNum('row2c-nps');
-      let row2eProfTax = getNum('row2e-proftax');
-      let row2TotDedNew = row2aStdDed + row2bConvey + row2cNps + row2eProfTax;
+      let row2eProfTax = getNum('row2e-proftax'); // Kept for Old Regime deduction
+      let row2TotDedNew = row2aStdDed + row2bConvey + row2cNps; // Professional Tax NOT deducted in New Regime
 
       // Row 3 Remuneration
       let row3Remun = getNum('row3-remuneration');
@@ -2623,7 +2642,7 @@ html_code = """<!DOCTYPE html>
       setText('eco-row2a', formatINR(row2aStdDed));
       setText('eco-row2b', formatINR(row2bConvey));
       setText('eco-row2c', formatINR(row2cNps));
-      setText('eco-row2e', formatINR(row2eProfTax));
+      setText('eco-row2e', '0 (N/A u/s 115BAC)');
       setText('eco-row2-sub', formatINR(row2TotDedNew));
       setText('eco-row2-main', formatINR(row2TotDedNew));
 
