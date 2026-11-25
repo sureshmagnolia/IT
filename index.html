@@ -1247,27 +1247,38 @@
           </div>
         </div>
 
-        <div class="grid-4" style="margin-top:10px; background:#f8fafc; padding:12px; border-radius:6px; border:1px solid #e2e8f0;">
-          <div class="form-group">
+        <div class="grid-2" style="margin-top:10px; background:#eff6ff; padding:12px; border-radius:6px; border:1px solid #bfdbfe;">
+          <div class="form-group" style="margin-bottom:0;">
             <label for="chosen-regime-select" style="font-weight:700; color:#1e3a8a;">🎯 Tax Regime Focus</label>
-            <select class="form-control" id="chosen-regime-select" onchange="onRegimePreferenceChange()" style="font-weight:700; color:#1e3a8a; border:1.5px solid #3b82f6; background:#eff6ff;">
+            <select class="form-control" id="chosen-regime-select" onchange="onRegimePreferenceChange()" style="font-weight:700; color:#1e3a8a; border:1.5px solid #3b82f6; background:#ffffff;">
               <option value="new" selected>🌟 New Tax Regime (Only New Regime Data)</option>
-              <option value="old">🏛️ Old Tax Regime (With 80C, 80D Deductions)</option>
+              <option value="old">🏛️ Old Tax Regime (With HRA, 80C, 80D, 24b)</option>
               <option value="both">⚖️ Compare Both Regimes (Show All Fields)</option>
             </select>
           </div>
-          <div class="form-group">
+          <div class="form-group" style="margin-bottom:0;">
+            <label for="emp-age-category" style="font-weight:700; color:#1e3a8a;">🎂 Taxpayer Age Category</label>
+            <select class="form-control" id="emp-age-category" onchange="calculateAll()" style="font-weight:600; color:#0f172a; background:#ffffff;">
+              <option value="Individual" selected>Individual (Below 60 Years — Slab: ₹2.5L)</option>
+              <option value="Senior Citizen">Senior Citizen (60–79 Years — Slab: ₹3.0L)</option>
+              <option value="Super Senior Citizen">Super Senior Citizen (80+ Years — Slab: ₹5.0L)</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="grid-3" style="margin-top:10px; background:#f8fafc; padding:12px; border-radius:6px; border:1px solid #e2e8f0;">
+          <div class="form-group" style="margin-bottom:0;">
             <label for="stmt-mode">Statement Mode</label>
             <select class="form-control" id="stmt-mode" onchange="calculateAll()" style="font-weight:700; color:#1e3a8a;">
               <option value="anticipatory" selected>ANTICIPATORY STATEMENT (Monthly TDS)</option>
               <option value="final">FINAL STATEMENT (Annual Tax Return)</option>
             </select>
           </div>
-          <div class="form-group">
+          <div class="form-group" style="margin-bottom:0;">
             <label for="stmt-date">Statement Date</label>
             <input type="date" class="form-control" id="stmt-date" value="2026-11-23" oninput="calculateAll()">
           </div>
-          <div class="form-group">
+          <div class="form-group" style="margin-bottom:0;">
             <label for="pending-months">Pending Months for TDS deduction</label>
             <input type="number" class="form-control" id="pending-months" value="3" min="1" max="12" oninput="calculateAll()">
           </div>
@@ -1339,28 +1350,36 @@
             <label for="row3-remuneration">Examination / Valuation Remuneration (Row 3) (₹)</label>
             <input type="number" class="form-control" id="row3-remuneration" value="0" oninput="calculateAll()">
           </div>
+          <div class="form-group">
+            <label for="row3-bank-interest">Bank SB / FD / Post Office Interest Earned (u/s 56 Other Income) (₹)</label>
+            <input type="number" class="form-control" id="row3-bank-interest" value="0" oninput="calculateAll()">
+            <small style="color:#64748b; font-size:0.73rem;">Taxable under New Regime; eligible for 80TTA (₹10k) / 80TTB (₹50k for 60+) under Old Regime.</small>
+          </div>
         </div>
 
         <div class="card">
           <div class="card-title">🛡️ Deductions & Reliefs</div>
           <div class="form-group">
-            <label>Standard Deduction (Row 2a)</label>
+            <label>Standard Deduction u/s 16(ia) (Row 2a)</label>
             <div style="display:flex; gap:10px;">
               <span class="form-control" style="background:#f1f5f9; font-weight:bold; color:#1e3a8a;">New: ₹75,000</span>
               <span class="form-control" style="background:#f1f5f9; font-weight:bold; color:#0d9488;">Old: ₹50,000</span>
             </div>
           </div>
           <div class="form-group">
-            <label for="row2b-conveyance">Conveyance Allowance for Differently Abled (Row 2b) (₹)</label>
+            <label for="row2b-conveyance">Conveyance Allowance for Differently Abled u/s 10(14) (Row 2b) (₹)</label>
             <input type="number" class="form-control" id="row2b-conveyance" value="0" oninput="calculateAll()">
+            <small style="color:#64748b; font-size:0.73rem;">Exempt under both New &amp; Old Regimes (Differently-abled employees only).</small>
           </div>
           <div class="form-group">
             <label for="row2c-nps">Employer NPS Contribution u/s 80CCD(2) (Row 2c) (₹)</label>
             <input type="number" class="form-control" id="row2c-nps" value="0" oninput="calculateAll()">
+            <small style="color:#64748b; font-size:0.73rem;">Allowed under both New &amp; Old Regimes (up to 14% of Basic+DA for Govt employees).</small>
           </div>
           <div class="form-group">
-            <label for="row2e-proftax">Professional Tax / Tax on Employment (Row 2e) (₹)</label>
+            <label for="row2e-proftax">Professional Tax / Tax on Employment u/s 16(iii) (₹)</label>
             <input type="number" class="form-control" id="row2e-proftax" value="2500" oninput="calculateAll()">
+            <small style="color:#64748b; font-size:0.73rem;">Deductible under Old Regime only (not allowed u/s 115BAC New Regime).</small>
           </div>
           <div class="form-group" style="background:#fef3c7; padding:10px; border-radius:6px; border:1px solid #fde68a;">
             <label for="row11-relief89" style="color:#92400e; font-weight:bold;">
@@ -1370,7 +1389,7 @@
               <input type="number" class="form-control" id="row11-relief89" value="0" oninput="calculateAll()" style="font-weight:bold; color:#b45309;">
               <button class="btn btn-warning" style="white-space:nowrap; font-size:0.75rem;" onclick="showTab('form-10e')">Calculate in 10E</button>
             </div>
-            <small style="color:#b45309; font-size:0.75rem;">Calculated via Form 10E based on historical slabs.</small>
+            <small style="color:#b45309; font-size:0.75rem;">Calculated via Form 10E based on historical slabs &amp; opted current regime.</small>
           </div>
         </div>
       </div>
@@ -1385,32 +1404,86 @@
             </div>
             <p style="margin:5px 0 0 0; font-size:0.875rem; color:#1e293b; line-height:1.4;">
               Standard Deduction of <strong>₹75,000</strong> is applied automatically. You only need your salary details above.<br>
-              Detailed Chapter VI-A deductions (80C, 80D, 24b Home Loan, etc.) are <strong>not needed</strong> for the New Regime.
+              HRA exemption, Home Loan Interest, &amp; Chapter VI-A deductions (80C, 80D, 80DD, etc.) are <strong>not needed</strong> for the New Regime.
             </p>
           </div>
           <div>
             <button type="button" class="btn btn-outline" onclick="enableOldRegimeFields()" style="background:#ffffff; border:1.5px solid #16a34a; color:#15803d; font-weight:700; font-size:0.85rem; padding:8px 14px; white-space:nowrap; cursor:pointer;">
-              🏛️ Need Old Regime? Click to Show 80C/80D Fields
+              🏛️ Need Old Regime? Click to Show Old Regime Fields
             </button>
           </div>
         </div>
       </div>
 
-      <!-- Old Regime Detailed Chapter VI-A Deductions Card -->
-      <div class="card" id="old-regime-deductions-card" style="display:none;">
+      <!-- Old Regime Detailed Exemptions, House Property & Chapter VI-A Deductions Card -->
+      <div class="card" id="old-regime-deductions-card" style="display:none; border:1.5px solid #93c5fd;">
         <div class="card-title" style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:10px;">
           <div>
-            <span>📑 Detailed Chapter VI-A Deductions (For Old Tax Regime)</span>
-            <div style="font-size:0.8rem; font-weight:normal; color:#64748b;">(Applicable if opting for Old Regime or comparing)</div>
+            <span>📑 Old Tax Regime: Exemptions u/s 10, House Property u/s 24(b) &amp; Chapter VI-A</span>
+            <div style="font-size:0.8rem; font-weight:normal; color:#64748b;" id="old-card-carryover-info">Auto-applied from above: Std Ded ₹50,000 | Prof Tax ₹2,500 | Employer NPS ₹0</div>
           </div>
-          <button type="button" class="btn btn-outline" onclick="hideOldRegimeFields()" style="font-size:0.75rem; padding:3px 8px; color:#64748b; border-color:#cbd5e1; cursor:pointer;">
+          <button type="button" class="btn btn-outline" onclick="hideOldRegimeFields()" style="font-size:0.75rem; padding:4px 10px; color:#64748b; border-color:#cbd5e1; cursor:pointer;">
             ✕ Hide Old Regime Fields
           </button>
         </div>
-        
-        <div style="background:#f8fafc; border:1px solid #cbd5e1; border-radius:6px; padding:12px; margin-bottom:14px;">
-          <h4 style="font-size:0.9rem; color:#1e293b; margin-bottom:8px;">Section 80C Investments & Savings (Overall Max Limit: ₹1,50,000)</h4>
+
+        <!-- Part A: Section 10 Exemptions, Section 16(ii) & House Property Loss u/s 24(b) -->
+        <div style="background:#eff6ff; border:1px solid #bfdbfe; border-radius:6px; padding:12px; margin-bottom:14px;">
+          <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:8px; margin-bottom:10px;">
+            <h4 style="font-size:0.9rem; color:#1e3a8a; margin:0;">🏠 Part A: HRA Exemption u/s 10(13A), Govt Entertainment Allow. &amp; Home Loan Int. u/s 24(b)</h4>
+            <span class="badge badge-primary" id="lbl-hra-exempt-calc">Exempt HRA u/s 10(13A): ₹0</span>
+          </div>
+
           <div class="grid-4">
+            <div class="form-group">
+              <label for="old-hra-received">Actual HRA Received / yr (₹)</label>
+              <input type="number" class="form-control" id="old-hra-received" value="0" oninput="calculateAll()">
+            </div>
+            <div class="form-group">
+              <label for="old-rent-paid">Annual Rent Paid (₹)</label>
+              <input type="number" class="form-control" id="old-rent-paid" value="0" oninput="calculateAll()">
+            </div>
+            <div class="form-group">
+              <label for="old-hra-city">City Category (Rule 2A)</label>
+              <select class="form-control" id="old-hra-city" onchange="calculateAll()">
+                <option value="0.4" selected>Non-Metro (40% — Kerala / Others)</option>
+                <option value="0.5">Metro (50% — Delhi/Mum/Che/Kol)</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label for="old-hra-direct">Or Direct Exempt HRA Override (₹)</label>
+              <input type="number" class="form-control" id="old-hra-direct" value="0" oninput="calculateAll()" placeholder="If already computed">
+            </div>
+          </div>
+          <small style="display:block; color:#1e40af; font-size:0.75rem; margin:-4px 0 10px 0;" id="lbl-hra-formula-hint">
+            Enter HRA received &amp; rent paid to auto-compute u/s 10(13A) (min of Actual HRA, Rent − 10% Basic+DA, 40%/50% Basic+DA), or type Exempt HRA directly.
+          </small>
+
+          <div class="grid-3">
+            <div class="form-group" style="margin-bottom:0;">
+              <label for="ded-sec10-other">Other u/s 10 Exemptions (LTA / CEA) (₹)</label>
+              <input type="number" class="form-control" id="ded-sec10-other" value="0" oninput="calculateAll()">
+            </div>
+            <div class="form-group" style="margin-bottom:0;">
+              <label for="ded-sec16-ent">Entertainment Allowance u/s 16(ii) (Govt Max ₹5k)</label>
+              <input type="number" class="form-control" id="ded-sec16-ent" value="0" oninput="calculateAll()">
+            </div>
+            <div class="form-group" style="margin-bottom:0;">
+              <label for="ded-24b">24(b): Home Loan Interest — House Prop. Loss (Max ₹2L)</label>
+              <input type="number" class="form-control" id="ded-24b" value="0" oninput="calculateAll()">
+            </div>
+          </div>
+        </div>
+
+        <!-- Part B: Section 80C + 80CCD(1) Basket -->
+        <div style="background:#f8fafc; border:1px solid #cbd5e1; border-radius:6px; padding:12px; margin-bottom:14px;">
+          <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:8px; margin-bottom:8px;">
+            <h4 style="font-size:0.9rem; color:#1e293b; margin:0;">💰 Part B: Section 80C + 80CCD(1) Basket (Combined Cap u/s 80CCE: ₹1,50,000)</h4>
+            <button type="button" class="btn btn-outline" id="btn-sync-pf-80c" onclick="syncPfTo80C()" style="font-size:0.75rem; padding:3px 10px; border-color:#3b82f6; color:#1d4ed8; font-weight:600;">
+              📋 Fill GPF/NPS from Monthly PF Total (₹0)
+            </button>
+          </div>
+          <div class="grid-3">
             <div class="form-group">
               <label for="ded-gpf">GPF / EPF Subscription (₹)</label>
               <input type="number" class="form-control ded-80c-item" id="ded-gpf" value="0" oninput="calculateAll()">
@@ -1420,7 +1493,7 @@
               <input type="number" class="form-control ded-80c-item" id="ded-sli" value="0" oninput="calculateAll()">
             </div>
             <div class="form-group">
-              <label for="ded-gis">GIS (Group Insurance) (₹)</label>
+              <label for="ded-gis">GIS (Group Insurance Scheme) (₹)</label>
               <input type="number" class="form-control ded-80c-item" id="ded-gis" value="0" oninput="calculateAll()">
             </div>
             <div class="form-group">
@@ -1440,39 +1513,73 @@
               <input type="number" class="form-control ded-80c-item" id="ded-ppf" value="0" oninput="calculateAll()">
             </div>
             <div class="form-group">
-              <label for="ded-80c-other">Other 80C Investments (₹)</label>
+              <label for="ded-80ccd1">Employee NPS Tier-I u/s 80CCD(1) (PRAN) (₹)</label>
+              <input type="number" class="form-control ded-80c-item" id="ded-80ccd1" value="0" oninput="calculateAll()">
+            </div>
+            <div class="form-group">
+              <label for="ded-80c-other">Other 80C Investments (ELSS/ULIP/Stamp) (₹)</label>
               <input type="number" class="form-control ded-80c-item" id="ded-80c-other" value="0" oninput="calculateAll()">
             </div>
           </div>
-          <div style="display:flex; justify-content:space-between; align-items:center; border-top:1px dashed #cbd5e1; padding-top:6px; margin-top:4px;">
-            <span style="font-size:0.85rem; font-weight:600; color:#334155;">Total 80C Claimed: <strong id="lbl-80c-claimed">₹0</strong></span>
-            <span style="font-size:0.85rem; font-weight:700; color:#1e40af;">Eligible Deduction u/s 80C (Capped at 1.5L): <strong id="lbl-80c-eligible">₹0</strong></span>
+          <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:8px; border-top:1px dashed #cbd5e1; padding-top:6px; margin-top:4px;">
+            <span style="font-size:0.85rem; font-weight:600; color:#334155;">Total 80C + 80CCD(1) Claimed: <strong id="lbl-80c-claimed">₹0</strong></span>
+            <span style="font-size:0.85rem; font-weight:700; color:#1e40af;">Eligible Deduction u/s 80CCE (Max ₹1,50,000): <strong id="lbl-80c-eligible">₹0</strong></span>
           </div>
         </div>
 
+        <!-- Part C: Other Chapter VI-A Deductions -->
+        <h4 style="font-size:0.9rem; color:#1e293b; margin-bottom:8px;">🏥 Part C: Other Chapter VI-A Deductions (NPS, Health Insurance, Disability, Loans, Bank Interest)</h4>
         <div class="grid-3">
           <div class="form-group">
-            <label for="ded-80ccd1b">80CCD(1B): Additional NPS Voluntary (Max ₹50,000)</label>
+            <label for="ded-80ccd1b">80CCD(1B): Additional Voluntary NPS (Max ₹50,000)</label>
             <input type="number" class="form-control" id="ded-80ccd1b" value="0" oninput="calculateAll()">
           </div>
           <div class="form-group">
-            <label for="ded-80d">80D: MediSep / Health Insurance (Self & Parents)</label>
+            <label for="ded-80d" id="lbl-80d-self-cap">80D: Self/Family MediSep &amp; Health Ins. (Max ₹25,000)</label>
             <input type="number" class="form-control" id="ded-80d" value="0" oninput="calculateAll()">
           </div>
           <div class="form-group">
-            <label for="ded-24b">24(b): Housing Loan Interest (Self-occupied max 2L)</label>
-            <input type="number" class="form-control" id="ded-24b" value="0" oninput="calculateAll()">
+            <div style="display:flex; justify-content:space-between; align-items:center;">
+              <label for="ded-80d-parents" id="lbl-80d-par-cap">80D: Parents Health Ins. (Max ₹25,000)</label>
+              <label style="font-size:0.72rem; font-weight:600; color:#0f766e; cursor:pointer; display:flex; align-items:center; gap:3px; margin-bottom:4px;">
+                <input type="checkbox" id="chk-parents-senior" onchange="calculateAll()"> Parents ≥60 yrs
+              </label>
+            </div>
+            <input type="number" class="form-control" id="ded-80d-parents" value="0" oninput="calculateAll()">
+          </div>
+          <div class="form-group">
+            <label for="ded-80dd">80DD: Disabled Dependent Maintenance</label>
+            <select class="form-control" id="ded-80dd" onchange="calculateAll()">
+              <option value="0" selected>Nil (₹0)</option>
+              <option value="75000">Disability 40%–79% (₹75,000)</option>
+              <option value="125000">Severe Disability ≥80% (₹1,25,000)</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label for="ded-80u">80U: Person with Disability (Self)</label>
+            <select class="form-control" id="ded-80u" onchange="calculateAll()">
+              <option value="0" selected>Nil (₹0)</option>
+              <option value="75000">Disability 40%–79% (₹75,000)</option>
+              <option value="125000">Severe Disability ≥80% (₹1,25,000)</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label for="ded-80ddb" id="lbl-80ddb-cap">80DDB: Specified Medical Treatment (Max ₹40,000)</label>
+            <input type="number" class="form-control" id="ded-80ddb" value="0" oninput="calculateAll()">
           </div>
           <div class="form-group">
             <label for="ded-80e">80E: Higher Education Loan Interest (No limit)</label>
             <input type="number" class="form-control" id="ded-80e" value="0" oninput="calculateAll()">
           </div>
           <div class="form-group">
-            <label for="ded-80g">80G: Approved Donations (CMDRF, PMNRF, etc.)</label>
+            <label for="ded-80g">80G: Approved Donations (Eligible Net Amount)</label>
             <input type="number" class="form-control" id="ded-80g" value="0" oninput="calculateAll()">
           </div>
           <div class="form-group">
-            <label for="ded-80tta">80TTA / 80TTB: Savings Bank Interest Deduction</label>
+            <div style="display:flex; justify-content:space-between; align-items:center;">
+              <label for="ded-80tta" id="lbl-80tta-cap">80TTA: SB Interest Deduction (Max ₹10,000)</label>
+              <button type="button" class="btn btn-outline" id="btn-sync-bank-80tta" onclick="syncBankTo80TTA()" style="font-size:0.7rem; padding:1px 6px; margin-bottom:4px; border-color:#cbd5e1; color:#0f172a;">Use Int.</button>
+            </div>
             <input type="number" class="form-control" id="ded-80tta" value="0" oninput="calculateAll()">
           </div>
         </div>
@@ -1772,10 +1879,11 @@
             <div class="stmt-block stmt-block-header">
               <h1>Income Tax Statement for the Financial Year 2026-27</h1>
               <h2>(Assessment Year 2027-2028)</h2>
-              <div style="font-size:7.5pt; color:#000; margin-bottom:3px;">Statement of Tax Computations under the OLD TAX REGIME (with Detailed Chapter VI-A Deductions)</div>
+              <div style="font-size:7.5pt; color:#000; margin-bottom:3px;">Statement of Tax Computations under the OLD TAX REGIME (with u/s 10 Exemptions, 24(b) &amp; Chapter VI-A)</div>
               <div>
                 <span class="eco-mode-tag" id="old-badge-mode">ANTICIPATORY STATEMENT</span>
                 <span class="eco-mode-tag" style="background:#fff; color:#000; border:1px solid #000;">OLD TAX REGIME</span>
+                <span class="eco-mode-tag" id="old-cat-badge" style="background:#fff; color:#000; border:1px solid #000;">INDIVIDUAL (&lt; 60 YRS)</span>
               </div>
             </div>
 
@@ -1870,31 +1978,37 @@
               </div>
             </div>
 
-            <!-- Block 4: Deductions under Section 16 & Salary Income -->
+            <!-- Block 4: Exemptions u/s 10, Deductions u/s 16, House Property u/s 24(b) & GTI -->
             <div class="stmt-block">
               <div class="block-title-row">
-                <span>2. Deductions under Section 16:</span>
+                <span>2. Less: Exempt Allowances u/s 10 &amp; Deductions u/s 16:</span>
                 <span id="old-row2">50,000</span>
               </div>
-              <div class="block-body">
-                <div class="sub-row">
-                  <span>(a) Standard Deduction u/s 16(ia):</span>
-                  <span>50,000</span>
+              <div class="block-body" style="padding: 2.5px 6px;">
+                <div style="display:flex; justify-content:space-between; gap:8px; font-size:7.2pt;">
+                  <div style="width:49%;">
+                    <div class="sub-row" style="padding:0.5px 0;"><span>(a) HRA Exempt u/s 10(13A):</span><span id="old-hra-exempt">0</span></div>
+                    <div class="sub-row" style="padding:0.5px 0;"><span>(b) Conveyance / LTA / Other u/s 10:</span><span id="old-sec10-other">0</span></div>
+                  </div>
+                  <div style="width:49%;">
+                    <div class="sub-row" style="padding:0.5px 0;"><span>(c) Standard Deduction u/s 16(ia):</span><span id="old-std-ded">50,000</span></div>
+                    <div class="sub-row" style="padding:0.5px 0;"><span>(d) Ent. Allow. 16(ii) / Prof. Tax 16(iii):</span><span><span id="old-ent-allow">0</span> / <span id="old-row2-pt">0</span></span></div>
+                  </div>
                 </div>
-                <div class="sub-row">
-                  <span>(b) Tax on Employment (Professional Tax) u/s 16(iii):</span>
-                  <span id="old-row2-pt">0</span>
-                </div>
-                <div class="sub-row sub-row-highlight">
-                  <span>3. Income from Salary (1 - 2):</span>
+                <div class="sub-row sub-row-highlight" style="margin:2px 0; padding:1.5px 0;">
+                  <span>3. Income Chargeable under "Salaries" (1 - 2):</span>
                   <strong id="old-row3">0</strong>
                 </div>
-                <div class="sub-row">
-                  <span>4. Remuneration (Examination / Valuation / Other Income):</span>
-                  <span id="old-row4">0</span>
+                <div style="display:flex; justify-content:space-between; gap:8px; font-size:7.2pt;">
+                  <div style="width:49%;">
+                    <div class="sub-row" style="padding:0.5px 0;"><span>4(a). Add: Remuneration / Bank Int. (+):</span><span id="old-row4">0</span></div>
+                  </div>
+                  <div style="width:49%;">
+                    <div class="sub-row" style="padding:0.5px 0;"><span>4(b). Less: House Prop. Int. u/s 24(b) (-):</span><span id="old-24b">0</span></div>
+                  </div>
                 </div>
-                <div class="sub-row sub-row-total">
-                  <span>5. Gross Total Income (GTI) (3 + 4):</span>
+                <div class="sub-row sub-row-total" style="margin-top:1.5px; padding-top:1.5px;">
+                  <span>5. Gross Total Income (GTI) [ 3 + 4(a) - 4(b) ]:</span>
                   <strong id="old-row5">0</strong>
                 </div>
               </div>
@@ -1907,9 +2021,9 @@
                 <span id="old-row6">0</span>
               </div>
               <div class="block-body" style="padding: 2.5px 6px;">
-                <div style="border:1px solid #000; padding:2px 5px; margin-bottom:2px; font-size:7.2pt;">
-                  <div style="font-weight:bold; margin-bottom:1.5px; display:flex; justify-content:space-between; border-bottom:1px dashed #000; padding-bottom:1.5px;">
-                    <span>(A) Section 80C Deductions (Max Limit: ₹1,50,000):</span>
+                <div style="border:1px solid #000; padding:2px 5px; margin-bottom:2px; font-size:7.1pt;">
+                  <div style="font-weight:bold; margin-bottom:1.5px; display:flex; justify-content:space-between; border-bottom:1px dashed #000; padding-bottom:1px;">
+                    <span>(A) Sec 80C + 80CCD(1) Basket (Max ₹1,50,000 u/s 80CCE):</span>
                     <span>Claimed: <span id="old-80c-claimed">0</span> | Eligible: <strong id="old-80c">0</strong></span>
                   </div>
                   <div style="display:flex; justify-content:space-between; gap:8px;">
@@ -1922,20 +2036,23 @@
                     <div style="width:49%;">
                       <div class="sub-row" style="padding:0.5px 0;"><span>&bull; Tuition Fees (Children):</span><span id="old-det-tuition">0</span></div>
                       <div class="sub-row" style="padding:0.5px 0;"><span>&bull; Housing Loan Principal:</span><span id="old-det-hlp">0</span></div>
-                      <div class="sub-row" style="padding:0.5px 0;"><span>&bull; PPF / Sukanya / NSC:</span><span id="old-det-ppf">0</span></div>
+                      <div class="sub-row" style="padding:0.5px 0;"><span>&bull; PPF / Sukanya / NSC / Other:</span><span id="old-det-ppf">0</span></div>
+                      <div class="sub-row" style="padding:0.5px 0;"><span>&bull; Employee NPS 80CCD(1):</span><span id="old-det-80ccd1">0</span></div>
                     </div>
                   </div>
                 </div>
-                <div style="display:flex; justify-content:space-between; gap:8px; font-size:7.2pt;">
+                <div style="display:flex; justify-content:space-between; gap:8px; font-size:7.1pt;">
                   <div style="width:49%;">
-                    <div class="sub-row" style="padding:1px 0;"><span>(B) u/s 80CCD(1B) NPS (Max 50k):</span><span id="old-80ccd">0</span></div>
-                    <div class="sub-row" style="padding:1px 0;"><span>(C) u/s 80D MediSep / Health Ins.:</span><span id="old-80d">0</span></div>
-                    <div class="sub-row" style="padding:1px 0;"><span>(D) u/s 24(b) Housing Loan Int.:</span><span id="old-24b">0</span></div>
+                    <div class="sub-row" style="padding:0.5px 0;"><span>(B) u/s 80CCD(1B) Addl. NPS (50k):</span><span id="old-80ccd">0</span></div>
+                    <div class="sub-row" style="padding:0.5px 0;"><span>(C) u/s 80CCD(2) Employer NPS:</span><span id="old-80ccd2">0</span></div>
+                    <div class="sub-row" style="padding:0.5px 0;"><span>(D) u/s 80D MediSep / Health Ins.:</span><span id="old-80d">0</span></div>
+                    <div class="sub-row" style="padding:0.5px 0;"><span>(E) u/s 80DD / 80U Disability:</span><span id="old-80ddu">0</span></div>
                   </div>
                   <div style="width:49%;">
-                    <div class="sub-row" style="padding:1px 0;"><span>(E) u/s 80E Education Loan Int.:</span><span id="old-80e">0</span></div>
-                    <div class="sub-row" style="padding:1px 0;"><span>(F) u/s 80G Approved Donations:</span><span id="old-80g">0</span></div>
-                    <div class="sub-row" style="padding:1px 0;"><span>(G) u/s 80TTA Savings Bank Int.:</span><span id="old-80tta">0</span></div>
+                    <div class="sub-row" style="padding:0.5px 0;"><span>(F) u/s 80DDB Spec. Diseases:</span><span id="old-80ddb">0</span></div>
+                    <div class="sub-row" style="padding:0.5px 0;"><span>(G) u/s 80E Education Loan Int.:</span><span id="old-80e">0</span></div>
+                    <div class="sub-row" style="padding:0.5px 0;"><span>(H) u/s 80G Approved Donations:</span><span id="old-80g">0</span></div>
+                    <div class="sub-row" style="padding:0.5px 0;"><span id="old-lbl-80tta">(I) u/s 80TTA / 80TTB Bank Int.:</span><span id="old-80tta">0</span></div>
                   </div>
                 </div>
               </div>
@@ -1944,32 +2061,36 @@
             <!-- Block 6: Taxable Income & Tax Computation -->
             <div class="stmt-block">
               <div class="block-title-row">
-                <span>Taxable Income & Tax Computation:</span>
+                <span>Taxable Income &amp; Tax Computation:</span>
                 <span>Amount (₹)</span>
               </div>
-              <div class="block-body">
-                <div class="sub-row sub-row-highlight">
+              <div class="block-body" style="padding: 2.5px 6px;">
+                <div class="sub-row sub-row-highlight" style="margin:1.5px 0; padding:1.5px 0;">
                   <span>7. Total Taxable Income rounded off to nearest Rs. 10/- (5 - 6):</span>
                   <strong id="old-row7">0</strong>
                 </div>
-                <div class="sub-row">
-                  <span>8. Tax on Total Income (Old Slabs: 0-2.5L Nil, 2.5-5L 5%, 5-10L 20%, >10L 30%):</span>
+                <div class="sub-row" style="padding:1px 0;">
+                  <span id="old-slab-desc">8. Tax on Total Income (Old Slabs: 0-2.5L Nil, 2.5-5L 5%, 5-10L 20%, &gt;10L 30%):</span>
                   <span id="old-row8">0</span>
                 </div>
-                <div class="sub-row">
+                <div class="sub-row" style="padding:1px 0;">
                   <span>9. Less: Rebate u/s 87A (Up to Rs. 12,500 if Total Income &le; Rs. 5,00,000):</span>
                   <span id="old-row9">0</span>
                 </div>
-                <div class="sub-row">
+                <div class="sub-row" style="padding:1px 0;">
                   <span>10. Income Tax after Rebate (8 - 9):</span>
                   <span id="old-row10">0</span>
                 </div>
-                <div class="sub-row">
-                  <span>11. Health and Education Cess @ 4%:</span>
+                <div class="sub-row" style="padding:1px 0;">
+                  <span>11. Surcharge (with Marginal Relief if Income &gt; Rs. 50,00,000):</span>
+                  <span id="old-row-surcharge">0</span>
+                </div>
+                <div class="sub-row" style="padding:1px 0;">
+                  <span>12. Health and Education Cess @ 4% on (10 + 11):</span>
                   <span id="old-row11">0</span>
                 </div>
-                <div class="sub-row sub-row-total">
-                  <span>12. Total Tax Payable (10 + 11):</span>
+                <div class="sub-row sub-row-total" style="margin-top:1.5px; padding-top:1.5px;">
+                  <span>13. Total Tax Payable (10 + 11 + 12, Rounded u/s 288B):</span>
                   <strong id="old-row12">0</strong>
                 </div>
               </div>
@@ -1978,21 +2099,21 @@
             <!-- Block 7: Relief u/s 89, TDS & Balance Tax Payable -->
             <div class="stmt-block">
               <div class="block-title-row">
-                <span>Relief u/s 89, TDS & Balance Tax:</span>
+                <span>Relief u/s 89, TDS &amp; Balance Tax:</span>
                 <span>Amount (₹)</span>
               </div>
-              <div class="block-body">
-                <div class="sub-row">
-                  <span>13. Less: Relief for arrears of salary u/s 89(1) (from Form 10E):</span>
+              <div class="block-body" style="padding: 2.5px 6px;">
+                <div class="sub-row" style="padding:1px 0;">
+                  <span>14. Less: Relief for arrears of salary u/s 89(1) (from Form 10E):</span>
                   <span id="old-row13">0</span>
                 </div>
-                <div class="sub-row">
-                  <span>14. Income Tax deducted from salary (TDS) / Advance tax paid:</span>
+                <div class="sub-row" style="padding:1px 0;">
+                  <span>15. Income Tax deducted from salary (TDS) / Advance tax paid:</span>
                   <span id="old-row14">0</span>
                 </div>
-                <div class="sub-row sub-row-highlight" style="font-size:8.5pt;">
+                <div class="sub-row sub-row-highlight" style="font-size:8.2pt; margin:1.5px 0; padding:1.5px 0;">
                   <div>
-                    <strong>15. Balance Income Tax to be paid (12 - 13 - 14):</strong>
+                    <strong>16. Balance Income Tax to be paid (13 - 14 - 15):</strong>
                     <div style="font-size:7pt; font-weight:normal;" id="old-anticipatory-note"></div>
                   </div>
                   <strong id="old-row15" style="font-size:9.5pt;">0</strong>
@@ -2048,8 +2169,15 @@
         <p style="font-size:0.875rem; color:#334155;">
           When an employee receives salary in arrears (such as DA arrears, pay revision arrears, or increments) relating to previous financial years, tax is calculated in the year of receipt at current rates. Relief u/s 89(1) ensures the employee pays no extra tax than what would have been paid if the salary had been received in the respective previous year(s).
         </p>
-        <div style="margin-top:8px; font-size:0.825rem; color:#1e40af; font-weight:600;">
-          💡 Rule: Total Arrears received in FY 2026-27 is currently set to: <span id="f10e-cur-arrear-tag" style="background:#fff; padding:2px 8px; border-radius:4px; border:1px solid #93c5fd;">₹0</span>
+        <div style="margin-top:8px; font-size:0.825rem; color:#1e40af; font-weight:600; display:flex; flex-wrap:wrap; align-items:center; gap:14px;">
+          <span>💡 Rule: Total Arrears received in FY 2026-27 is currently set to: <span id="f10e-cur-arrear-tag" style="background:#fff; padding:2px 8px; border-radius:4px; border:1px solid #93c5fd;">₹0</span></span>
+          <span style="display:inline-flex; align-items:center; gap:6px;">
+            <label for="f10e-cur-regime" style="margin:0;">Current FY 2026-27 Regime for Annexure I:</label>
+            <select id="f10e-cur-regime" onchange="renderTableA()" style="padding:3px 8px; border-radius:4px; border:1px solid #93c5fd; font-weight:700; color:#1e3a8a; background:#fff;">
+              <option value="NEW" selected>NEW Tax Regime</option>
+              <option value="OLD">OLD Tax Regime</option>
+            </select>
+          </span>
         </div>
       </div>
 
@@ -2306,14 +2434,15 @@
           <div style="background:#f8fafc; border:1px solid #cbd5e1; border-radius:6px; padding:15px;">
             <h4 style="color:#0f172a; margin-bottom:10px;">🏛️ Old Tax Regime</h4>
             <ul style="font-size:0.875rem; line-height:1.6; margin-left:20px; color:#1e293b;">
-              <li><strong>Standard Deduction:</strong> ₹50,000</li>
-              <li><strong>₹0 to ₹2,50,000:</strong> Nil (Senior: ₹3L, Super Senior: ₹5L)</li>
-              <li><strong>₹2,50,001 to ₹5,00,000:</strong> 5%</li>
+              <li><strong>Sec 16 Deductions:</strong> Standard Deduction ₹50,000 + Prof. Tax (u/s 16(iii)) + Govt Entertainment Allow. (max ₹5,000 u/s 16(ii))</li>
+              <li><strong>Sec 10 Exemptions:</strong> HRA Exemption u/s 10(13A), Conveyance PH u/s 10(14), LTA/CEA</li>
+              <li><strong>₹0 to ₹2,50,000:</strong> Nil (Senior 60–79: ₹3L, Super Senior 80+: ₹5L)</li>
+              <li><strong>₹2,50,001 / ₹3,00,001 to ₹5,00,000:</strong> 5%</li>
               <li><strong>₹5,00,001 to ₹10,00,000:</strong> 20%</li>
               <li><strong>Above ₹10,00,000:</strong> 30%</li>
               <li><strong>Rebate u/s 87A:</strong> Up to ₹12,500 if Taxable Income &le; ₹5,00,000.</li>
-              <li><strong>Deductions allowed:</strong> 80C (up to 1.5L), 80CCD(1B) (50k), 80D (health ins), 24(b) (home loan int 2L), 80E, 80G.</li>
-              <li><strong>Health & Education Cess:</strong> 4%</li>
+              <li><strong>Deductions allowed:</strong> 24(b) Home Loan Int. (2L), 80C+80CCD(1) (1.5L), 80CCD(1B) (50k), 80CCD(2) Employer NPS, 80D (25k/50k self + 25k/50k parents), 80DD/80U (75k/1.25L), 80DDB (40k/1L), 80E, 80G, 80TTA (10k) / 80TTB (50k for 60+).</li>
+              <li><strong>Surcharge &amp; Cess:</strong> 10%–37% Surcharge (&gt; ₹50L with Marginal Relief) + 4% Health &amp; Education Cess.</li>
             </ul>
           </div>
 
@@ -2397,6 +2526,12 @@
       const newBanner = document.getElementById('new-regime-helper-banner');
       const bottomOldBtn = document.getElementById('bottom-gen-old-btn');
       const bottomNewBtn = document.getElementById('bottom-gen-new-btn');
+      const f10eCurRegime = document.getElementById('f10e-cur-regime');
+
+      if (f10eCurRegime) {
+        if (pref === 'old') f10eCurRegime.value = 'OLD';
+        else if (pref === 'new') f10eCurRegime.value = 'NEW';
+      }
 
       if (pref === 'new') {
         if (oldCard) oldCard.style.display = 'none';
@@ -2440,6 +2575,28 @@
       onRegimePreferenceChange();
     }
 
+    function syncPfTo80C() {
+      const pf = window._totPfTotal || 0;
+      if (pf <= 0) {
+        alert('No PF / NPS deductions entered in the Monthly Salary Table yet.');
+        return;
+      }
+      setNum('ded-gpf', pf);
+      calculateAll();
+      showToast('✓ Filled GPF / EPF u/s 80C with Monthly PF Total: ₹' + formatINR(pf));
+    }
+
+    function syncBankTo80TTA() {
+      const bankInt = getNum('row3-bank-interest');
+      if (bankInt <= 0) {
+        alert('Enter your Bank SB / FD Interest under "Bank SB / FD / Post Office Interest Earned" above first.');
+        return;
+      }
+      setNum('ded-80tta', bankInt);
+      calculateAll();
+      showToast('✓ Applied Bank Interest ₹' + formatINR(bankInt) + ' to 80TTA / 80TTB (capped at statutory limit).');
+    }
+
     // Tab Navigation
     function showTab(tab) {
       const tabs = ['calculator', 'new-regime', 'old-regime', 'form-10e', 'slabs'];
@@ -2470,18 +2627,65 @@
 
     // --- Slabs and Calculations for FY 2026-27 ---
 
-    // New Regime Tax Computation for FY 2026-27 (AY 2027-28) - Ecostatt Model
-    // Slabs: 0-4L Nil, 4-8L 5%, 8-12L 10%, 12-16L 15%, 16-20L 20%, 20-24L 25%, >24L 30%
-    function computeNewRegimeTax(taxableIncome) {
-      let income = Math.max(0, taxableIncome);
-      let tax = 0;
+    // Shared Surcharge with Marginal Relief Helper (Applicable > ₹50 Lakh)
+    function computeSurchargeWithRelief(income, baseTax, slabFn, isNewRegime) {
+      if (income <= 5000000 || baseTax <= 0) return 0;
+      let rate = 0, threshold = 5000000, prevRate = 0;
 
+      if (income > 50000000) {
+        threshold = 50000000;
+        rate = isNewRegime ? 0.25 : 0.37;
+        prevRate = 0.25;
+      } else if (income > 20000000) {
+        threshold = 20000000;
+        rate = 0.25;
+        prevRate = 0.15;
+      } else if (income > 10000000) {
+        threshold = 10000000;
+        rate = 0.15;
+        prevRate = 0.10;
+      } else {
+        threshold = 5000000;
+        rate = 0.10;
+        prevRate = 0;
+      }
+
+      const grossSurcharge = baseTax * rate;
+      const taxAtThreshold = slabFn(threshold) * (1 + prevRate);
+      const maxPayableBeforeCess = taxAtThreshold + (income - threshold);
+      if (baseTax + grossSurcharge > maxPayableBeforeCess) {
+        return Math.max(0, maxPayableBeforeCess - baseTax);
+      }
+      return grossSurcharge;
+    }
+
+    function calcNewSlabTax(income) {
+      let tax = 0;
       if (income > 400000) tax += Math.min(income - 400000, 400000) * 0.05;
       if (income > 800000) tax += Math.min(income - 800000, 400000) * 0.10;
       if (income > 1200000) tax += Math.min(income - 1200000, 400000) * 0.15;
       if (income > 1600000) tax += Math.min(income - 1600000, 400000) * 0.20;
       if (income > 2000000) tax += Math.min(income - 2000000, 400000) * 0.25;
       if (income > 2400000) tax += (income - 2400000) * 0.30;
+      return tax;
+    }
+
+    function calcOldSlabTax(income, age = 'Individual') {
+      let exemption = age === 'Super Senior Citizen' ? 500000 : (age === 'Senior Citizen' ? 300000 : 250000);
+      let tax = 0;
+      if (income > exemption && exemption < 500000) {
+        tax += Math.min(income - exemption, 500000 - exemption) * 0.05;
+      }
+      if (income > 500000) tax += Math.min(income - 500000, 500000) * 0.20;
+      if (income > 1000000) tax += (income - 1000000) * 0.30;
+      return tax;
+    }
+
+    // New Regime Tax Computation for FY 2026-27 (AY 2027-28) - Ecostatt Model
+    // Slabs: 0-4L Nil, 4-8L 5%, 8-12L 10%, 12-16L 15%, 16-20L 20%, 20-24L 25%, >24L 30%
+    function computeNewRegimeTax(taxableIncome) {
+      let income = Math.max(0, taxableIncome);
+      let tax = calcNewSlabTax(income);
 
       // Section 87A Rebate (Ecostatt: Income up to 12 Lakhs u/s 87A, Max Rs. 60,000)
       let rebate = 0;
@@ -2495,14 +2699,7 @@
       }
 
       let taxAfterRebate = Math.max(0, tax - rebate);
-
-      // Surcharge
-      let surcharge = 0;
-      if (income > 50000000) surcharge = taxAfterRebate * 0.25;
-      else if (income > 20000000) surcharge = taxAfterRebate * 0.25;
-      else if (income > 10000000) surcharge = taxAfterRebate * 0.15;
-      else if (income > 5000000) surcharge = taxAfterRebate * 0.10;
-
+      let surcharge = computeSurchargeWithRelief(income, taxAfterRebate, calcNewSlabTax, true);
       let cess = Math.round((taxAfterRebate + surcharge) * 0.04);
       let totalTax = Math.round((taxAfterRebate + surcharge + cess) / 10) * 10;
 
@@ -2512,12 +2709,7 @@
     // Old Regime Tax Computation for FY 2026-27 (AY 2027-28)
     function computeOldRegimeTax(taxableIncome, age = 'Individual') {
       let income = Math.max(0, taxableIncome);
-      let exemption = age === 'Super Senior Citizen' ? 500000 : (age === 'Senior Citizen' ? 300000 : 250000);
-      let tax = 0;
-
-      if (income > exemption) tax += Math.min(income - exemption, 500000 - exemption) * 0.05;
-      if (income > 500000) tax += Math.min(income - 500000, 500000) * 0.20;
-      if (income > 1000000) tax += (income - 1000000) * 0.30;
+      let tax = calcOldSlabTax(income, age);
 
       let rebate = 0;
       if (income <= 500000) {
@@ -2525,13 +2717,7 @@
       }
 
       let taxAfterRebate = Math.max(0, tax - rebate);
-
-      let surcharge = 0;
-      if (income > 50000000) surcharge = taxAfterRebate * 0.37;
-      else if (income > 20000000) surcharge = taxAfterRebate * 0.25;
-      else if (income > 10000000) surcharge = taxAfterRebate * 0.15;
-      else if (income > 5000000) surcharge = taxAfterRebate * 0.10;
-
+      let surcharge = computeSurchargeWithRelief(income, taxAfterRebate, (inc) => calcOldSlabTax(inc, age), false);
       let cess = Math.round((taxAfterRebate + surcharge) * 0.04);
       let totalTax = Math.round((taxAfterRebate + surcharge + cess) / 10) * 10;
 
@@ -2565,15 +2751,20 @@
           if (income > 1200000) tax += Math.min(income - 1200000, 300000) * 0.20;
           if (income > 1500000) tax += (income - 1500000) * 0.30;
           if (income <= 700000) rebate = tax;
-          else if (income > 700000 && tax > (income - 700000)) tax = income - 700000;
-        } else if (startYear >= 2024) {
+          else if (income > 700000 && tax > (income - 700000)) rebate = tax - (income - 700000);
+        } else if (startYear === 2024) {
           if (income > 300000) tax += Math.min(income - 300000, 400000) * 0.05;
           if (income > 700000) tax += Math.min(income - 700000, 300000) * 0.10;
           if (income > 1000000) tax += Math.min(income - 1000000, 200000) * 0.15;
           if (income > 1200000) tax += Math.min(income - 1200000, 300000) * 0.20;
           if (income > 1500000) tax += (income - 1500000) * 0.30;
           if (income <= 700000) rebate = tax;
-          else if (income > 700000 && tax > (income - 700000)) tax = income - 700000;
+          else if (income > 700000 && tax > (income - 700000)) rebate = tax - (income - 700000);
+        } else {
+          // FY 2025-26 onwards (Finance Act 2025 / Ecostatt New Slabs)
+          tax = calcNewSlabTax(income);
+          if (income <= 1200000) rebate = Math.min(tax, 60000);
+          else if (income > 1200000 && income <= 1275000 && tax > (income - 1200000)) rebate = tax - (income - 1200000);
         }
       } else {
         // OLD Regime
@@ -2599,7 +2790,7 @@
           else if (startYear === 2016 && income <= 500000) rebate = Math.min(tax, 5000);
         } else {
           // 2017 to 2025
-          if (income > exemption) tax += Math.min(income - exemption, 500000 - exemption) * 0.05;
+          if (income > exemption && exemption < 500000) tax += Math.min(income - exemption, 500000 - exemption) * 0.05;
           if (income > 500000) tax += Math.min(income - 500000, 500000) * 0.20;
           if (income > 1000000) tax += (income - 1000000) * 0.30;
           if (startYear <= 2018 && income <= 350000) rebate = Math.min(tax, 2500);
@@ -2642,11 +2833,15 @@
         setText('m-' + m.key, formatINR(mTot));
       });
 
+      window._totPfTotal = totPf;
       setText('tot-basic', formatINR(totBasic));
       setText('tot-allow', formatINR(totAllow));
       setText('tot-gross', formatINR(totGross));
       setText('tot-pf', formatINR(totPf));
       setText('tot-tds', formatINR(totTds));
+
+      const syncPfBtn = document.getElementById('btn-sync-pf-80c');
+      if (syncPfBtn) syncPfBtn.textContent = `📋 Fill GPF/NPS from Monthly PF Total (₹${formatINR(totPf)})`;
 
       // 2. Additional Income & Row 1 Items
       let surrender = getNum('row1b-surrender');
@@ -2658,20 +2853,27 @@
       let row1cExcess = getNum('row1c-excess');
       let row1GrossSalary = Math.max(0, totGross + row1bTotal - row1cExcess);
 
+      // Taxpayer Category (Age)
+      const empAgeEl = document.getElementById('emp-age-category');
+      const empAge = empAgeEl ? empAgeEl.value : 'Individual';
+      const isSelfSenior = (empAge === 'Senior Citizen' || empAge === 'Super Senior Citizen');
+
       // Row 2 Deductions (New Regime)
       // Note: u/s 115BAC(2)(i), Professional Tax u/s 16(iii) is NOT deductible under New Regime.
-      // Standard Deduction u/s 16(ia) is ₹75,000. Employer NPS contribution u/s 80CCD(2) is allowed.
-      let row2aStdDed = 75000;
+      // Standard Deduction u/s 16(ia) is ₹75,000 (capped at Gross Salary). Employer NPS contribution u/s 80CCD(2) is allowed.
+      let row2aStdDed = Math.min(75000, row1GrossSalary);
       let row2bConvey = getNum('row2b-conveyance');
       let row2cNps = getNum('row2c-nps');
       let row2eProfTax = getNum('row2e-proftax'); // Kept for Old Regime deduction
-      let row2TotDedNew = row2aStdDed + row2bConvey + row2cNps; // Professional Tax NOT deducted in New Regime
+      let row2TotDedNew = Math.min(row1GrossSalary, row2aStdDed + row2bConvey + row2cNps);
 
-      // Row 3 Remuneration
+      // Row 3 Remuneration & Other Taxable Income (incl. Bank Interest)
       let row3Remun = getNum('row3-remuneration');
+      let row3BankInt = getNum('row3-bank-interest');
+      let row3OtherIncome = row3Remun + row3BankInt;
 
       // Row 4 Total Income New Regime (Rounded to nearest 10)
-      let rawIncomeNew = Math.max(0, row1GrossSalary - row2TotDedNew + row3Remun);
+      let rawIncomeNew = Math.max(0, row1GrossSalary - row2TotDedNew + row3OtherIncome);
       let row4TotalIncomeNew = Math.round(rawIncomeNew / 10) * 10;
 
       // Row 5-10 New Regime Taxes
@@ -2683,7 +2885,7 @@
       let row13TdsPaid = totTds;
       let row14BalanceToPay = Math.max(0, row12BalanceTaxPayable - row13TdsPaid);
 
-      // Anticipatory Monthly Deduction
+      // Anticipatory Monthly Deduction (New Regime)
       let pendingMonths = Math.max(1, getNum('pending-months') || 1);
       let monthlyAnticipatoryTds = Math.ceil(row14BalanceToPay / pendingMonths);
 
@@ -2691,12 +2893,8 @@
       let isAnticipatory = document.getElementById('stmt-mode').value === 'anticipatory';
       let modeText = isAnticipatory ? 'ANTICIPATORY STATEMENT' : 'FINAL STATEMENT';
 
-      // Update Top Comparison Cards
+      // Update Top New Tax & Form 10E Badge
       setText('top-new-tax', '₹' + formatINR(row12BalanceTaxPayable));
-      setText('top-monthly-tds', '₹' + formatINR(monthlyAnticipatoryTds) + ' / mo');
-      setText('top-pending-months-label', isAnticipatory ? `(${pendingMonths} pending months)` : '(Final Settlement)');
-
-      // Update Form 10E Badge
       setText('f10e-cur-arrear-tag', '₹' + formatINR(arrears));
 
       // --- Populate New Regime Statement (Single Page A4) ---
@@ -2720,7 +2918,7 @@
       setText('eco-row2-sub', formatINR(row2TotDedNew));
       setText('eco-row2-main', formatINR(row2TotDedNew));
 
-      setText('eco-row3-main', formatINR(row3Remun));
+      setText('eco-row3-main', formatINR(row3OtherIncome));
       setText('eco-row4-main', formatINR(row4TotalIncomeNew));
       setText('eco-row5-main', formatINR(newTaxObj.tax));
       setText('eco-row6-main', formatINR(newTaxObj.rebate));
@@ -2749,12 +2947,59 @@
       setText('eco-sig-office', document.getElementById('emp-office').value || '');
 
       // --- Populate Detailed Old Regime Statement ---
-      let oldStdDed = 50000;
-      let oldProfTax = row2eProfTax;
-      let oldSalaryIncome = Math.max(0, row1GrossSalary - (oldStdDed + oldProfTax));
-      let oldGrossTotIncome = oldSalaryIncome + row3Remun;
+      // A. Section 10 Exemptions (HRA 10(13A) + Conveyance 10(14) + LTA/Other u/s 10)
+      let hraReceived = getNum('old-hra-received');
+      let rentPaid = getNum('old-rent-paid');
+      let hraCityRate = parseFloat((document.getElementById('old-hra-city') || { value: '0.4' }).value) || 0.4;
+      let hraDirect = getNum('old-hra-direct');
+      let oldHraExempt = 0;
+      let hraHint = 'Enter HRA received & rent paid to auto-compute u/s 10(13A), or type Exempt HRA directly.';
 
-      // Sum detailed 80C items
+      if (hraReceived > 0 && rentPaid > 0) {
+        if (totBasic > 0) {
+          let rule1 = hraReceived;
+          let rule2 = Math.max(0, rentPaid - 0.10 * totBasic);
+          let rule3 = hraCityRate * totBasic;
+          oldHraExempt = Math.max(0, Math.round(Math.min(rule1, rule2, rule3)));
+          hraHint = `Least of Actual HRA (₹${formatINR(rule1)}), Rent − 10% Basic+DA (₹${formatINR(rule2)}), or ${Math.round(hraCityRate * 100)}% Basic+DA (₹${formatINR(rule3)}).`;
+        } else {
+          oldHraExempt = 0;
+          hraHint = 'Enter Basic Pay + DA in the Monthly Salary table above so 10% / ' + Math.round(hraCityRate * 100) + '% Basic+DA can be computed (or use Direct Override).';
+        }
+      } else if (hraDirect > 0) {
+        oldHraExempt = Math.max(0, Math.round(hraDirect));
+        hraHint = 'Using direct Exempt HRA override u/s 10(13A).';
+      }
+
+      setText('lbl-hra-exempt-calc', 'Exempt HRA u/s 10(13A): ₹' + formatINR(oldHraExempt));
+      setText('lbl-hra-formula-hint', hraHint);
+
+      let dedSec10Other = getNum('ded-sec10-other');
+      let oldSec10OtherAndConvey = row2bConvey + dedSec10Other;
+      let oldTotalSec10 = Math.min(row1GrossSalary, oldHraExempt + oldSec10OtherAndConvey);
+      let oldNetSalaryAfterSec10 = Math.max(0, row1GrossSalary - oldTotalSec10);
+
+      // B. Section 16 Deductions
+      let oldStdDed = Math.min(50000, oldNetSalaryAfterSec10);
+      let oldEntAllow = Math.min(getNum('ded-sec16-ent'), 5000, totBasic > 0 ? totBasic * 0.20 : 5000);
+      let oldProfTax = row2eProfTax;
+      let oldTotalSec16 = Math.min(oldNetSalaryAfterSec10, oldStdDed + oldEntAllow + oldProfTax);
+      let oldTotalSec10And16 = Math.min(row1GrossSalary, oldTotalSec10 + oldTotalSec16);
+      let oldSalaryIncome = Math.max(0, row1GrossSalary - oldTotalSec10And16);
+
+      // C. Other Sources & House Property Loss u/s 24(b) -> Gross Total Income (GTI)
+      let loss24b = Math.min(getNum('ded-24b'), 200000);
+      let oldGrossTotIncome = Math.max(0, oldSalaryIncome + row3OtherIncome - loss24b);
+
+      // Update Card Info Summaries & Age-dependent Limits
+      setText('old-card-carryover-info', `Active Category: ${empAge} | Std Ded: ₹${formatINR(oldStdDed)} | Prof Tax: ₹${formatINR(oldProfTax)} | Employer NPS: ₹${formatINR(row2cNps)}`);
+      setText('lbl-80d-self-cap', `80D: Self/Family MediSep & Health Ins. (Max ₹${isSelfSenior ? '50,000' : '25,000'})`);
+      const isParentsSenior = document.getElementById('chk-parents-senior')?.checked || false;
+      setText('lbl-80d-par-cap', `80D: Parents Health Ins. (Max ₹${isParentsSenior ? '50,000' : '25,000'})`);
+      setText('lbl-80ddb-cap', `80DDB: Specified Medical Treatment (Max ₹${isSelfSenior ? '1,00,000' : '40,000'})`);
+      setText('lbl-80tta-cap', isSelfSenior ? '80TTB: Deposit & SB Interest (Max ₹50,000)' : '80TTA: SB Interest Deduction (Max ₹10,000)');
+
+      // D. Chapter VI-A Deductions
       let gpf = getNum('ded-gpf');
       let sli = getNum('ded-sli');
       let gis = getNum('ded-gis');
@@ -2763,23 +3008,33 @@
       let hlp = getNum('ded-hl-principal');
       let ppf = getNum('ded-ppf');
       let other80c = getNum('ded-80c-other');
-      let tot80cClaimed = gpf + sli + gis + lic + tuition + hlp + ppf + other80c;
+      let ded80ccd1 = getNum('ded-80ccd1');
+      let tot80cClaimed = gpf + sli + gis + lic + tuition + hlp + ppf + other80c + ded80ccd1;
       let ded80cEligible = Math.min(tot80cClaimed, 150000);
 
       setText('lbl-80c-claimed', '₹' + formatINR(tot80cClaimed));
       setText('lbl-80c-eligible', '₹' + formatINR(ded80cEligible));
 
-      let ded80ccd = Math.min(getNum('ded-80ccd1b'), 50000);
-      let ded80d = getNum('ded-80d');
-      let ded24b = Math.min(getNum('ded-24b'), 200000);
+      let ded80ccd1b = Math.min(getNum('ded-80ccd1b'), 50000);
+      let ded80ccd2 = row2cNps; // Employer NPS allowed u/s 80CCD(2) in Old Regime too!
+      let ded80dSelf = Math.min(getNum('ded-80d'), isSelfSenior ? 50000 : 25000);
+      let ded80dParents = Math.min(getNum('ded-80d-parents'), isParentsSenior ? 50000 : 25000);
+      let ded80dTotal = ded80dSelf + ded80dParents;
+      let ded80dd = getNum('ded-80dd');
+      let ded80u = getNum('ded-80u');
+      let ded80dduTotal = ded80dd + ded80u;
+      let ded80ddb = Math.min(getNum('ded-80ddb'), isSelfSenior ? 100000 : 40000);
       let ded80e = getNum('ded-80e');
       let ded80g = getNum('ded-80g');
-      let ded80tta = Math.min(getNum('ded-80tta'), 10000);
-      let totalOldDeductions = ded80cEligible + ded80ccd + ded80d + ded24b + ded80e + ded80g + ded80tta;
+      let max80tta = isSelfSenior ? 50000 : 10000;
+      let ded80tta = Math.min(getNum('ded-80tta'), max80tta);
+
+      let totalOldViaClaimed = ded80cEligible + ded80ccd1b + ded80ccd2 + ded80dTotal + ded80dduTotal + ded80ddb + ded80e + ded80g + ded80tta;
+      let totalOldDeductions = Math.min(oldGrossTotIncome, totalOldViaClaimed);
 
       let oldTaxableIncome = Math.max(0, oldGrossTotIncome - totalOldDeductions);
       oldTaxableIncome = Math.round(oldTaxableIncome / 10) * 10;
-      let oldTaxObj = computeOldRegimeTax(oldTaxableIncome);
+      let oldTaxObj = computeOldRegimeTax(oldTaxableIncome, empAge);
       let oldBalanceTaxPayable = Math.max(0, oldTaxObj.totalTax - row11Relief89);
       let oldBalanceToPay = Math.max(0, oldBalanceTaxPayable - row13TdsPaid);
       let oldMonthlyTds = Math.ceil(oldBalanceToPay / pendingMonths);
@@ -2791,6 +3046,8 @@
       if (prefRegime === 'new') {
         setText('top-old-tax', 'Not filled');
         setText('top-regime-recommendation', '🌟 New Tax Regime Active');
+        setText('top-monthly-tds', '₹' + formatINR(monthlyAnticipatoryTds) + ' / mo');
+        setText('top-pending-months-label', isAnticipatory ? `(New Regime - ${pendingMonths} pending months)` : '(New Regime - Final Settlement)');
         if (topRec) {
           topRec.style.cursor = 'pointer';
           topRec.title = 'Click to show Old Regime deductions & compare';
@@ -2811,9 +3068,30 @@
         } else {
           setText('top-regime-recommendation', `Both Regimes Equal`);
         }
+
+        if (prefRegime === 'old') {
+          setText('top-monthly-tds', '₹' + formatINR(oldMonthlyTds) + ' / mo');
+          setText('top-pending-months-label', isAnticipatory ? `(Old Regime - ${pendingMonths} pending months)` : '(Old Regime - Final Settlement)');
+        } else {
+          const useOldLowest = oldBalanceTaxPayable < row12BalanceTaxPayable;
+          const activeTds = useOldLowest ? oldMonthlyTds : monthlyAnticipatoryTds;
+          const activeRegLbl = useOldLowest ? 'Old Regime' : 'New Regime';
+          setText('top-monthly-tds', '₹' + formatINR(activeTds) + ' / mo');
+          setText('top-pending-months-label', isAnticipatory ? `(${activeRegLbl} - ${pendingMonths} pending months)` : `(${activeRegLbl} - Final Settlement)`);
+        }
       }
 
       setText('old-badge-mode', modeText);
+      setText('old-cat-badge', empAge === 'Super Senior Citizen' ? 'SUPER SENIOR (80+ YRS)' : (empAge === 'Senior Citizen' ? 'SENIOR CITIZEN (60-79 YRS)' : 'INDIVIDUAL (< 60 YRS)'));
+      setText('old-slab-desc',
+        empAge === 'Super Senior Citizen'
+          ? '8. Tax on Total Income (Old Slabs 80+: 0-5L Nil, 5-10L 20%, >10L 30%):'
+          : empAge === 'Senior Citizen'
+            ? '8. Tax on Total Income (Old Slabs 60–79: 0-3L Nil, 3-5L 5%, 5-10L 20%, >10L 30%):'
+            : '8. Tax on Total Income (Old Slabs <60: 0-2.5L Nil, 2.5-5L 5%, 5-10L 20%, >10L 30%):'
+      );
+      setText('old-lbl-80tta', isSelfSenior ? '(I) u/s 80TTB Deposit/SB Int. (50k):' : '(I) u/s 80TTA SB Interest (10k):');
+
       setText('old-emp-name', document.getElementById('emp-name').value);
       setText('old-emp-desig', document.getElementById('emp-designation').value);
       setText('old-emp-pan', (document.getElementById('emp-pan').value || '').toUpperCase());
@@ -2821,10 +3099,15 @@
       setText('old-emp-office', document.getElementById('emp-office').value);
 
       setText('old-row1', formatINR(row1GrossSalary));
+      setText('old-hra-exempt', formatINR(oldHraExempt));
+      setText('old-sec10-other', formatINR(oldSec10OtherAndConvey));
+      setText('old-std-ded', formatINR(oldStdDed));
+      setText('old-ent-allow', formatINR(oldEntAllow));
       setText('old-row2-pt', formatINR(oldProfTax));
-      setText('old-row2', formatINR(oldStdDed + oldProfTax));
+      setText('old-row2', formatINR(oldTotalSec10And16));
       setText('old-row3', formatINR(oldSalaryIncome));
-      setText('old-row4', formatINR(row3Remun));
+      setText('old-row4', formatINR(row3OtherIncome));
+      setText('old-24b', formatINR(loss24b));
       setText('old-row5', formatINR(oldGrossTotIncome));
 
       // Monthly breakdown in Old Regime Statement
@@ -2844,12 +3127,15 @@
       setText('old-det-tuition', formatINR(tuition));
       setText('old-det-hlp', formatINR(hlp));
       setText('old-det-ppf', formatINR(ppf + other80c));
+      setText('old-det-80ccd1', formatINR(ded80ccd1));
       setText('old-80c-claimed', formatINR(tot80cClaimed));
       setText('old-80c', formatINR(ded80cEligible));
 
-      setText('old-80ccd', formatINR(ded80ccd));
-      setText('old-80d', formatINR(ded80d));
-      setText('old-24b', formatINR(ded24b));
+      setText('old-80ccd', formatINR(ded80ccd1b));
+      setText('old-80ccd2', formatINR(ded80ccd2));
+      setText('old-80d', formatINR(ded80dTotal));
+      setText('old-80ddu', formatINR(ded80dduTotal));
+      setText('old-80ddb', formatINR(ded80ddb));
       setText('old-80e', formatINR(ded80e));
       setText('old-80g', formatINR(ded80g));
       setText('old-80tta', formatINR(ded80tta));
@@ -2862,6 +3148,7 @@
       setText('old-row8', formatINR(oldTaxObj.tax));
       setText('old-row9', formatINR(oldTaxObj.rebate));
       setText('old-row10', formatINR(oldTaxObj.taxAfterRebate));
+      setText('old-row-surcharge', formatINR(oldTaxObj.surcharge));
       setText('old-row11', formatINR(oldTaxObj.cess));
       setText('old-row12', formatINR(oldTaxObj.totalTax));
       setText('old-row13', formatINR(row11Relief89));
@@ -2871,7 +3158,7 @@
       if (isAnticipatory) {
         setText('old-anticipatory-note', `(To be deducted @ ₹${formatINR(oldMonthlyTds)} / month for ${pendingMonths} pending months)`);
       } else {
-        setText('old-anticipatory-note', `(Final Assessment)`);
+        setText('old-anticipatory-note', `(Final Assessment for FY 2026-27 / AY 2027-28)`);
       }
 
       setText('old-sig-place', empPlace || '________________');
@@ -3007,18 +3294,25 @@
       setText('tbla-tot-diff', formatINR(totDiff));
 
       // Compute Annexure I (Current Year FY 2026-27 vs Previous Years)
-      // Current year total income including arrears:
-      let curArrearsIn1b = getNum('row1b-arrears');
-      // If current arrears input in 1b is 0 but Table A has arrears, auto-sync prompt
-      let curTotalIncomeWithArrears = Math.round(parseFloat(document.getElementById('eco-row4-main').textContent.replace(/,/g, '')) || 0);
+      const curRegimeEl = document.getElementById('f10e-cur-regime');
+      const isCurOld = curRegimeEl ? (curRegimeEl.value === 'OLD') : false;
+      const empAgeEl = document.getElementById('emp-age-category');
+      const empAge = empAgeEl ? empAgeEl.value : 'Individual';
 
-      // Current year tax with arrears:
-      let curTaxWithArrears = computeNewRegimeTax(curTotalIncomeWithArrears).totalTax;
+      // Current year total income including arrears (respecting chosen current regime):
+      const curIncId = isCurOld ? 'old-row7' : 'eco-row4-main';
+      let curTotalIncomeWithArrears = Math.round(parseFloat((document.getElementById(curIncId)?.textContent || '0').replace(/,/g, '')) || 0);
 
-      // Current year income without arrears:
+      // Current year tax with & without arrears:
+      let curTaxWithArrears = isCurOld
+        ? computeOldRegimeTax(curTotalIncomeWithArrears, empAge).totalTax
+        : computeNewRegimeTax(curTotalIncomeWithArrears).totalTax;
+
       let curIncomeWithoutArrears = Math.max(0, curTotalIncomeWithArrears - totArrears);
       curIncomeWithoutArrears = Math.round(curIncomeWithoutArrears / 10) * 10;
-      let curTaxWithoutArrears = computeNewRegimeTax(curIncomeWithoutArrears).totalTax;
+      let curTaxWithoutArrears = isCurOld
+        ? computeOldRegimeTax(curIncomeWithoutArrears, empAge).totalTax
+        : computeNewRegimeTax(curIncomeWithoutArrears).totalTax;
 
       // Difference in current year:
       let curTaxOnArrears = Math.max(0, curTaxWithArrears - curTaxWithoutArrears);
@@ -3049,7 +3343,8 @@
       setNum('row11-relief89', r);
       calculateAll();
       alert(`✓ Success! Relief of ₹${formatINR(r)} applied to Row 11 of Income Tax Statement.`);
-      showTab('new-regime');
+      const curRegimeEl = document.getElementById('f10e-cur-regime');
+      showTab(curRegimeEl && curRegimeEl.value === 'OLD' ? 'old-regime' : 'new-regime');
     }
 
     function loadSample10E() {
@@ -3152,10 +3447,19 @@
       setNum('row1b-other', 0);
       setNum('row1c-excess', 0);
       setNum('row3-remuneration', 0);
+      setNum('row3-bank-interest', 0);
       setNum('row2b-conveyance', 0);
       setNum('row2c-nps', 0);
       setNum('row2e-proftax', 0);
       setNum('row11-relief89', 0);
+
+      if (document.getElementById('emp-age-category')) document.getElementById('emp-age-category').value = 'Individual';
+      setNum('old-hra-received', 0);
+      setNum('old-rent-paid', 0);
+      if (document.getElementById('old-hra-city')) document.getElementById('old-hra-city').value = '0.4';
+      setNum('old-hra-direct', 0);
+      setNum('ded-sec10-other', 0);
+      setNum('ded-sec16-ent', 0);
 
       setNum('ded-gpf', 0);
       setNum('ded-sli', 0);
@@ -3164,9 +3468,15 @@
       setNum('ded-tuition', 0);
       setNum('ded-hl-principal', 0);
       setNum('ded-ppf', 0);
+      setNum('ded-80ccd1', 0);
       setNum('ded-80c-other', 0);
       setNum('ded-80ccd1b', 0);
       setNum('ded-80d', 0);
+      setNum('ded-80d-parents', 0);
+      if (document.getElementById('chk-parents-senior')) document.getElementById('chk-parents-senior').checked = false;
+      if (document.getElementById('ded-80dd')) document.getElementById('ded-80dd').value = '0';
+      if (document.getElementById('ded-80u')) document.getElementById('ded-80u').value = '0';
+      setNum('ded-80ddb', 0);
       setNum('ded-24b', 0);
       setNum('ded-80e', 0);
       setNum('ded-80g', 0);
@@ -3321,7 +3631,8 @@
           stmtMode: document.getElementById('stmt-mode').value,
           stmtDate: document.getElementById('stmt-date').value,
           pendingMonths: getNum('pending-months'),
-          chosenRegime: document.getElementById('chosen-regime-select') ? document.getElementById('chosen-regime-select').value : 'new'
+          chosenRegime: document.getElementById('chosen-regime-select') ? document.getElementById('chosen-regime-select').value : 'new',
+          ageCategory: document.getElementById('emp-age-category') ? document.getElementById('emp-age-category').value : 'Individual'
         },
         salaryMonths: {},
         additionalIncome: {
@@ -3330,13 +3641,20 @@
           arrears: getNum('row1b-arrears'),
           other: getNum('row1b-other'),
           excess: getNum('row1c-excess'),
-          remuneration: getNum('row3-remuneration')
+          remuneration: getNum('row3-remuneration'),
+          bankInterest: getNum('row3-bank-interest')
         },
         deductions: {
           conveyance: getNum('row2b-conveyance'),
           npsEmployer: getNum('row2c-nps'),
           profTax: getNum('row2e-proftax'),
           relief89: getNum('row11-relief89'),
+          hraReceived: getNum('old-hra-received'),
+          rentPaid: getNum('old-rent-paid'),
+          hraCity: document.getElementById('old-hra-city') ? document.getElementById('old-hra-city').value : '0.4',
+          hraDirect: getNum('old-hra-direct'),
+          sec10Other: getNum('ded-sec10-other'),
+          sec16Ent: getNum('ded-sec16-ent'),
           gpf: getNum('ded-gpf'),
           sli: getNum('ded-sli'),
           gis: getNum('ded-gis'),
@@ -3344,9 +3662,15 @@
           tuition: getNum('ded-tuition'),
           hlp: getNum('ded-hl-principal'),
           ppf: getNum('ded-ppf'),
+          ded80ccd1: getNum('ded-80ccd1'),
           other80c: getNum('ded-80c-other'),
           ded80ccd1b: getNum('ded-80ccd1b'),
           ded80d: getNum('ded-80d'),
+          ded80dParents: getNum('ded-80d-parents'),
+          parentsSenior: document.getElementById('chk-parents-senior') ? document.getElementById('chk-parents-senior').checked : false,
+          ded80dd: getNum('ded-80dd'),
+          ded80u: getNum('ded-80u'),
+          ded80ddb: getNum('ded-80ddb'),
           ded24b: getNum('ded-24b'),
           ded80e: getNum('ded-80e'),
           ded80g: getNum('ded-80g'),
@@ -3382,6 +3706,9 @@
         if (data.employee.chosenRegime && document.getElementById('chosen-regime-select')) {
           document.getElementById('chosen-regime-select').value = data.employee.chosenRegime;
         }
+        if (data.employee.ageCategory && document.getElementById('emp-age-category')) {
+          document.getElementById('emp-age-category').value = data.employee.ageCategory;
+        }
         onRegimePreferenceChange();
       }
 
@@ -3402,6 +3729,7 @@
         setNum('row1b-other', data.additionalIncome.other || 0);
         setNum('row1c-excess', data.additionalIncome.excess || 0);
         setNum('row3-remuneration', data.additionalIncome.remuneration || 0);
+        setNum('row3-bank-interest', data.additionalIncome.bankInterest || 0);
       }
 
       if (data.deductions) {
@@ -3409,6 +3737,14 @@
         setNum('row2c-nps', data.deductions.npsEmployer || 0);
         setNum('row2e-proftax', data.deductions.profTax || 0);
         setNum('row11-relief89', data.deductions.relief89 || 0);
+        setNum('old-hra-received', data.deductions.hraReceived || 0);
+        setNum('old-rent-paid', data.deductions.rentPaid || 0);
+        if (data.deductions.hraCity && document.getElementById('old-hra-city')) {
+          document.getElementById('old-hra-city').value = data.deductions.hraCity;
+        }
+        setNum('old-hra-direct', data.deductions.hraDirect || 0);
+        setNum('ded-sec10-other', data.deductions.sec10Other || 0);
+        setNum('ded-sec16-ent', data.deductions.sec16Ent || 0);
         setNum('ded-gpf', data.deductions.gpf || 0);
         setNum('ded-sli', data.deductions.sli || 0);
         setNum('ded-gis', data.deductions.gis || 0);
@@ -3416,9 +3752,21 @@
         setNum('ded-tuition', data.deductions.tuition || 0);
         setNum('ded-hl-principal', data.deductions.hlp || 0);
         setNum('ded-ppf', data.deductions.ppf || 0);
+        setNum('ded-80ccd1', data.deductions.ded80ccd1 || 0);
         setNum('ded-80c-other', data.deductions.other80c || 0);
         setNum('ded-80ccd1b', data.deductions.ded80ccd1b || 0);
         setNum('ded-80d', data.deductions.ded80d || 0);
+        setNum('ded-80d-parents', data.deductions.ded80dParents || 0);
+        if (document.getElementById('chk-parents-senior')) {
+          document.getElementById('chk-parents-senior').checked = !!data.deductions.parentsSenior;
+        }
+        if (document.getElementById('ded-80dd')) {
+          document.getElementById('ded-80dd').value = String(data.deductions.ded80dd || 0);
+        }
+        if (document.getElementById('ded-80u')) {
+          document.getElementById('ded-80u').value = String(data.deductions.ded80u || 0);
+        }
+        setNum('ded-80ddb', data.deductions.ded80ddb || 0);
         setNum('ded-24b', data.deductions.ded24b || 0);
         setNum('ded-80e', data.deductions.ded80e || 0);
         setNum('ded-80g', data.deductions.ded80g || 0);
